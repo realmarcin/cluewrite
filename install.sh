@@ -1,11 +1,11 @@
 #!/bin/bash
-# Installation script for Claude Scientific Writer Skills
+# Installation script for ClueWrite Skills
 
 set -e
 
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-echo "Claude Scientific Writer Skills - Installation"
+echo "ClueWrite Skills - Installation"
 echo "=============================================="
 echo ""
 
@@ -29,7 +29,7 @@ install_global() {
 
     echo ""
     echo "✅ Global installation complete!"
-    echo "Skills are now available to all your Claude Code projects."
+    echo "Skills are now available to all your AI agent projects."
     echo ""
     echo "To use in a project:"
     echo "  cd /path/to/your/research/project"
@@ -53,12 +53,12 @@ setup_project() {
     mkdir -p data/processed
     mkdir -p data/raw
 
-    # Copy CLAUDE.md template if it doesn't exist
-    if [ ! -f "CLAUDE.md" ]; then
-        echo "  ✓ Creating CLAUDE.md from template"
-        cp "$SCRIPT_DIR/CLAUDE.md.template" CLAUDE.md
+    # Copy PROJECT.md template if it doesn't exist
+    if [ ! -f "PROJECT.md" ]; then
+        echo "  ✓ Creating PROJECT.md from template"
+        cp "$SCRIPT_DIR/PROJECT.md.template" PROJECT.md
     else
-        echo "  ⚠️  CLAUDE.md already exists, skipping"
+        echo "  ⚠️  PROJECT.md already exists, skipping"
     fi
 
     # Copy scripts
@@ -91,8 +91,8 @@ EOF
     echo "✅ Project setup complete!"
     echo ""
     echo "Next steps:"
-    echo "  1. Edit CLAUDE.md with your project details"
-    echo "  2. Run: claude"
+    echo "  1. Edit PROJECT.md with your project details"
+    echo "  2. Start your AI agent"
     echo "  3. Use the skills: 'Use plan-manuscript to create an outline'"
 }
 

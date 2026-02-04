@@ -1,10 +1,10 @@
-# Claude Scientific Writer Skills
+# ClueWrite Skills
 
-A repository-driven agentic framework for automated manuscript generation using Claude Code.
+A repository-driven agentic framework for automated manuscript generation using AI agent.
 
 ## Overview
 
-This repository contains Claude Code skills for transforming scientific repositories (code, data, notebooks) into publication-ready manuscripts. The system supports multiple journal formats including Nature Methods, PLOS Computational Biology, and Bioinformatics.
+This repository contains AI agent skills for transforming scientific repositories (code, data, notebooks) into publication-ready manuscripts. The system supports multiple journal formats including Nature Methods, PLOS Computational Biology, and Bioinformatics.
 
 ## Installation
 
@@ -12,13 +12,13 @@ This repository contains Claude Code skills for transforming scientific reposito
 
 ```bash
 # Clone to a permanent location
-git clone <your-repo-url> ~/claude-scientific-writer
+git clone <your-repo-url> ~/cluewrite
 
 # Create symlinks to global skills directory
 mkdir -p ~/.claude/skills
-ln -s ~/claude-scientific-writer/.claude/skills/plan-manuscript ~/.claude/skills/plan-manuscript
-ln -s ~/claude-scientific-writer/.claude/skills/draft-section ~/.claude/skills/draft-section
-ln -s ~/claude-scientific-writer/.claude/skills/review-manuscript ~/.claude/skills/review-manuscript
+ln -s ~/cluewrite/.claude/skills/plan-manuscript ~/.claude/skills/plan-manuscript
+ln -s ~/cluewrite/.claude/skills/draft-section ~/.claude/skills/draft-section
+ln -s ~/cluewrite/.claude/skills/review-manuscript ~/.claude/skills/review-manuscript
 ```
 
 ### Option 2: Clone into Existing Project (Project-specific installation)
@@ -39,13 +39,13 @@ ln -s .claude/scientific-writer/.claude/skills/* .claude/skills/
 
 ### Option 3: Add as Additional Working Directory
 
-Claude Code supports multiple working directories. Add this repo as an additional directory:
+AI agent supports multiple working directories. Add this repo as an additional directory:
 
 ```bash
 # Clone to a permanent location
-git clone <your-repo-url> ~/claude-scientific-writer
+git clone <your-repo-url> ~/cluewrite
 
-# When starting Claude Code in your project, add this directory
+# When starting AI agent in your project, add this directory
 # The skills will be available to your project
 ```
 
@@ -65,17 +65,17 @@ mkdir -p scripts
 mkdir -p drafts
 mkdir -p .claude/skills
 
-# Initialize CLAUDE.md if not exists
-touch CLAUDE.md
+# Initialize PROJECT.md if not exists
+touch PROJECT.md
 ```
 
 ### 2. Use the Skills
 
-Start Claude Code in your research project directory:
+Start AI agent in your research project directory:
 
 ```bash
 cd /path/to/your/research/project
-claude
+# Start AI agent
 ```
 
 Then use the skills in sequence:
@@ -123,7 +123,7 @@ your-research-project/
 │   │   ├── plan-manuscript/
 │   │   ├── draft-section/
 │   │   └── review-manuscript/
-│   └── CLAUDE.md                  # Project state and context
+│   └── PROJECT.md                  # Project state and context
 ├── data/
 │   ├── raw/                       # Raw data (excluded from ingestion)
 │   └── processed/                 # Processed data (included)
@@ -177,8 +177,8 @@ cd ~/my-research-project
 
 # 2. Ensure skills are available (Option 1 from above)
 
-# 3. Start Claude Code
-claude
+# 3. Start AI agent
+# Start AI agent
 
 # 4. In Claude, run the workflow:
 # "Use plan-manuscript to create an outline for Nature Methods"
@@ -192,7 +192,7 @@ claude
 If you used symlinks (Option 1), updating is easy:
 
 ```bash
-cd ~/claude-scientific-writer
+cd ~/cluewrite
 git pull origin main
 # Skills automatically updated in all projects
 ```
@@ -207,7 +207,7 @@ git submodule update --remote .claude/scientific-writer
 ## Architecture
 
 This system implements a hybrid "K-Dense" architecture:
-- **Global Context**: CLAUDE.md maintains project state
+- **Global Context**: PROJECT.md maintains project state
 - **Capability Store**: Skills define atomic actions
 - **Execution Layer**: Python tools for deterministic operations
 - **Orchestrator**: plan-manuscript manages workflow

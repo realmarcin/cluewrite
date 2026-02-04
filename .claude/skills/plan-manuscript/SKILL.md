@@ -11,7 +11,7 @@ allowed-tools:
     *   Find all data files (`*.csv`, `*.xlsx`) in `data/`.
     *   Find all analysis notebooks (`*.ipynb`) and scripts (`*.py`).
     *   Find all figures (`*.png`, `*.pdf`).
-3.  **Read Context:** Read `README.md` and `CLAUDE.md` to understand the project goals.
+3.  **Read Context:** Read `README.md` and `PROJECT.md` to understand the project goals.
 
 ## Phase 2: Journal Template Selection
 Ask the user for the target journal. Based on the response, adopt the corresponding structure:

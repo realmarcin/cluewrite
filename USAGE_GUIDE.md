@@ -9,15 +9,15 @@ Let's say you have a research project at `/Users/yourname/research/my-awesome-pr
 ```bash
 # Clone this repo to a permanent location
 cd ~
-git clone <this-repo-url> claude-scientific-writer
+git clone <this-repo-url> cluewrite
 
 # Create global skills directory
 mkdir -p ~/.claude/skills
 
 # Create symlinks
-ln -s ~/claude-scientific-writer/.claude/skills/plan-manuscript ~/.claude/skills/
-ln -s ~/claude-scientific-writer/.claude/skills/draft-section ~/.claude/skills/
-ln -s ~/claude-scientific-writer/.claude/skills/review-manuscript ~/.claude/skills/
+ln -s ~/cluewrite/.claude/skills/plan-manuscript ~/.claude/skills/
+ln -s ~/cluewrite/.claude/skills/draft-section ~/.claude/skills/
+ln -s ~/cluewrite/.claude/skills/review-manuscript ~/.claude/skills/
 ```
 
 **Benefits**: Skills are available to ALL your projects. Update once, use everywhere.
@@ -31,19 +31,19 @@ cd /Users/yourname/research/my-awesome-project
 # Create required directories
 mkdir -p drafts scripts
 
-# Copy CLAUDE.md template
-cp ~/claude-scientific-writer/CLAUDE.md.template ./CLAUDE.md
+# Copy PROJECT.md template
+cp ~/cluewrite/PROJECT.md.template ./PROJECT.md
 
-# Edit CLAUDE.md with your project details
-nano CLAUDE.md  # or use your preferred editor
+# Edit PROJECT.md with your project details
+nano PROJECT.md  # or use your preferred editor
 ```
 
 ### Step 3: Add Supporting Scripts (Optional but Recommended)
 
 ```bash
 # Copy verification scripts to your project
-cp ~/claude-scientific-writer/scripts/verify_stats.py ./scripts/
-cp ~/claude-scientific-writer/scripts/clean_ipynb.py ./scripts/
+cp ~/cluewrite/scripts/verify_stats.py ./scripts/
+cp ~/cluewrite/scripts/clean_ipynb.py ./scripts/
 
 # Make them executable
 chmod +x scripts/*.py
@@ -52,12 +52,12 @@ chmod +x scripts/*.py
 ### Step 4: Start Using the Skills
 
 ```bash
-# Start Claude Code in your project directory
+# Start AI agent in your project directory
 cd /Users/yourname/research/my-awesome-project
-claude
+# Start AI agent
 ```
 
-In Claude, invoke the skills:
+In the agent, invoke the skills:
 
 ```
 "Use the plan-manuscript skill to create an outline targeting Nature Methods"
@@ -99,16 +99,16 @@ When you have multiple research projects that all need these skills:
 
 # ONE TIME: Install skills globally
 cd ~
-git clone <this-repo-url> claude-scientific-writer
+git clone <this-repo-url> cluewrite
 mkdir -p ~/.claude/skills
-ln -s ~/claude-scientific-writer/.claude/skills/* ~/.claude/skills/
+ln -s ~/cluewrite/.claude/skills/* ~/.claude/skills/
 
 # For each project, just add the necessary structure
 for proj in project-a project-b project-c; do
   cd ~/research/$proj
   mkdir -p drafts scripts
-  cp ~/claude-scientific-writer/CLAUDE.md.template ./CLAUDE.md
-  cp ~/claude-scientific-writer/scripts/*.py ./scripts/
+  cp ~/cluewrite/PROJECT.md.template ./PROJECT.md
+  cp ~/cluewrite/scripts/*.py ./scripts/
 done
 ```
 
@@ -138,8 +138,8 @@ cd my-project
 # Create structure
 mkdir -p drafts scripts figures
 
-# Initialize CLAUDE.md
-cat > CLAUDE.md << 'EOF'
+# Initialize PROJECT.md
+cat > PROJECT.md << 'EOF'
 # My Awesome Research Project
 
 ## Project Overview
@@ -159,10 +159,10 @@ PLOS Computational Biology
 EOF
 
 # Copy verification script
-cp ~/claude-scientific-writer/scripts/verify_stats.py ./scripts/
+cp ~/cluewrite/scripts/verify_stats.py ./scripts/
 
-# Start Claude Code
-claude
+# Start AI agent
+# Start AI agent
 ```
 
 ### In Claude session:
@@ -170,15 +170,15 @@ claude
 ```
 User: "Use plan-manuscript to outline a paper for PLOS Comp Bio"
 
-Claude: [Analyzes repo, creates manuscript_plan.md]
+Claude: Agent: [Analyzes repo, creates manuscript_plan.md]
 
 User: "Use draft-section to write the Results section"
 
-Claude: [Reads relevant data files, generates drafts/results.md]
+Claude: Agent: [Reads relevant data files, generates drafts/results.md]
 
 User: "Use review-manuscript to check it"
 
-Claude: [Reviews for PLOS compliance, generates review_round_1.md]
+Claude: Agent: [Reviews for PLOS compliance, generates review_round_1.md]
 ```
 
 ## Checking Skill Installation
@@ -192,7 +192,7 @@ ls -la ~/.claude/skills/
 # Check project skills
 ls -la .claude/skills/
 
-# In Claude Code session, list skills
+# In AI agent session, list skills
 claude  # start session
 # Then: "What skills are available?"
 ```
@@ -202,7 +202,7 @@ claude  # start session
 ### If using global symlinks:
 
 ```bash
-cd ~/claude-scientific-writer
+cd ~/cluewrite
 git pull origin main
 # All projects automatically get updates
 ```
@@ -241,5 +241,5 @@ rm -rf temp-skills
 
 **Skills not activating?**
 - Ensure YAML frontmatter is valid in SKILL.md files
-- Check Claude Code can find the skills directory
-- Try restarting Claude Code session
+- Check AI agent can find the skills directory
+- Try restarting AI agent session
