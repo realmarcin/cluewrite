@@ -121,11 +121,13 @@ Model converges in 48 hours on 4x NVIDIA A100 GPUs, 3x faster than comparable ar
 
 ## Citation Index
 
-[alphafold2021]: "Highly accurate protein structure prediction with AlphaFold" (Jumper et al., Nature 2021)
-[rosettafold2021]: "Accurate prediction of protein structures and interactions using a three-track neural network" (Baek et al., Science 2021)
-[casp14]: "Critical assessment of techniques for protein structure prediction, 14th round" (Kryshtafovych et al., Proteins 2021)
-[transformer2017]: "Attention is all you need" (Vaswani et al., NeurIPS 2017)
-[tmscore2005]: "TM-score: A unified framework for sequence-structure comparison" (Zhang & Skolnick, Proteins 2005)
+[alphafold2021]: "Highly accurate protein structure prediction with AlphaFold" (Jumper et al., Nature 2021) - DOI: 10.1038/s41586-021-03819-2
+[rosettafold2021]: "Accurate prediction of protein structures and interactions using a three-track neural network" (Baek et al., Science 2021) - DOI: 10.1126/science.abj8754
+[casp14]: "Critical assessment of techniques for protein structure prediction, 14th round" (Kryshtafovych et al., Proteins 2021) - DOI: 10.1002/prot.26171
+[transformer2017]: "Attention is all you need" (Vaswani et al., NeurIPS 2017) - arXiv: 1706.03762
+[tmscore2005]: "TM-score: A unified framework for sequence-structure comparison" (Zhang & Skolnick, Proteins 2005) - DOI: 10.1002/prot.20264
+
+**Note**: DOIs enable permanent identification and verification of all cited works. See `literature_evidence.csv` for direct quotes from each paper.
 
 ## Methodology Notes
 

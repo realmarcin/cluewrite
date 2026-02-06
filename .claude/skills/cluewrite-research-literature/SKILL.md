@@ -65,9 +65,10 @@ Conduct comprehensive literature research on the manuscript topic and generate a
    - Example: "protein structure prediction transformers"
 
 **For each relevant paper found:**
-- Extract: Authors, Title, Venue, Year
+- Extract: Authors, Title, Venue, Year, **DOI** (critical!)
 - Note: Key contribution, methodology, results
 - Record: Citation key format (e.g., author2024)
+- **Capture direct quote**: Extract 1-2 sentences that best represent the key finding or contribution
 
 ### Phase 3: Synthesis
 
@@ -182,24 +183,53 @@ Create or update `bib_additions.bib` with BibTeX entries for all newly found pap
   author={Author, First and Author, Second},
   journal={Journal/Conference},
   year={2024},
-  url={https://...}
+  doi={10.1234/journal.2024.12345},
+  url={https://doi.org/10.1234/journal.2024.12345}
 }
 ```
 
+**CRITICAL**: Always include DOI when available. DOIs are permanent identifiers and essential for verification.
+
+### Phase 5: Evidence Documentation
+
+Create `literature_evidence.csv` with columns:
+
+```csv
+doi,citation_key,evidence
+10.1038/s41586-021-03819-2,jumper2021,"We developed AlphaFold, a deep learning system that predicts protein structures with atomic accuracy even in cases in which no similar structure is known."
+10.1126/science.abj8754,baek2021,"RoseTTAFold can generate accurate models of protein structures and complexes using as input only a protein sequence."
+10.1093/bioinformatics/bty1057,author2024,"Our approach achieves 15% improvement over existing methods while reducing computational cost by 3-fold."
+```
+
+**Requirements for evidence quotes:**
+- Extract 1-2 sentences that capture the KEY finding or contribution
+- Use direct quotes (verbatim from the paper)
+- Focus on quantitative results or novel methodological claims
+- Ensure quote is self-contained and understandable
+- Include page number in comment if possible
+
 ## Output Files
 
-Generate three files:
+Generate **four files**:
 
 1. **`drafts/literature_review.md`**
    - One-page structured summary (800-1000 words)
    - Organized by themes, not chronologically
    - Includes citation keys in [author2024] format
+   - **Each citation includes DOI**: e.g., [jumper2021, DOI:10.1038/...]
 
 2. **`bib_additions.bib`**
    - BibTeX entries for all newly found references
+   - **Must include DOI field** for each entry
    - Ready to append to existing references.bib
 
-3. **`literature_integration_notes.md`**
+3. **`literature_evidence.csv`**
+   - **Two columns**: doi, citation_key, evidence
+   - Direct quotes from each cited paper
+   - Enables verification and evidence chains
+   - Can be used to check claims against original sources
+
+4. **`literature_integration_notes.md`**
    - Suggestions for where to integrate citations into existing draft
    - Gaps in current draft that literature addresses
    - Potential rewrites to strengthen positioning
@@ -215,6 +245,9 @@ Generate three files:
 - ✅ Provides actionable integration guidance
 - ✅ All citations are real and verifiable
 - ✅ BibTeX entries are properly formatted
+- ✅ **DOIs included for all papers** (when available)
+- ✅ **Evidence quotes captured** for verification
+- ✅ **literature_evidence.csv created** with direct quotes
 
 ## Search Strategy Notes
 
@@ -233,9 +266,12 @@ Generate three files:
 
 **Verification:**
 - Cross-check papers exist via multiple sources
-- Prefer papers with DOIs or arXiv IDs
+- **Prioritize papers with DOIs** (permanent identifiers)
+- Accept arXiv IDs for preprints (format: arXiv:YYMM.NNNNN)
 - Verify author names and publication years
 - Confirm venue/journal names are correct
+- **Extract direct quote from abstract or key results section**
+- Record quote in evidence file for later verification
 
 ## Integration with Drafting
 
@@ -270,13 +306,34 @@ Agent:
    - "transformer protein folding"
    - "AlphaFold2 improvements 2024"
    - "attention mechanisms structural biology"
-4. Finds 20 relevant papers
-5. Generates literature_review.md with structured summary
-6. Creates bib_additions.bib with BibTeX entries
+4. Finds 20 relevant papers with DOIs
+5. Extracts direct quotes from each paper
+6. Generates:
+   - literature_review.md (structured summary, 950 words)
+   - bib_additions.bib (20 BibTeX entries with DOIs)
+   - literature_evidence.csv (20 rows with DOIs and quotes)
+   - literature_integration_notes.md
 7. Provides integration guidance
 
-Output: "✓ Literature review complete. Found 20 relevant papers (5 foundational, 8 related work, 7 recent). Generated drafts/literature_review.md (950 words) and bib_additions.bib (20 entries)."
+Output: "✓ Literature review complete. Found 20 relevant papers (5 foundational, 8 related work, 7 recent). Generated drafts/literature_review.md (950 words), bib_additions.bib (20 entries with DOIs), and literature_evidence.csv (20 evidence quotes)."
 ```
+
+## Evidence File Example
+
+`literature_evidence.csv`:
+```csv
+doi,citation_key,evidence
+10.1038/s41586-021-03819-2,jumper2021,"We developed AlphaFold, a deep learning system that predicts protein structures with atomic accuracy even in cases in which no similar structure is known. AlphaFold achieved a median accuracy of 92.4 GDT on CASP14 targets."
+10.1126/science.abj8754,baek2021,"RoseTTAFold can generate accurate models of protein structures and complexes using as input only a protein sequence. The method achieves accuracy comparable to AlphaFold while being more computationally efficient."
+10.1038/s41467-024-12345-6,yang2024,"We demonstrate that pre-trained protein language models can reduce MSA requirements by 80% while maintaining prediction accuracy above 85% on CASP15 targets."
+arXiv:2401.12345,zhang2025,"Our efficient transformer architecture achieves real-time protein structure prediction (< 1 second per protein) with only 5% accuracy loss compared to AlphaFold2."
+```
+
+**Using the evidence file:**
+- Cross-reference claims in your manuscript with direct quotes
+- Verify that your interpretation aligns with original sources
+- Provide evidence for peer reviewers if challenged
+- Enable reproducible claim verification
 
 ## Limitations & Handling
 
@@ -299,6 +356,10 @@ Output: "✓ Literature review complete. Found 20 relevant papers (5 foundationa
 
 - **DO NOT hallucinate papers** - Only cite papers found via WebSearch or in references.bib
 - **Verify all citations** - Double-check author names, years, venues
+- **Always capture DOIs** - Essential for permanent identification and verification
+- **Extract exact quotes** - Copy verbatim from paper abstract or results, no paraphrasing
 - **Be selective** - Quality over quantity; cite only the most relevant papers
 - **Stay current** - Prioritize papers from last 2-3 years for "Recent Advances"
 - **Cross-reference** - If a paper cites another relevant paper, follow the trail
+- **Use WebFetch if needed** - To read paper abstracts and extract accurate quotes
+- **Format evidence properly** - Ensure CSV is properly escaped (quotes within quotes)
