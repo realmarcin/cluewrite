@@ -72,7 +72,7 @@ Conduct comprehensive literature research on the manuscript topic and generate a
 
 ### Phase 3: Synthesis
 
-Generate a structured summary in `cluewrite-cluewrite-drafts/literature_review.md`:
+Generate a structured summary in `manuscript/literature.md`:
 
 ```markdown
 # Literature Review: [Manuscript Topic]
@@ -210,29 +210,34 @@ doi,citation_key,evidence
 
 ## Output Files
 
-Generate **four files**:
+Generate **three files** in the `manuscript/` directory (per schema: schemas/manuscript.yaml):
 
-1. **`cluewrite-cluewrite-drafts/literature_review.md`**
+1. **`manuscript/literature.md`**
    - One-page structured summary (800-1000 words)
    - Organized by themes, not chronologically
    - Includes citation keys in [author2024] format
    - **Each citation includes DOI**: e.g., [jumper2021, DOI:10.1038/...]
+   - Required sections: Background, Related Work, Recent Advances, Research Gaps
 
-2. **`bib_additions.bib`**
+2. **`manuscript/literature_citations.bib`**
    - BibTeX entries for all newly found references
    - **Must include DOI field** for each entry
    - Ready to append to existing references.bib
 
-3. **`literature_evidence.csv`**
-   - **Two columns**: doi, citation_key, evidence
+3. **`manuscript/literature_evidence.csv`**
+   - **Three columns**: doi, citation_key, evidence
    - Direct quotes from each cited paper
    - Enables verification and evidence chains
    - Can be used to check claims against original sources
 
-4. **`literature_integration_notes.md`**
-   - Suggestions for where to integrate citations into existing draft
-   - Gaps in current draft that literature addresses
-   - Potential rewrites to strengthen positioning
+## Validation
+
+After generating files, validate the literature review:
+```bash
+python scripts/cluewrite-validate-manuscript.py --file manuscript/literature.md --type literature
+```
+
+If validation passes, confirm completion. If it fails, fix issues and re-validate.
 
 ## Quality Criteria
 

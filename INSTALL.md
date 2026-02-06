@@ -15,13 +15,13 @@ You can clone ClueWrite anywhere you want! Common choices:
 
 ```bash
 # Option 1: Home directory (simple)
-git clone https://github.com/realmarcin/cluewrite.git ~/cluewrite
+git clone https://github.com/realmarcin/research-writer.git ~/research-writer
 
 # Option 2: Documents folder
-git clone https://github.com/realmarcin/cluewrite.git ~/Documents/cluewrite
+git clone https://github.com/realmarcin/research-writer.git ~/Documents/research-writer
 
 # Option 3: Custom location
-git clone https://github.com/realmarcin/cluewrite.git /your/custom/path/cluewrite
+git clone https://github.com/realmarcin/research-writer.git /your/custom/path/research-writer
 ```
 
 **Important**: Remember where you clone it! You'll need this path for setup.
@@ -32,10 +32,10 @@ git clone https://github.com/realmarcin/cluewrite.git /your/custom/path/cluewrit
 
 ```bash
 # 1. Clone to your preferred location
-git clone https://github.com/realmarcin/cluewrite.git ~/cluewrite
+git clone https://github.com/realmarcin/research-writer.git ~/research-writer
 
 # 2. Navigate to the cloned directory
-cd ~/cluewrite
+cd ~/research-writer
 
 # 3. Run the global installer
 ./install.sh global
@@ -44,9 +44,9 @@ cd ~/cluewrite
 **What happens:**
 ```
 Creating symbolic links:
-~/.claude/skills/cluewrite-plan-manuscript → ~/cluewrite/.claude/skills/cluewrite-plan-manuscript
-~/.claude/skills/cluewrite-draft-section → ~/cluewrite/.claude/skills/cluewrite-draft-section
-~/.claude/skills/cluewrite-review-manuscript → ~/cluewrite/.claude/skills/cluewrite-review-manuscript
+~/.claude/skills/research-writer-plan-manuscript → ~/research-writer/.claude/skills/research-writer-plan-manuscript
+~/.claude/skills/research-writer-draft-section → ~/research-writer/.claude/skills/research-writer-draft-section
+~/.claude/skills/research-writer-review-manuscript → ~/research-writer/.claude/skills/research-writer-review-manuscript
 ```
 
 **Verify it worked:**
@@ -62,13 +62,13 @@ ls -la ~/.claude/skills/
 cd /path/to/your/research/project
 
 # Run the project setup
-~/cluewrite/install.sh setup-project
+~/research-writer/install.sh setup-project
 ```
 
 **If you cloned to a different location:**
 ```bash
 # Use the actual path where you cloned
-/your/actual/path/to/cluewrite/install.sh setup-project
+/your/actual/path/to/research-writer/install.sh setup-project
 ```
 
 **What happens:**
@@ -82,8 +82,8 @@ Creating directories:
 
 Copying files:
   ✓ CLUEWRITE.md (template)
-  ✓ scripts/cluewrite-verify-stats.py
-  ✓ scripts/cluewrite-clean-ipynb.py
+  ✓ scripts/research-writer-verify-stats.py
+  ✓ scripts/research-writer-clean-ipynb.py
   ✓ .gitignore
 ```
 
@@ -105,7 +105,7 @@ If you want skills **only** in one project (not global):
 cd /path/to/your/research/project
 
 # Copy ClueWrite repo temporarily
-git clone https://github.com/realmarcin/cluewrite.git temp-cluewrite
+git clone https://github.com/realmarcin/research-writer.git temp-cluewrite
 
 # Install locally
 cd temp-cluewrite
@@ -127,9 +127,9 @@ rm -rf temp-cluewrite
 ls -la ~/.claude/skills/
 
 # Should see:
-# cluewrite-plan-manuscript -> /path/to/cluewrite/.claude/skills/cluewrite-plan-manuscript
-# cluewrite-draft-section -> /path/to/cluewrite/.claude/skills/cluewrite-draft-section
-# cluewrite-review-manuscript -> /path/to/cluewrite/.claude/skills/cluewrite-review-manuscript
+# cluewrite-plan-manuscript -> /path/to/research-writer/.claude/skills/research-writer-plan-manuscript
+# cluewrite-draft-section -> /path/to/research-writer/.claude/skills/research-writer-draft-section
+# cluewrite-review-manuscript -> /path/to/research-writer/.claude/skills/research-writer-review-manuscript
 ```
 
 ### Check Project Setup
@@ -141,7 +141,7 @@ cd /your/research/project
 ls -d drafts scripts figures data
 
 # Verify files exist
-ls CLUEWRITE.md scripts/cluewrite-verify-stats.py scripts/cluewrite-clean-ipynb.py
+ls CLUEWRITE.md scripts/research-writer-verify-stats.py scripts/research-writer-clean-ipynb.py
 ```
 
 ## Common Issues
@@ -153,10 +153,10 @@ ls CLUEWRITE.md scripts/cluewrite-verify-stats.py scripts/cluewrite-clean-ipynb.
 **Solution**:
 ```bash
 # Check where symlink points
-readlink ~/.claude/skills/cluewrite-plan-manuscript
+readlink ~/.claude/skills/research-writer-plan-manuscript
 
 # If path is wrong, re-run from correct location
-cd /actual/cluewrite/location
+cd /actual/research-writer/location
 ./install.sh global
 ```
 
@@ -167,7 +167,7 @@ cd /actual/cluewrite/location
 **Solution**:
 ```bash
 # Find where you cloned it
-cd ~/cluewrite  # or wherever you cloned
+cd ~/research-writer  # or wherever you cloned
 
 # Verify you're in the right place
 ls install.sh README.md .claude/
@@ -183,7 +183,7 @@ ls install.sh README.md .claude/
 **Solution**:
 ```bash
 # Navigate to new location
-cd /new/cluewrite/location
+cd /new/research-writer/location
 
 # Re-run installer (updates symlinks)
 ./install.sh global
@@ -193,12 +193,12 @@ cd /new/cluewrite/location
 
 ```bash
 # ONE TIME (Global Install)
-cd /path/to/cluewrite
+cd /path/to/research-writer
 ./install.sh global
 
 # FOR EACH PROJECT
 cd /path/to/research/project
-/path/to/cluewrite/install.sh setup-project
+/path/to/research-writer/install.sh setup-project
 ```
 
 **Key Points**:

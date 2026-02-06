@@ -29,11 +29,11 @@ Let me check your project structure:
 **If not done:**
 ```bash
 # Install ClueWrite (one time)
-cd /path/to/cluewrite && ./install.sh global
+cd /path/to/research-writer && ./install.sh global
 
 # Setup this project
 cd /your/research/project
-/path/to/cluewrite/install.sh setup-project
+/path/to/research-writer/install.sh setup-project
 
 # Edit CLUEWRITE.md with your findings
 ```
@@ -126,7 +126,7 @@ cat bib_additions.bib >> references.bib
 **After each section, verify numbers:**
 ```bash
 # Example: Check accuracy claim
-python scripts/cluewrite-verify-stats.py \
+python scripts/research-writer-verify-stats.py \
   --file data/results.csv \
   --col accuracy \
   --op mean

@@ -1,0 +1,347 @@
+id: https://w3id.org/research-writer/manuscript
+name: manuscript-schema
+title: Research Writer Manuscript Schema
+description: >-
+  LinkML schema defining the structure, naming conventions, and validation rules
+  for manuscript generation outputs including outlines, literature research,
+  sections, and reviews.
+
+license: MIT
+version: 1.0.0
+
+prefixes:
+  linkml: https://w3id.org/linkml/
+  rw: https://w3id.org/research-writer/
+
+default_prefix: rw
+default_range: string
+
+imports:
+  - linkml:types
+
+classes:
+
+  ManuscriptProject:
+    description: >-
+      Root container for all manuscript-related outputs in a research project
+    attributes:
+      outline:
+        description: Manuscript outline/plan
+        range: ManuscriptOutline
+        required: true
+      literature:
+        description: Literature research summary
+        range: LiteratureResearch
+        required: false
+      sections:
+        description: Individual manuscript sections
+        range: ManuscriptSection
+        multivalued: true
+        required: false
+      full_manuscript:
+        description: Assembled complete manuscript
+        range: FullManuscript
+        required: false
+      reviews:
+        description: Review reports
+        range: Review
+        multivalued: true
+        required: false
+
+  ManuscriptOutline:
+    description: >-
+      Detailed manuscript outline mapping repository contents to sections
+    attributes:
+      filename:
+        description: Must be named 'outline.md'
+        range: string
+        pattern: "^outline\\.md$"
+        required: true
+      target_journal:
+        description: Target journal for submission
+        range: JournalType
+        required: true
+      sections:
+        description: Planned sections with evidence mapping
+        range: OutlineSection
+        multivalued: true
+        required: true
+      total_word_count:
+        description: Estimated total word count
+        range: integer
+        minimum_value: 1000
+        maximum_value: 15000
+      created_date:
+        description: Date outline was created
+        range: date
+        required: true
+
+  OutlineSection:
+    description: Individual section in the manuscript outline
+    attributes:
+      section_name:
+        description: Name of the section (Abstract, Introduction, Methods, etc.)
+        range: SectionType
+        required: true
+      word_count_target:
+        description: Target word count for this section
+        range: integer
+        minimum_value: 50
+      evidence_files:
+        description: Data files, scripts, or figures supporting this section
+        range: string
+        multivalued: true
+      key_points:
+        description: Main points to cover in this section
+        range: string
+        multivalued: true
+
+  LiteratureResearch:
+    description: >-
+      Literature research output with citations and evidence
+    attributes:
+      filename:
+        description: Must be named 'literature.md'
+        range: string
+        pattern: "^literature\\.md$"
+        required: true
+      paper_count:
+        description: Number of papers reviewed
+        range: integer
+        minimum_value: 5
+        maximum_value: 50
+      sections:
+        description: Organized sections (Background, Related Work, Recent Advances)
+        range: LiteratureSection
+        multivalued: true
+        required: true
+      citations_file:
+        description: Accompanying BibTeX file
+        range: string
+        pattern: "^literature_citations\\.bib$"
+      evidence_file:
+        description: CSV file with DOIs and evidence quotes
+        range: string
+        pattern: "^literature_evidence\\.csv$"
+      created_date:
+        range: date
+        required: true
+
+  LiteratureSection:
+    description: Section within literature review
+    attributes:
+      section_type:
+        range: LiteratureSectionType
+        required: true
+      word_count:
+        range: integer
+        minimum_value: 100
+      citations:
+        description: Citation keys referenced in this section
+        range: string
+        multivalued: true
+
+  ManuscriptSection:
+    description: >-
+      Individual drafted section of the manuscript
+    attributes:
+      filename:
+        description: Must follow pattern 'section_name.md'
+        range: string
+        pattern: "^(abstract|introduction|methods|results|discussion|conclusion)\\.md$"
+        required: true
+      section_type:
+        range: SectionType
+        required: true
+      word_count:
+        description: Actual word count
+        range: integer
+        minimum_value: 50
+      verified_claims:
+        description: Number of claims verified against data
+        range: integer
+        minimum_value: 0
+      citations:
+        description: Citation keys used
+        range: string
+        multivalued: true
+      figures_referenced:
+        description: Figures referenced in this section
+        range: string
+        multivalued: true
+      data_files_used:
+        description: Data files used for fact-checking
+        range: string
+        multivalued: true
+      created_date:
+        range: date
+        required: true
+      last_modified:
+        range: date
+
+  FullManuscript:
+    description: >-
+      Complete assembled manuscript
+    attributes:
+      filename:
+        description: Must be named 'full_manuscript.md'
+        range: string
+        pattern: "^full_manuscript\\.md$"
+        required: true
+      total_word_count:
+        range: integer
+        minimum_value: 1000
+      sections_included:
+        description: List of section files assembled
+        range: string
+        multivalued: true
+        required: true
+      target_journal:
+        range: JournalType
+        required: true
+      assembly_date:
+        range: date
+        required: true
+      ready_for_review:
+        range: boolean
+        required: true
+
+  Review:
+    description: >-
+      Review report for outline, literature, section, or full manuscript
+    attributes:
+      filename:
+        description: Must follow pattern 'review_TYPE_vN.md'
+        range: string
+        pattern: "^review_(outline|literature|section|manuscript)_v[0-9]+\\.md$"
+        required: true
+      review_type:
+        range: ReviewType
+        required: true
+      document_reviewed:
+        description: Path to document that was reviewed
+        range: string
+        required: true
+      version_number:
+        description: Review iteration number
+        range: integer
+        minimum_value: 1
+        required: true
+      recommendation:
+        range: ReviewRecommendation
+        required: true
+      major_issues_count:
+        range: integer
+        minimum_value: 0
+      minor_issues_count:
+        range: integer
+        minimum_value: 0
+      review_date:
+        range: date
+        required: true
+      sections:
+        description: Review sections (Summary, Strengths, Issues, etc.)
+        range: ReviewSection
+        multivalued: true
+        required: true
+
+  ReviewSection:
+    description: Section within a review report
+    attributes:
+      section_name:
+        range: ReviewSectionType
+        required: true
+      content:
+        description: Review content for this section
+        range: string
+        required: true
+
+enums:
+
+  JournalType:
+    description: Supported target journals
+    permissible_values:
+      NATURE_METHODS:
+        description: Nature Methods
+      PLOS_COMP_BIO:
+        description: PLOS Computational Biology
+      BIOINFORMATICS:
+        description: Bioinformatics (Oxford Academic)
+      NATURE_COMMUNICATIONS:
+        description: Nature Communications
+      GENERIC:
+        description: Generic academic format
+
+  SectionType:
+    description: Standard manuscript sections
+    permissible_values:
+      ABSTRACT:
+        description: Abstract/Summary
+      INTRODUCTION:
+        description: Introduction/Background
+      METHODS:
+        description: Methods/Materials and Methods
+      RESULTS:
+        description: Results
+      DISCUSSION:
+        description: Discussion
+      CONCLUSION:
+        description: Conclusion
+      ACKNOWLEDGMENTS:
+        description: Acknowledgments
+      REFERENCES:
+        description: References
+
+  LiteratureSectionType:
+    description: Sections in literature review
+    permissible_values:
+      BACKGROUND:
+        description: Background and Foundations
+      RELATED_WORK:
+        description: Related Work and Competing Approaches
+      RECENT_ADVANCES:
+        description: Recent Advances and State-of-the-Art
+      RESEARCH_GAPS:
+        description: Research Gaps
+      INTEGRATION_GUIDE:
+        description: Citation Integration Guide
+
+  ReviewType:
+    description: Type of document being reviewed
+    permissible_values:
+      OUTLINE:
+        description: Review of manuscript outline
+      LITERATURE:
+        description: Review of literature research
+      SECTION:
+        description: Review of individual section
+      MANUSCRIPT:
+        description: Review of full manuscript
+
+  ReviewRecommendation:
+    description: Review outcome recommendation
+    permissible_values:
+      ACCEPT_MINOR:
+        description: Accept with minor revisions
+      MAJOR_REVISIONS:
+        description: Major revisions required
+      REJECT:
+        description: Reject - fundamental issues
+
+  ReviewSectionType:
+    description: Sections in review report
+    permissible_values:
+      SUMMARY:
+        description: Summary Assessment
+      STRENGTHS:
+        description: Strengths
+      MAJOR_ISSUES:
+        description: Major Issues
+      MINOR_ISSUES:
+        description: Minor Issues
+      COMPLIANCE:
+        description: Compliance Checklist
+      NEXT_STEPS:
+        description: Actionable Next Steps
+      RECOMMENDATION:
+        description: Final Recommendation

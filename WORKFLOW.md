@@ -16,14 +16,14 @@ Research Repository → Manuscript Outline → Literature Review → Draft Secti
 
 #### Step 1.1: Install ClueWrite (One-time)
 ```bash
-cd /path/to/cluewrite
+cd /path/to/research-writer
 ./install.sh global
 ```
 
 #### Step 1.2: Setup Your Research Project
 ```bash
 cd /path/to/your/research/project
-/path/to/cluewrite/install.sh setup-project
+/path/to/research-writer/install.sh setup-project
 ```
 
 **Creates:**
@@ -178,7 +178,7 @@ Use cluewrite-draft-section to write the [Section Name] section
 After drafting, manually verify key claims:
 ```bash
 # Check a specific statistic
-python scripts/cluewrite-verify-stats.py \
+python scripts/research-writer-verify-stats.py \
   --file data/results.csv \
   --col accuracy \
   --op mean
@@ -388,7 +388,7 @@ your-research-project/
 ls -la ~/.claude/skills/
 
 # Re-install if needed
-cd /path/to/cluewrite
+cd /path/to/research-writer
 ./install.sh global
 ```
 
@@ -451,4 +451,4 @@ grep "alphafold2021" references.bib
 
 ---
 
-**Ready to start?** Run: `/cluewrite-workflow` in your research project to begin!
+**Ready to start?** Run: `/research-writer-workflow` in your research project to begin!

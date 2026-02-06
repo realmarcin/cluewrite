@@ -108,15 +108,17 @@ Focus on:
 ## Prose Linting (For Manuscript Drafts)
 
 Run the prose linter:
-`python scripts/cluewrite-lint-manuscript.py cluewrite-drafts/full_manuscript.md`
+`python scripts/cluewrite-lint-manuscript.py manuscript/full_manuscript.md`
 
-## Output Format
+## Output Format (per schema: schemas/manuscript.yaml)
 
-Generate a review report named based on what's being reviewed:
-- Manuscript: `review_manuscript_round_1.md`
-- Outline: `review_outline.md`
-- Literature: `review_literature.md`
-- Review: `meta_review.md`
+Generate a review report in `manuscript/` directory with naming convention:
+- Manuscript: `manuscript/review_manuscript_v1.md` (increment version number for subsequent reviews)
+- Outline: `manuscript/review_outline_v1.md`
+- Literature: `manuscript/review_literature_v1.md`
+- Section: `manuscript/review_section_v1.md`
+
+**Filename pattern:** `review_TYPE_vN.md` where TYPE is (outline|literature|section|manuscript) and N is version number
 
 **Structure:**
 ```markdown
@@ -168,3 +170,12 @@ Generate a review report named based on what's being reviewed:
 [ ] Major revisions required
 [ ] Reject - fundamental issues
 ```
+
+## Validation
+
+After generating the review, validate it:
+```bash
+python scripts/cluewrite-validate-manuscript.py --file manuscript/review_TYPE_vN.md --type review
+```
+
+Report validation status. If validation passes, confirm review completion.

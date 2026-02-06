@@ -1,3 +1,5 @@
 # Python dependencies for scientific manuscript generation tools
 pandas>=2.0.0
 openpyxl>=3.0.0  # For Excel file support
+pyyaml>=6.0.0    # For schema validation
+linkml>=1.7.0    # For LinkML schema support (optional)

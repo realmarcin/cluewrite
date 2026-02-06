@@ -50,8 +50,9 @@ setup_project() {
 
     # Create directories
     echo "Creating directory structure..."
-    mkdir -p cluewrite-drafts
+    mkdir -p manuscript
     mkdir -p scripts
+    mkdir -p schemas
     mkdir -p figures
     mkdir -p data/processed
     mkdir -p data/raw
@@ -68,18 +69,21 @@ setup_project() {
     echo "  ✓ Copying verification scripts to scripts/"
     cp "$SCRIPT_DIR/scripts/cluewrite-verify-stats.py" scripts/
     cp "$SCRIPT_DIR/scripts/cluewrite-clean-ipynb.py" scripts/
+    cp "$SCRIPT_DIR/scripts/cluewrite-validate-manuscript.py" scripts/
     chmod +x scripts/*.py
+
+    # Copy schema
+    echo "  ✓ Copying manuscript schema to schemas/"
+    cp "$SCRIPT_DIR/schemas/manuscript.yaml" schemas/
 
     # Create .gitignore if it doesn't exist
     if [ ! -f ".gitignore" ]; then
         echo "  ✓ Creating .gitignore"
         cat > .gitignore << 'EOF'
-# Drafts and outputs
-drafts/
-manuscript_plan.md
-review_round_*.md
-repo_map.md
-bib_index.md
+# Manuscript outputs (optional - you may want to commit these)
+manuscript/*.md
+manuscript/*.bib
+manuscript/*.csv
 
 # Python
 __pycache__/

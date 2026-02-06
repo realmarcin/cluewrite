@@ -80,27 +80,27 @@ The `example/` directory contains a complete demonstration:
 
 ```bash
 # 1. Clone ClueWrite to a permanent location
-git clone https://github.com/realmarcin/cluewrite.git ~/cluewrite
+git clone https://github.com/realmarcin/research-writer.git ~/research-writer
 # Note: You can clone anywhere, just remember the path!
 
 # 2. Install globally
-cd ~/cluewrite
+cd ~/research-writer
 ./install.sh global
 
 # 3. Setup any research project
 cd /path/to/your/research/project
-~/cluewrite/install.sh setup-project
+~/research-writer/install.sh setup-project
 ```
 
 **If you cloned to a different location:**
 ```bash
-# Replace ~/cluewrite with your actual path
-cd /your/actual/path/to/cluewrite
+# Replace ~/research-writer with your actual path
+cd /your/actual/path/to/research-writer
 ./install.sh global
 
 # Then use the full path when setting up projects
 cd /path/to/your/research/project
-/your/actual/path/to/cluewrite/install.sh setup-project
+/your/actual/path/to/research-writer/install.sh setup-project
 ```
 
 ### What install.sh Does
@@ -206,13 +206,25 @@ Your research project should have:
 your-research-project/
 ├── .claude/skills/        # ClueWrite skills (symlinked)
 ├── CLUEWRITE.md            # Your project context
+├── manuscript/            # All manuscript outputs (schema-validated)
+│   ├── outline.md        # Manuscript plan
+│   ├── literature.md     # Literature review
+│   ├── abstract.md       # Section files
+│   ├── introduction.md
+│   ├── methods.md
+│   ├── results.md
+│   ├── discussion.md
+│   └── full_manuscript.md
+├── schemas/
+│   └── manuscript.yaml   # LinkML schema definition
+├── scripts/              # Verification and validation tools
 ├── data/
 │   └── processed/        # Data files with results
-├── scripts/              # Analysis code
 ├── figures/              # Generated plots
-├── references.bib        # Citations
-└── cluewrite-drafts/              # Generated manuscript sections
+└── references.bib        # Citations
 ```
+
+See [MANUSCRIPT_SCHEMA.md](MANUSCRIPT_SCHEMA.md) for detailed naming conventions and validation.
 
 ## 🛠️ Verification Tools
 
@@ -235,18 +247,57 @@ python scripts/cluewrite-clean-ipynb.py notebook.ipynb -o clean.md
 # Removes base64 images, keeps code and markdown
 ```
 
+### `cluewrite-validate-manuscript.py`
+Validates manuscript outputs against LinkML schema:
+```bash
+# Validate outline
+python scripts/cluewrite-validate-manuscript.py \
+  --file manuscript/outline.md \
+  --type outline
+
+# Validate section
+python scripts/cluewrite-validate-manuscript.py \
+  --file manuscript/methods.md \
+  --type section
+
+# Validate full manuscript
+python scripts/cluewrite-validate-manuscript.py \
+  --file manuscript/full_manuscript.md \
+  --type manuscript
+```
+
+### `cluewrite-assemble-manuscript.py`
+Assembles individual sections into full manuscript:
+```bash
+python scripts/cluewrite-assemble-manuscript.py
+# Creates manuscript/full_manuscript.md from sections
+```
+
+## 📋 Schema-Based Validation
+
+All manuscript outputs follow a LinkML schema (`schemas/manuscript.yaml`) that ensures:
+
+- ✅ **Correct filenames**: `outline.md`, `literature.md`, `abstract.md`, etc.
+- ✅ **Required sections**: All necessary parts included
+- ✅ **Word count targets**: Sections meet minimum lengths
+- ✅ **Citation integrity**: Proper citation format
+- ✅ **Review versioning**: `review_TYPE_v1.md`, `review_TYPE_v2.md`, etc.
+
+Skills automatically validate outputs after generation. See [MANUSCRIPT_SCHEMA.md](MANUSCRIPT_SCHEMA.md) for details.
+
 ## 🔄 Workflow
 
 ```mermaid
 graph LR
     A[Research Code] --> B[cluewrite-plan-manuscript]
-    B --> C[manuscript_plan.md]
+    B --> C[manuscript/outline.md]
     C --> D[cluewrite-draft-section]
-    D --> E[cluewrite-drafts/*.md]
-    E --> F[cluewrite-review-manuscript]
-    F --> G[review_report.md]
-    G --> H[Revise & Compile]
-    H --> I[Final Manuscript]
+    D --> E[manuscript/*.md sections]
+    E --> F[Assemble]
+    F --> G[manuscript/full_manuscript.md]
+    G --> H[cluewrite-review-manuscript]
+    H --> I[manuscript/review_manuscript_v1.md]
+    I --> J[Revise & Finalize]
 ```
 
 ## 💡 Key Features
@@ -320,7 +371,7 @@ If ClueWrite helps your research, please cite:
   title={ClueWrite: Repository-Driven Scientific Manuscript Generation},
   author={ClueWrite Contributors},
   year={2026},
-  url={https://github.com/realmarcin/cluewrite}
+  url={https://github.com/realmarcin/research-writer}
 }
 ```
 
@@ -330,7 +381,7 @@ If ClueWrite helps your research, please cite:
 - **[Full Example](example/)**: Complete protein prediction project
 - **[Usage Guide](USAGE_GUIDE.md)**: Detailed integration instructions
 - **[Installation Guide](INSTALL.md)**: Comprehensive setup instructions
-- **[Technical Spec](data/deepresearch.md)**: Architecture details
+- **[Technical Spec](data/gemini_deepresearch_cluewrite_concept.md)**: Architecture details
 
 ## ❓ FAQ
 
@@ -377,11 +428,11 @@ A: No! The verification loop ensures every number comes from your data files.
 **Want to move ClueWrite?**
 ```bash
 # If you move the repo, re-run global install
-cd /new/location/of/cluewrite
+cd /new/location/of/research-writer
 ./install.sh global
 # This will update the symlinks
 ```
 
 ---
 
-**Made with ❤️ for researchers who code**
+**Made with ❤️ for researchers who use repos**

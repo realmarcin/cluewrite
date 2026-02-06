@@ -8,12 +8,12 @@ Let's say you have a research project at `/Users/yourname/research/my-awesome-pr
 
 ```bash
 # Clone this repo to a permanent location (adjust path as needed)
-git clone https://github.com/realmarcin/cluewrite.git ~/cluewrite
+git clone https://github.com/realmarcin/research-writer.git ~/research-writer
 # OR clone to wherever you prefer:
-# git clone https://github.com/realmarcin/cluewrite.git /your/preferred/path
+# git clone https://github.com/realmarcin/research-writer.git /your/preferred/path
 
 # Run the installer (automatically creates symlinks)
-cd ~/cluewrite  # or cd /your/preferred/path
+cd ~/research-writer  # or cd /your/preferred/path
 ./install.sh global
 ```
 
@@ -31,8 +31,8 @@ cd ~/cluewrite  # or cd /your/preferred/path
 cd /Users/yourname/research/my-awesome-project
 
 # Run the project setup script
-~/cluewrite/install.sh setup-project
-# OR if you cloned elsewhere: /your/path/to/cluewrite/install.sh setup-project
+~/research-writer/install.sh setup-project
+# OR if you cloned elsewhere: /your/path/to/research-writer/install.sh setup-project
 
 # Edit CLUEWRITE.md with your project details
 nano CLUEWRITE.md  # or use your preferred editor
@@ -55,8 +55,8 @@ The setup script automatically:
 
 **Manual copy (if needed):**
 ```bash
-cp ~/cluewrite/scripts/cluewrite-verify-stats.py ./scripts/
-cp ~/cluewrite/scripts/cluewrite-clean-ipynb.py ./scripts/
+cp ~/research-writer/scripts/research-writer-verify-stats.py ./scripts/
+cp ~/research-writer/scripts/research-writer-clean-ipynb.py ./scripts/
 chmod +x scripts/*.py
 ```
 
@@ -112,14 +112,14 @@ When you have multiple research projects that all need these skills:
 cd ~
 git clone <this-repo-url> cluewrite
 mkdir -p ~/.claude/skills
-ln -s ~/cluewrite/.claude/skills/* ~/.claude/skills/
+ln -s ~/research-writer/.claude/skills/* ~/.claude/skills/
 
 # For each project, just add the necessary structure
 for proj in project-a project-b project-c; do
   cd ~/research/$proj
   mkdir -p drafts scripts
-  cp ~/cluewrite/CLUEWRITE.md.template ./CLUEWRITE.md
-  cp ~/cluewrite/scripts/*.py ./scripts/
+  cp ~/research-writer/CLUEWRITE.md.template ./CLUEWRITE.md
+  cp ~/research-writer/scripts/*.py ./scripts/
 done
 ```
 
@@ -170,7 +170,7 @@ PLOS Computational Biology
 EOF
 
 # Copy verification script
-cp ~/cluewrite/scripts/cluewrite-verify-stats.py ./scripts/
+cp ~/research-writer/scripts/research-writer-verify-stats.py ./scripts/
 
 # Start AI agent
 # Start AI agent
@@ -213,7 +213,7 @@ claude  # start session
 ### If using global symlinks:
 
 ```bash
-cd ~/cluewrite
+cd ~/research-writer
 git pull origin main
 # All projects automatically get updates
 ```
@@ -230,9 +230,9 @@ git submodule update --remote
 ```bash
 # Re-copy the updated skills
 cd /path/to/project
-rm -rf .claude/skills/cluewrite-plan-manuscript
-rm -rf .claude/skills/cluewrite-draft-section
-rm -rf .claude/skills/cluewrite-review-manuscript
+rm -rf .claude/skills/research-writer-plan-manuscript
+rm -rf .claude/skills/research-writer-draft-section
+rm -rf .claude/skills/research-writer-review-manuscript
 
 git clone <this-repo-url> temp-skills
 cp -r temp-skills/.claude/skills/* .claude/skills/
@@ -243,7 +243,7 @@ rm -rf temp-skills
 
 **Skills not found?**
 - Check symlinks: `ls -la ~/.claude/skills/`
-- Verify SKILL.md exists: `cat ~/.claude/skills/cluewrite-plan-manuscript/SKILL.md`
+- Verify SKILL.md exists: `cat ~/.claude/skills/research-writer-plan-manuscript/SKILL.md`
 
 **Verification scripts failing?**
 - Ensure scripts are executable: `chmod +x scripts/*.py`
