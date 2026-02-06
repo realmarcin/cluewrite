@@ -317,6 +317,28 @@ Automatic formatting for target journals.
 ### ✅ Reproducibility
 Complete provenance from data to publication.
 
+### ✅ Progress Tracking
+Automatic workflow state tracking shows what's done and what's next:
+```bash
+python scripts/rrwrite-status.py
+
+# Output:
+# Workflow Progress:
+#   ✓ Planning (outline.md)
+#   ✓ Literature Research (23 papers)
+#   ⚠ Drafting (4/5 sections)
+#   ○ Critique
+#   ○ Final Assembly
+```
+
+### ✅ Versioning & Archiving
+- **Git integration**: Full history and collaboration
+- **Workflow runs**: Archive complete manuscripts for different journals
+- **Critique iterations**: Track review cycles (v1, v2, v3...)
+- **Run comparison**: Compare different approaches side-by-side
+
+See [VERSIONING.md](VERSIONING.md) for details.
+
 ## 📚 Example Outputs
 
 ### From CLUEWRITE.md:
