@@ -11,7 +11,7 @@ ENV/
 # Drafts and outputs (project-specific)
 drafts/
 manuscript_plan.md
-review_round_*.md
+critique_round_*.md
 repo_map.md
 bib_index.md
 

@@ -246,7 +246,7 @@ Run the prose linter:
 `python scripts/lint_manuscript.py drafts/full_manuscript.md`
 
 ## Output
-Generate a review report `review_round_1.md` with:
+Generate a review report `critique_round_1.md` with:
 *   **Major Revisions:** (Scientific gaps, missing data).
 *   **Minor Revisions:** (Formatting, typos).
 *   **Action Items:** Specific instructions for the `draft-section` skill to fix errors.
