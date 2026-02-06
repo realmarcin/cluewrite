@@ -74,14 +74,14 @@ cd /path/to/your/research/project
 **What happens:**
 ```
 Creating directories:
-  ✓ drafts/
+  ✓ cluewrite-drafts/
   ✓ scripts/
   ✓ figures/
   ✓ data/processed/
   ✓ data/raw/
 
 Copying files:
-  ✓ PROJECT.md (template)
+  ✓ CLUEWRITE.md (template)
   ✓ scripts/cluewrite-verify-stats.py
   ✓ scripts/cluewrite-clean-ipynb.py
   ✓ .gitignore
@@ -90,8 +90,8 @@ Copying files:
 ### Step 3: Start Using ClueWrite
 
 ```bash
-# In your research project, edit PROJECT.md
-nano PROJECT.md
+# In your research project, edit CLUEWRITE.md
+nano CLUEWRITE.md
 
 # Start your AI agent and use the skills
 "Use cluewrite-plan-manuscript to create an outline"
@@ -141,7 +141,7 @@ cd /your/research/project
 ls -d drafts scripts figures data
 
 # Verify files exist
-ls PROJECT.md scripts/cluewrite-verify-stats.py scripts/cluewrite-clean-ipynb.py
+ls CLUEWRITE.md scripts/cluewrite-verify-stats.py scripts/cluewrite-clean-ipynb.py
 ```
 
 ## Common Issues
@@ -205,4 +205,4 @@ cd /path/to/research/project
 - ✅ Clone ClueWrite anywhere you want
 - ✅ Use full path to `install.sh` when setting up projects
 - ✅ Symlinks mean updates propagate to all projects
-- ✅ Each project gets its own `PROJECT.md` and `scripts/`
+- ✅ Each project gets its own `CLUEWRITE.md` and `scripts/`

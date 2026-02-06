@@ -12,10 +12,10 @@ I'll guide you through the complete manuscript generation workflow. Let me first
 Let me check your project structure:
 
 **Files to check:**
-- `PROJECT.md` - Your documented findings
+- `CLUEWRITE.md` - Your documented findings
 - `manuscript_plan.md` - Manuscript outline
-- `drafts/literature_review.md` - Literature research
-- `drafts/*.md` - Drafted sections
+- `cluewrite-drafts/literature_review.md` - Literature research
+- `cluewrite-drafts/*.md` - Drafted sections
 - `references.bib` - Citations
 
 ## Complete Workflow
@@ -24,7 +24,7 @@ Let me check your project structure:
 **Prerequisites:**
 - [ ] ClueWrite installed globally
 - [ ] Project directory initialized
-- [ ] PROJECT.md created and filled out
+- [ ] CLUEWRITE.md created and filled out
 
 **If not done:**
 ```bash
@@ -35,7 +35,7 @@ cd /path/to/cluewrite && ./install.sh global
 cd /your/research/project
 /path/to/cluewrite/install.sh setup-project
 
-# Edit PROJECT.md with your findings
+# Edit CLUEWRITE.md with your findings
 ```
 
 ---
@@ -76,13 +76,13 @@ Use cluewrite-research-literature for transformer-based protein structure predic
 ```
 
 **Outputs:**
-- `drafts/literature_review.md` (summary)
+- `cluewrite-drafts/literature_review.md` (summary)
 - `bib_additions.bib` (new citations with DOIs)
 - `literature_evidence.csv` (quotes for verification)
 
 **Then review:**
 ```
-Use cluewrite-review-manuscript to review drafts/literature_review.md
+Use cluewrite-review-manuscript to review cluewrite-drafts/literature_review.md
 ```
 
 **Manual step:**
@@ -144,7 +144,7 @@ Use cluewrite-review-manuscript to review the complete manuscript
 
 **Specify file:**
 ```
-Use cluewrite-review-manuscript to review drafts/full_manuscript.md
+Use cluewrite-review-manuscript to review cluewrite-drafts/full_manuscript.md
 ```
 
 **Output:** `review_manuscript_round_1.md`
@@ -161,17 +161,17 @@ Use cluewrite-review-manuscript to review drafts/full_manuscript.md
 
 **Combine sections:**
 ```bash
-cat drafts/abstract.md \
-    drafts/introduction.md \
-    drafts/methods.md \
-    drafts/results.md \
-    drafts/discussion.md \
-    > drafts/full_manuscript.md
+cat cluewrite-drafts/abstract.md \
+    cluewrite-drafts/introduction.md \
+    cluewrite-drafts/methods.md \
+    cluewrite-drafts/results.md \
+    cluewrite-drafts/discussion.md \
+    > cluewrite-drafts/full_manuscript.md
 ```
 
 **Compile to PDF (if pandoc installed):**
 ```bash
-pandoc drafts/full_manuscript.md \
+pandoc cluewrite-drafts/full_manuscript.md \
   -o manuscript.pdf \
   --bibliography references.bib \
   --csl styles/nature.csl

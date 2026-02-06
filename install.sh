@@ -36,7 +36,7 @@ install_global() {
     echo "  cd /path/to/your/research/project"
     echo "  bash $SCRIPT_DIR/install.sh setup-project"
     echo ""
-    echo "This creates directories and copies PROJECT.md template + scripts."
+    echo "This creates directories and copies CLUEWRITE.md template + scripts."
 }
 
 # Function to setup a project
@@ -50,18 +50,18 @@ setup_project() {
 
     # Create directories
     echo "Creating directory structure..."
-    mkdir -p drafts
+    mkdir -p cluewrite-drafts
     mkdir -p scripts
     mkdir -p figures
     mkdir -p data/processed
     mkdir -p data/raw
 
-    # Copy PROJECT.md template if it doesn't exist
-    if [ ! -f "PROJECT.md" ]; then
-        echo "  ✓ Creating PROJECT.md from template"
-        cp "$SCRIPT_DIR/PROJECT.md.template" PROJECT.md
+    # Copy CLUEWRITE.md template if it doesn't exist
+    if [ ! -f "CLUEWRITE.md" ]; then
+        echo "  ✓ Creating CLUEWRITE.md from template"
+        cp "$SCRIPT_DIR/CLUEWRITE.md.template" CLUEWRITE.md
     else
-        echo "  ⚠️  PROJECT.md already exists, skipping"
+        echo "  ⚠️  CLUEWRITE.md already exists, skipping"
     fi
 
     # Copy scripts
@@ -94,7 +94,7 @@ EOF
     echo "✅ Project setup complete!"
     echo ""
     echo "Next steps:"
-    echo "  1. Edit PROJECT.md with your project details"
+    echo "  1. Edit CLUEWRITE.md with your project details"
     echo "  2. Start your AI agent"
     echo "  3. Use the skills: 'Use plan-manuscript to create an outline'"
 }

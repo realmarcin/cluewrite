@@ -27,12 +27,12 @@ cd /path/to/your/research/project
 ```
 
 **Creates:**
-- `PROJECT.md` (template)
-- `drafts/`, `scripts/`, `figures/`, `data/` directories
+- `CLUEWRITE.md` (template)
+- `cluewrite-drafts/`, `scripts/`, `figures/`, `data/` directories
 - Verification scripts
 
 #### Step 1.3: Document Your Findings
-Edit `PROJECT.md` with:
+Edit `CLUEWRITE.md` with:
 - Project overview and goals
 - Target journal
 - Key findings with evidence links (data files, scripts, figures)
@@ -106,7 +106,7 @@ Use cluewrite-research-literature to find relevant papers for my [topic] manuscr
 ```
 
 **What happens:**
-1. Extracts topics from PROJECT.md and manuscript_plan.md
+1. Extracts topics from CLUEWRITE.md and manuscript_plan.md
 2. Web search for foundational papers (pre-2020)
 3. Web search for recent advances (2024-2026)
 4. Web search for competing methods
@@ -114,14 +114,14 @@ Use cluewrite-research-literature to find relevant papers for my [topic] manuscr
 6. Extracts direct quotes from each paper
 
 **Outputs:**
-- `drafts/literature_review.md` (structured summary, ~1000 words)
+- `cluewrite-drafts/literature_review.md` (structured summary, ~1000 words)
 - `bib_additions.bib` (BibTeX entries with DOIs)
 - `literature_evidence.csv` (DOIs + direct quotes)
 - `literature_integration_notes.md` (where to cite)
 
 #### Step 3.2: Review Literature Coverage
 ```
-Use cluewrite-review-manuscript to review the literature review in drafts/literature_review.md
+Use cluewrite-review-manuscript to review the literature review in cluewrite-drafts/literature_review.md
 ```
 
 **Checks:**
@@ -171,7 +171,7 @@ Use cluewrite-draft-section to write the [Section Name] section
 2. Reads citations from bib_index.md or references.bib
 3. Generates text with proper formatting
 4. **Verifies numerical claims** using cluewrite-verify-stats.py
-5. Saves to `drafts/[section_name].md`
+5. Saves to `cluewrite-drafts/[section_name].md`
 
 #### Step 4.2: Verify Numerical Claims (Critical!)
 
@@ -209,7 +209,7 @@ Use cluewrite-review-manuscript to review the complete manuscript draft
 
 **Point to main manuscript file or specify sections:**
 ```
-"Use cluewrite-review-manuscript to review drafts/full_manuscript.md"
+"Use cluewrite-review-manuscript to review cluewrite-drafts/full_manuscript.md"
 ```
 
 **Checks:**
@@ -247,19 +247,19 @@ Work through review report systematically:
 #### Step 6.1: Combine Sections
 ```bash
 # Manually combine all sections
-cat drafts/abstract.md \
-    drafts/introduction.md \
-    drafts/methods.md \
-    drafts/results.md \
-    drafts/discussion.md \
-    > drafts/full_manuscript.md
+cat cluewrite-drafts/abstract.md \
+    cluewrite-drafts/introduction.md \
+    cluewrite-drafts/methods.md \
+    cluewrite-drafts/results.md \
+    cluewrite-drafts/discussion.md \
+    > cluewrite-drafts/full_manuscript.md
 ```
 
 #### Step 6.2: Compile to PDF (Optional)
 
 Using Pandoc (if installed):
 ```bash
-pandoc drafts/full_manuscript.md \
+pandoc cluewrite-drafts/full_manuscript.md \
   -o manuscript.pdf \
   --bibliography references.bib \
   --csl styles/[journal].csl \
@@ -306,7 +306,7 @@ pandoc drafts/full_manuscript.md \
 # Address feedback, iterate
 
 # 6. Compile
-cat drafts/*.md > drafts/full_manuscript.md
+cat cluewrite-drafts/*.md > cluewrite-drafts/full_manuscript.md
 ```
 
 ---
@@ -316,9 +316,9 @@ cat drafts/*.md > drafts/full_manuscript.md
 **After complete workflow:**
 ```
 your-research-project/
-├── PROJECT.md                          # Your documented findings
+├── CLUEWRITE.md                          # Your documented findings
 ├── manuscript_plan.md                   # Generated outline
-├── drafts/
+├── cluewrite-drafts/
 │   ├── literature_review.md            # Literature summary
 │   ├── abstract.md                     # Drafted sections
 │   ├── introduction.md
@@ -352,7 +352,7 @@ your-research-project/
 - ✅ Keep a references.bib file updated
 
 ### During Planning
-- ✅ Be specific in PROJECT.md about key findings
+- ✅ Be specific in CLUEWRITE.md about key findings
 - ✅ Link every claim to a data file
 - ✅ Review outline before drafting
 
@@ -415,7 +415,7 @@ grep "alphafold2021" references.bib
 
 ### "Review finds many issues"
 - Review the outline first (catch structure issues early)
-- Verify data → claim links in PROJECT.md
+- Verify data → claim links in CLUEWRITE.md
 - Check evidence.csv quotes match your interpretations
 
 ---
@@ -434,7 +434,7 @@ grep "alphafold2021" references.bib
 **First time using ClueWrite?** Follow this progression:
 
 1. **Explore the example** (`cd example/`)
-   - Read PROJECT.md to see how findings are documented
+   - Read CLUEWRITE.md to see how findings are documented
    - Check manuscript_plan.md to see outline structure
    - Review literature_evidence.csv to see evidence format
 
@@ -444,7 +444,7 @@ grep "alphafold2021" references.bib
    - Practice the verification workflow
 
 3. **Scale to full manuscript**
-   - Complete PROJECT.md documentation
+   - Complete CLUEWRITE.md documentation
    - Full literature research
    - All sections drafted
    - Multiple review rounds

@@ -20,15 +20,15 @@ Conduct comprehensive literature research on the manuscript topic and generate a
 - `references.bib` (existing citations to build upon)
 
 **Minimum requirement:**
-- PROJECT.md with clear research topic and key findings
+- CLUEWRITE.md with clear research topic and key findings
 
 ## Workflow
 
 ### Phase 1: Topic Extraction
 1. **Read Context Documents:**
-   - Read `PROJECT.md` to understand the research domain
+   - Read `CLUEWRITE.md` to understand the research domain
    - Read `manuscript_plan.md` if available (for detailed topics)
-   - Read `drafts/introduction.md` or `drafts/abstract.md` if available
+   - Read `cluewrite-drafts/introduction.md` or `cluewrite-drafts/abstract.md` if available
    - Read `references.bib` to see what's already cited
 
 2. **Extract Key Research Topics:**
@@ -72,13 +72,13 @@ Conduct comprehensive literature research on the manuscript topic and generate a
 
 ### Phase 3: Synthesis
 
-Generate a structured summary in `drafts/literature_review.md`:
+Generate a structured summary in `cluewrite-drafts/literature_review.md`:
 
 ```markdown
 # Literature Review: [Manuscript Topic]
 
 **Generated:** [Date]
-**Based on:** [manuscript_plan.md / PROJECT.md]
+**Based on:** [manuscript_plan.md / CLUEWRITE.md]
 
 ## 1. Background & Foundations (200-300 words)
 
@@ -212,7 +212,7 @@ doi,citation_key,evidence
 
 Generate **four files**:
 
-1. **`drafts/literature_review.md`**
+1. **`cluewrite-drafts/literature_review.md`**
    - One-page structured summary (800-1000 words)
    - Organized by themes, not chronologically
    - Includes citation keys in [author2024] format
@@ -299,7 +299,7 @@ After generating the literature review:
 User: "Use cluewrite-research-literature to research the background for my protein structure prediction paper"
 
 Agent:
-1. Reads PROJECT.md and manuscript_plan.md
+1. Reads CLUEWRITE.md and manuscript_plan.md
 2. Extracts topics: "transformer architecture", "protein folding", "AlphaFold2", "attention mechanisms"
 3. Searches for:
    - "protein structure prediction review 2024"
@@ -338,7 +338,7 @@ arXiv:2401.12345,zhang2025,"Our efficient transformer architecture achieves real
 ## Limitations & Handling
 
 **If no manuscript outline exists:**
-- Use PROJECT.md "Key Findings" to infer topics
+- Use CLUEWRITE.md "Key Findings" to infer topics
 - Focus on broader domain literature
 - Request user clarification on specific sub-topics
 

@@ -29,4 +29,4 @@ context: fork
 *   Describe the figure content based on the generating script's logic (e.g., "Figure 1 visualizes the t-SNE projection...").
 
 ## Output
-Append the drafted text to `drafts/section_name.md`.
+Append the drafted text to `cluewrite-drafts/section_name.md`.

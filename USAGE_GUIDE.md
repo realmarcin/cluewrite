@@ -34,13 +34,13 @@ cd /Users/yourname/research/my-awesome-project
 ~/cluewrite/install.sh setup-project
 # OR if you cloned elsewhere: /your/path/to/cluewrite/install.sh setup-project
 
-# Edit PROJECT.md with your project details
-nano PROJECT.md  # or use your preferred editor
+# Edit CLUEWRITE.md with your project details
+nano CLUEWRITE.md  # or use your preferred editor
 ```
 
 **What this does:**
 - Creates directory structure (drafts/, scripts/, figures/, data/)
-- Copies PROJECT.md template
+- Copies CLUEWRITE.md template
 - Copies verification scripts
 - Creates .gitignore
 
@@ -118,7 +118,7 @@ ln -s ~/cluewrite/.claude/skills/* ~/.claude/skills/
 for proj in project-a project-b project-c; do
   cd ~/research/$proj
   mkdir -p drafts scripts
-  cp ~/cluewrite/PROJECT.md.template ./PROJECT.md
+  cp ~/cluewrite/CLUEWRITE.md.template ./CLUEWRITE.md
   cp ~/cluewrite/scripts/*.py ./scripts/
 done
 ```
@@ -149,8 +149,8 @@ cd my-project
 # Create structure
 mkdir -p drafts scripts figures
 
-# Initialize PROJECT.md
-cat > PROJECT.md << 'EOF'
+# Initialize CLUEWRITE.md
+cat > CLUEWRITE.md << 'EOF'
 # My Awesome Research Project
 
 ## Project Overview
@@ -185,7 +185,7 @@ Claude: Agent: [Analyzes repo, creates manuscript_plan.md]
 
 User: "Use cluewrite-draft-section to write the Results section"
 
-Claude: Agent: [Reads relevant data files, generates drafts/results.md]
+Claude: Agent: [Reads relevant data files, generates cluewrite-drafts/results.md]
 
 User: "Use cluewrite-review-manuscript to check it"
 

@@ -27,7 +27,7 @@ Focus on:
 - Missing sections or components
 - Target journal structure compliance
 
-### If reviewing `drafts/literature_review.md`:
+### If reviewing `cluewrite-drafts/literature_review.md`:
 Focus on:
 - Coverage completeness (foundational, related, recent)
 - Citation accuracy and verifiability
@@ -35,7 +35,7 @@ Focus on:
 - Integration guidance quality
 - Balance between domains/approaches
 
-### If reviewing manuscript drafts (`drafts/*.md`):
+### If reviewing manuscript drafts (`cluewrite-drafts/*.md`):
 Focus on:
 - Technical accuracy and reproducibility
 - Journal-specific compliance

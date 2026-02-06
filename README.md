@@ -37,7 +37,7 @@ See a real example: [example/](example/) - A complete protein structure predicti
 cd my-research-project
 
 # Step 1: Tell ClueWrite about your project
-# Edit PROJECT.md with your findings and data sources
+# Edit CLUEWRITE.md with your findings and data sources
 
 # Step 2: Plan the manuscript
 "Use cluewrite-plan-manuscript to create an outline for Bioinformatics journal"
@@ -117,8 +117,8 @@ cd /path/to/your/research/project
 
 #### `./install.sh setup-project`
 Prepares your research project by:
-1. Creating directory structure (`drafts/`, `scripts/`, `figures/`, `data/`)
-2. Copying `PROJECT.md` template for documenting findings
+1. Creating directory structure (`cluewrite-drafts/`, `scripts/`, `figures/`, `data/`)
+2. Copying `CLUEWRITE.md` template for documenting findings
 3. Copying verification tools (`cluewrite-verify-stats.py`, `cluewrite-clean-ipynb.py`)
 4. Creating `.gitignore` for manuscript drafts
 
@@ -137,7 +137,7 @@ your-project/
 ├── data/processed/results.csv    → Numerical evidence
 ├── scripts/analyze.py             → Methodology
 ├── figures/fig1.png              → Visual results
-└── PROJECT.md                    → Key findings summary
+└── CLUEWRITE.md                    → Key findings summary
 ```
 
 ### 2. Planning
@@ -205,13 +205,13 @@ Your research project should have:
 ```
 your-research-project/
 ├── .claude/skills/        # ClueWrite skills (symlinked)
-├── PROJECT.md            # Your project context
+├── CLUEWRITE.md            # Your project context
 ├── data/
 │   └── processed/        # Data files with results
 ├── scripts/              # Analysis code
 ├── figures/              # Generated plots
 ├── references.bib        # Citations
-└── drafts/              # Generated manuscript sections
+└── cluewrite-drafts/              # Generated manuscript sections
 ```
 
 ## 🛠️ Verification Tools
@@ -268,7 +268,7 @@ Complete provenance from data to publication.
 
 ## 📚 Example Outputs
 
-### From PROJECT.md:
+### From CLUEWRITE.md:
 ```markdown
 ## Key Finding
 Our model achieves 87% accuracy on the benchmark.
