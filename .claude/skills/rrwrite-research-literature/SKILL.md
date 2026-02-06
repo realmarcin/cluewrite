@@ -20,13 +20,13 @@ Conduct comprehensive literature research on the manuscript topic and generate a
 - `references.bib` (existing citations to build upon)
 
 **Minimum requirement:**
-- CLUEWRITE.md with clear research topic and key findings
+- PROJECT.md with clear research topic and key findings
 
 ## Workflow
 
 ### Phase 1: Topic Extraction
 1. **Read Context Documents:**
-   - Read `CLUEWRITE.md` to understand the research domain
+   - Read `PROJECT.md` to understand the research domain
    - Read `manuscript_plan.md` if available (for detailed topics)
    - Read `manuscript/introduction.md` or `manuscript/abstract.md` if available
    - Read `references.bib` to see what's already cited
@@ -78,7 +78,7 @@ Generate a structured summary in `manuscript/literature.md`:
 # Literature Review: [Manuscript Topic]
 
 **Generated:** [Date]
-**Based on:** [manuscript_plan.md / CLUEWRITE.md]
+**Based on:** [manuscript_plan.md / PROJECT.md]
 
 ## 1. Background & Foundations (200-300 words)
 
@@ -329,7 +329,7 @@ After generating the literature review:
 User: "Use /rrwrite-research-literature to research the background for my protein structure prediction paper"
 
 Agent:
-1. Reads CLUEWRITE.md and manuscript_plan.md
+1. Reads PROJECT.md and manuscript_plan.md
 2. Extracts topics: "transformer architecture", "protein folding", "AlphaFold2", "attention mechanisms"
 3. Searches for:
    - "protein structure prediction review 2024"
@@ -368,7 +368,7 @@ arXiv:2401.12345,zhang2025,"Our efficient transformer architecture achieves real
 ## Limitations & Handling
 
 **If no manuscript outline exists:**
-- Use CLUEWRITE.md "Key Findings" to infer topics
+- Use PROJECT.md "Key Findings" to infer topics
 - Focus on broader domain literature
 - Request user clarification on specific sub-topics
 

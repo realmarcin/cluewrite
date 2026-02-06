@@ -10,7 +10,7 @@ All manuscript-related outputs are stored in the `manuscript/` directory with st
 
 ```
 your-project/
-├── CLUEWRITE.md              # Project context
+├── PROJECT.md              # Project context
 ├── manuscript/               # All manuscript outputs
 │   ├── outline.md           # Manuscript outline/plan
 │   ├── literature.md        # Literature review

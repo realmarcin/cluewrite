@@ -81,7 +81,7 @@ Creating directories:
   ✓ data/raw/
 
 Copying files:
-  ✓ CLUEWRITE.md (template)
+  ✓ PROJECT.md (template)
   ✓ scripts/rrwrite-verify-stats.py
   ✓ scripts/rrwrite-clean-ipynb.py
   ✓ .gitignore
@@ -90,8 +90,8 @@ Copying files:
 ### Step 3: Start Using ClueWrite
 
 ```bash
-# In your research project, edit CLUEWRITE.md
-nano CLUEWRITE.md
+# In your research project, edit PROJECT.md
+nano PROJECT.md
 
 # Start your AI agent and use the skills
 "Use /rrwrite-plan-manuscript to create an outline"
@@ -141,7 +141,7 @@ cd /your/research/project
 ls -d drafts scripts figures data
 
 # Verify files exist
-ls CLUEWRITE.md scripts/rrwrite-verify-stats.py scripts/rrwrite-clean-ipynb.py
+ls PROJECT.md scripts/rrwrite-verify-stats.py scripts/rrwrite-clean-ipynb.py
 ```
 
 ## Common Issues
@@ -205,4 +205,4 @@ cd /path/to/research/project
 - ✅ Clone RRWrite anywhere you want
 - ✅ Use full path to `install.sh` when setting up projects
 - ✅ Symlinks mean updates propagate to all projects
-- ✅ Each project gets its own `CLUEWRITE.md` and `scripts/`
+- ✅ Each project gets its own `PROJECT.md` and `scripts/`

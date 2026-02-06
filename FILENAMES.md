@@ -1,10 +1,10 @@
 # RRWrite File Naming Conventions
 
-All RRWrite files use `rrwrite-` prefix or `CLUEWRITE` name to avoid conflicts.
+All RRWrite files use `rrwrite-` prefix or `PROJECT` name to avoid conflicts.
 
 ## Core Files
 
-- **`CLUEWRITE.md`** - Project context (replaces PROJECT.md)
+- **`PROJECT.md`** - Project context (replaces PROJECT.md)
 - **`rrwrite-drafts/`** - Generated sections directory (deprecated, use `manuscript/` instead)
 - **`manuscript/`** - All manuscript outputs (schema-validated)
 - **`scripts/rrwrite-*.py`** - Verification tools

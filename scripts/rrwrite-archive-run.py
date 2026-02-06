@@ -145,8 +145,8 @@ def archive_run(description: str = None, journal: str = None) -> None:
     if not copied_files:
         print("  Warning: No files found to archive")
 
-    # Copy CLUEWRITE.md and references.bib from project root
-    for filename in ["CLUEWRITE.md", "references.bib"]:
+    # Copy PROJECT.md and references.bib from project root
+    for filename in ["PROJECT.md", "references.bib"]:
         src = manager.project_root / filename
         if src.exists():
             dst = run_dir / filename

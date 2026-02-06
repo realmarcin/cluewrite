@@ -156,7 +156,7 @@ cd /my/research/project
 ~/repo-research-writer/install.sh setup-project
 
 # 2. Edit context
-nano CLUEWRITE.md
+nano PROJECT.md
 
 # 3. Use skills in order
 ```

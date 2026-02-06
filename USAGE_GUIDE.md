@@ -34,13 +34,13 @@ cd /Users/yourname/research/my-awesome-project
 ~/repo-research-writer/install.sh setup-project
 # OR if you cloned elsewhere: /your/path/to/repo-research-writer/install.sh setup-project
 
-# Edit CLUEWRITE.md with your project details
-nano CLUEWRITE.md  # or use your preferred editor
+# Edit PROJECT.md with your project details
+nano PROJECT.md  # or use your preferred editor
 ```
 
 **What this does:**
 - Creates directory structure (rrwrite-drafts/, scripts/, figures/, data/)
-- Copies CLUEWRITE.md template
+- Copies PROJECT.md template
 - Copies verification scripts
 - Creates .gitignore
 
@@ -118,7 +118,7 @@ ln -s ~/research-writer/.claude/skills/* ~/.claude/skills/
 for proj in project-a project-b project-c; do
   cd ~/research/$proj
   mkdir -p drafts scripts
-  cp ~/research-writer/CLUEWRITE.md.template ./CLUEWRITE.md
+  cp ~/research-writer/PROJECT.md.template ./PROJECT.md
   cp ~/research-writer/scripts/*.py ./scripts/
 done
 ```
@@ -149,8 +149,8 @@ cd my-project
 # Create structure
 mkdir -p drafts scripts figures
 
-# Initialize CLUEWRITE.md
-cat > CLUEWRITE.md << 'EOF'
+# Initialize PROJECT.md
+cat > PROJECT.md << 'EOF'
 # My Awesome Research Project
 
 ## Project Overview

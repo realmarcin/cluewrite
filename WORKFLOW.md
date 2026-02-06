@@ -27,12 +27,12 @@ cd /path/to/your/research/project
 ```
 
 **Creates:**
-- `CLUEWRITE.md` (template)
+- `PROJECT.md` (template)
 - `rrwrite-drafts/`, `scripts/`, `figures/`, `data/` directories
 - Verification scripts
 
 #### Step 1.3: Document Your Findings
-Edit `CLUEWRITE.md` with:
+Edit `PROJECT.md` with:
 - Project overview and goals
 - Target journal
 - Key findings with evidence links (data files, scripts, figures)
@@ -106,7 +106,7 @@ Use /rrwrite-research-literature to find relevant papers for my [topic] manuscri
 ```
 
 **What happens:**
-1. Extracts topics from CLUEWRITE.md and manuscript_plan.md
+1. Extracts topics from PROJECT.md and manuscript_plan.md
 2. Web search for foundational papers (pre-2020)
 3. Web search for recent advances (2024-2026)
 4. Web search for competing methods
@@ -316,7 +316,7 @@ cat rrwrite-drafts/*.md > rrwrite-drafts/full_manuscript.md
 **After complete workflow:**
 ```
 your-research-project/
-├── CLUEWRITE.md                          # Your documented findings
+├── PROJECT.md                          # Your documented findings
 ├── manuscript_plan.md                   # Generated outline
 ├── rrwrite-drafts/
 │   ├── literature_review.md            # Literature summary
@@ -352,7 +352,7 @@ your-research-project/
 - ✅ Keep a references.bib file updated
 
 ### During Planning
-- ✅ Be specific in CLUEWRITE.md about key findings
+- ✅ Be specific in PROJECT.md about key findings
 - ✅ Link every claim to a data file
 - ✅ Critique outline before drafting
 
@@ -415,7 +415,7 @@ grep "alphafold2021" references.bib
 
 ### "Critique finds many issues"
 - Critique the outline first (catch structure issues early)
-- Verify data → claim links in CLUEWRITE.md
+- Verify data → claim links in PROJECT.md
 - Check evidence.csv quotes match your interpretations
 
 ---
@@ -434,7 +434,7 @@ grep "alphafold2021" references.bib
 **First time using RRWrite?** Follow this progression:
 
 1. **Explore the example** (`cd example/`)
-   - Read CLUEWRITE.md to see how findings are documented
+   - Read PROJECT.md to see how findings are documented
    - Check manuscript_plan.md to see outline structure
    - Read literature_evidence.csv to see evidence format
 
@@ -444,7 +444,7 @@ grep "alphafold2021" references.bib
    - Practice the verification workflow
 
 3. **Scale to full manuscript**
-   - Complete CLUEWRITE.md documentation
+   - Complete PROJECT.md documentation
    - Full literature research
    - All sections drafted
    - Multiple critique rounds

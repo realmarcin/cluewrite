@@ -37,7 +37,7 @@ See a real example: [example/](example/) - A complete protein structure predicti
 cd my-research-project
 
 # Step 1: Tell ClueWrite about your project
-# Edit CLUEWRITE.md with your findings and data sources
+# Edit PROJECT.md with your findings and data sources
 
 # Step 2: Plan the manuscript
 "Use /rrwrite-plan-manuscript to create an outline for Bioinformatics journal"
@@ -118,7 +118,7 @@ cd /path/to/your/research/project
 #### `./install.sh setup-project`
 Prepares your research project by:
 1. Creating directory structure (`rrwrite-drafts/`, `scripts/`, `figures/`, `data/`)
-2. Copying `CLUEWRITE.md` template for documenting findings
+2. Copying `PROJECT.md` template for documenting findings
 3. Copying verification tools (`rrwrite-verify-stats.py`, `rrwrite-clean-ipynb.py`)
 4. Creating `.gitignore` for manuscript drafts
 
@@ -137,7 +137,7 @@ your-project/
 ├── data/processed/results.csv    → Numerical evidence
 ├── scripts/analyze.py             → Methodology
 ├── figures/fig1.png              → Visual results
-└── CLUEWRITE.md                    → Key findings summary
+└── PROJECT.md                      → Key findings summary
 ```
 
 ### 2. Planning
@@ -205,7 +205,7 @@ Your research project should have:
 ```
 your-research-project/
 ├── .claude/skills/        # RRWrite skills (symlinked)
-├── CLUEWRITE.md            # Your project context
+├── PROJECT.md              # Your project context
 ├── manuscript/            # All manuscript outputs (schema-validated)
 │   ├── outline.md        # Manuscript plan
 │   ├── literature.md     # Literature review
@@ -341,7 +341,7 @@ See [VERSIONING.md](VERSIONING.md) for details.
 
 ## 📚 Example Outputs
 
-### From CLUEWRITE.md:
+### From PROJECT.md:
 ```markdown
 ## Key Finding
 Our model achieves 87% accuracy on the benchmark.
@@ -414,7 +414,7 @@ A: Yes! The skills read any text files. Verification tools are Python, but you c
 A: Yes! Edit the skill files to add new journal templates.
 
 **Q: How does it handle figures?**
-A: ClueWrite reads the scripts that generate figures to write accurate captions.
+A: RRWrite reads the scripts that generate figures to write accurate captions.
 
 **Q: Does it hallucinate numbers?**
 A: No! The verification loop ensures every number comes from your data files.

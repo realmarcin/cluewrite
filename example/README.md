@@ -21,7 +21,7 @@ example/
 │   └── training_curve.png      # Figure 2
 ├── notebooks/
 │   └── exploratory_analysis.ipynb
-├── CLUEWRITE.md                   # Project context for ClueWrite
+├── PROJECT.md                   # Project context for ClueWrite
 └── references.bib              # Citations
 
 ```
@@ -30,14 +30,14 @@ example/
 
 ### Step 1: Initialize Project Context
 
-See `CLUEWRITE.md` for the project context that guides the AI agent.
+See `PROJECT.md` for the project context that guides the AI agent.
 
 ### Step 2: Plan the Manuscript
 
 ```
 User: "Use /rrwrite-plan-manuscript to create an outline for Bioinformatics journal"
 
-Agent: [Reads CLUEWRITE.md, scans data/ and scripts/]
+Agent: [Reads PROJECT.md, scans data/ and scripts/]
        [Creates manuscript_plan.md with sections mapped to files]
 ```
 

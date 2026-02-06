@@ -147,9 +147,9 @@ def migrate_project(project_dir: str = ".") -> None:
     # Get project name from directory
     project_name = project_root.name
 
-    # Try to detect target journal from CLUEWRITE.md
+    # Try to detect target journal from PROJECT.md
     target_journal = None
-    cluewrite_file = project_root / "CLUEWRITE.md"
+    cluewrite_file = project_root / "PROJECT.md"
     if cluewrite_file.exists():
         try:
             with open(cluewrite_file, 'r') as f:

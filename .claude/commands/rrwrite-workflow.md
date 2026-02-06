@@ -12,7 +12,7 @@ I'll guide you through the complete manuscript generation workflow. Let me first
 Let me check your project structure:
 
 **Files to check:**
-- `CLUEWRITE.md` - Your documented findings
+- `PROJECT.md` - Your documented findings
 - `manuscript_plan.md` - Manuscript outline
 - `rrwrite-drafts/literature_review.md` - Literature research
 - `rrwrite-drafts/*.md` - Drafted sections
@@ -24,7 +24,7 @@ Let me check your project structure:
 **Prerequisites:**
 - [ ] RRWrite installed globally
 - [ ] Project directory initialized
-- [ ] CLUEWRITE.md created and filled out
+- [ ] PROJECT.md created and filled out
 
 **If not done:**
 ```bash
@@ -35,7 +35,7 @@ cd /path/to/repo-research-writer && ./install.sh global
 cd /your/research/project
 /path/to/repo-research-writer/install.sh setup-project
 
-# Edit CLUEWRITE.md with your findings
+# Edit PROJECT.md with your findings
 ```
 
 ---
