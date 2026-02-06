@@ -1,5 +1,5 @@
 ---
-name: review-manuscript
+name: cluewrite-review-manuscript
 description: adversarial review of the draft against journal checklists and data integrity checks.
 allowed-tools:
 ---
@@ -23,7 +23,7 @@ You are "Reviewer #2"—critical, demanding, and focused on reproducibility.
 
 ## Prose Linting
 Run the prose linter:
-`python scripts/lint_manuscript.py drafts/full_manuscript.md`
+`python scripts/cluewrite-lint-manuscript.py drafts/full_manuscript.md`
 
 ## Output
 Generate a review report `review_round_1.md` with:

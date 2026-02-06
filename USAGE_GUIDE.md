@@ -49,14 +49,14 @@ nano PROJECT.md  # or use your preferred editor
 **Note:** If you used `install.sh setup-project`, the scripts are already copied!
 
 The setup script automatically:
-- Copies `verify_stats.py` to `scripts/`
-- Copies `clean_ipynb.py` to `scripts/`
+- Copies `cluewrite-verify-stats.py` to `scripts/`
+- Copies `cluewrite-clean-ipynb.py` to `scripts/`
 - Makes them executable
 
 **Manual copy (if needed):**
 ```bash
-cp ~/cluewrite/scripts/verify_stats.py ./scripts/
-cp ~/cluewrite/scripts/clean_ipynb.py ./scripts/
+cp ~/cluewrite/scripts/cluewrite-verify-stats.py ./scripts/
+cp ~/cluewrite/scripts/cluewrite-clean-ipynb.py ./scripts/
 chmod +x scripts/*.py
 ```
 
@@ -71,11 +71,11 @@ cd /Users/yourname/research/my-awesome-project
 In the agent, invoke the skills:
 
 ```
-"Use the plan-manuscript skill to create an outline targeting Nature Methods"
+"Use the cluewrite-plan-manuscript skill to create an outline targeting Nature Methods"
 
-"Use the draft-section skill to write the Methods section"
+"Use the cluewrite-draft-section skill to write the Methods section"
 
-"Use the review-manuscript skill to check the draft"
+"Use the cluewrite-review-manuscript skill to check the draft"
 ```
 
 ## Scenario 2: Installing Per-Project (No Global Installation)
@@ -170,7 +170,7 @@ PLOS Computational Biology
 EOF
 
 # Copy verification script
-cp ~/cluewrite/scripts/verify_stats.py ./scripts/
+cp ~/cluewrite/scripts/cluewrite-verify-stats.py ./scripts/
 
 # Start AI agent
 # Start AI agent
@@ -179,15 +179,15 @@ cp ~/cluewrite/scripts/verify_stats.py ./scripts/
 ### In Claude session:
 
 ```
-User: "Use plan-manuscript to outline a paper for PLOS Comp Bio"
+User: "Use cluewrite-plan-manuscript to outline a paper for PLOS Comp Bio"
 
 Claude: Agent: [Analyzes repo, creates manuscript_plan.md]
 
-User: "Use draft-section to write the Results section"
+User: "Use cluewrite-draft-section to write the Results section"
 
 Claude: Agent: [Reads relevant data files, generates drafts/results.md]
 
-User: "Use review-manuscript to check it"
+User: "Use cluewrite-review-manuscript to check it"
 
 Claude: Agent: [Reviews for PLOS compliance, generates review_round_1.md]
 ```
@@ -230,9 +230,9 @@ git submodule update --remote
 ```bash
 # Re-copy the updated skills
 cd /path/to/project
-rm -rf .claude/skills/plan-manuscript
-rm -rf .claude/skills/draft-section
-rm -rf .claude/skills/review-manuscript
+rm -rf .claude/skills/cluewrite-plan-manuscript
+rm -rf .claude/skills/cluewrite-draft-section
+rm -rf .claude/skills/cluewrite-review-manuscript
 
 git clone <this-repo-url> temp-skills
 cp -r temp-skills/.claude/skills/* .claude/skills/
@@ -243,7 +243,7 @@ rm -rf temp-skills
 
 **Skills not found?**
 - Check symlinks: `ls -la ~/.claude/skills/`
-- Verify SKILL.md exists: `cat ~/.claude/skills/plan-manuscript/SKILL.md`
+- Verify SKILL.md exists: `cat ~/.claude/skills/cluewrite-plan-manuscript/SKILL.md`
 
 **Verification scripts failing?**
 - Ensure scripts are executable: `chmod +x scripts/*.py`

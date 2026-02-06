@@ -17,7 +17,7 @@ install_global() {
     mkdir -p ~/.claude/skills
 
     # Create symlinks
-    for skill in plan-manuscript draft-section review-manuscript; do
+    for skill in cluewrite-plan-manuscript cluewrite-draft-section cluewrite-review-manuscript; do
         target=~/.claude/skills/$skill
         if [ -L "$target" ] || [ -e "$target" ]; then
             echo "  ⚠️  Removing existing $skill"
@@ -63,8 +63,8 @@ setup_project() {
 
     # Copy scripts
     echo "  ✓ Copying verification scripts to scripts/"
-    cp "$SCRIPT_DIR/scripts/verify_stats.py" scripts/
-    cp "$SCRIPT_DIR/scripts/clean_ipynb.py" scripts/
+    cp "$SCRIPT_DIR/scripts/cluewrite-verify-stats.py" scripts/
+    cp "$SCRIPT_DIR/scripts/cluewrite-clean-ipynb.py" scripts/
     chmod +x scripts/*.py
 
     # Create .gitignore if it doesn't exist
@@ -103,7 +103,7 @@ install_local() {
     mkdir -p .claude/skills
 
     # Copy skills to project
-    for skill in plan-manuscript draft-section review-manuscript; do
+    for skill in cluewrite-plan-manuscript cluewrite-draft-section cluewrite-review-manuscript; do
         target=.claude/skills/$skill
         if [ -e "$target" ]; then
             echo "  ⚠️  Removing existing $skill"

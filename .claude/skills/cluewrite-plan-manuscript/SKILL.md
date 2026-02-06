@@ -1,5 +1,5 @@
 ---
-name: plan-manuscript
+name: cluewrite-plan-manuscript
 description: Analyzes the repository structure and generates a detailed manuscript outline based on target journal guidelines (Nature, PLOS, Bioinformatics).
 allowed-tools:
 ---

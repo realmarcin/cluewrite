@@ -44,9 +44,9 @@ cd ~/cluewrite
 **What happens:**
 ```
 Creating symbolic links:
-~/.claude/skills/plan-manuscript → ~/cluewrite/.claude/skills/plan-manuscript
-~/.claude/skills/draft-section → ~/cluewrite/.claude/skills/draft-section
-~/.claude/skills/review-manuscript → ~/cluewrite/.claude/skills/review-manuscript
+~/.claude/skills/cluewrite-plan-manuscript → ~/cluewrite/.claude/skills/cluewrite-plan-manuscript
+~/.claude/skills/cluewrite-draft-section → ~/cluewrite/.claude/skills/cluewrite-draft-section
+~/.claude/skills/cluewrite-review-manuscript → ~/cluewrite/.claude/skills/cluewrite-review-manuscript
 ```
 
 **Verify it worked:**
@@ -82,8 +82,8 @@ Creating directories:
 
 Copying files:
   ✓ PROJECT.md (template)
-  ✓ scripts/verify_stats.py
-  ✓ scripts/clean_ipynb.py
+  ✓ scripts/cluewrite-verify-stats.py
+  ✓ scripts/cluewrite-clean-ipynb.py
   ✓ .gitignore
 ```
 
@@ -94,7 +94,7 @@ Copying files:
 nano PROJECT.md
 
 # Start your AI agent and use the skills
-"Use plan-manuscript to create an outline"
+"Use cluewrite-plan-manuscript to create an outline"
 ```
 
 ## Alternative: Local Installation
@@ -127,9 +127,9 @@ rm -rf temp-cluewrite
 ls -la ~/.claude/skills/
 
 # Should see:
-# plan-manuscript -> /path/to/cluewrite/.claude/skills/plan-manuscript
-# draft-section -> /path/to/cluewrite/.claude/skills/draft-section
-# review-manuscript -> /path/to/cluewrite/.claude/skills/review-manuscript
+# cluewrite-plan-manuscript -> /path/to/cluewrite/.claude/skills/cluewrite-plan-manuscript
+# cluewrite-draft-section -> /path/to/cluewrite/.claude/skills/cluewrite-draft-section
+# cluewrite-review-manuscript -> /path/to/cluewrite/.claude/skills/cluewrite-review-manuscript
 ```
 
 ### Check Project Setup
@@ -141,7 +141,7 @@ cd /your/research/project
 ls -d drafts scripts figures data
 
 # Verify files exist
-ls PROJECT.md scripts/verify_stats.py scripts/clean_ipynb.py
+ls PROJECT.md scripts/cluewrite-verify-stats.py scripts/cluewrite-clean-ipynb.py
 ```
 
 ## Common Issues
@@ -153,7 +153,7 @@ ls PROJECT.md scripts/verify_stats.py scripts/clean_ipynb.py
 **Solution**:
 ```bash
 # Check where symlink points
-readlink ~/.claude/skills/plan-manuscript
+readlink ~/.claude/skills/cluewrite-plan-manuscript
 
 # If path is wrong, re-run from correct location
 cd /actual/cluewrite/location

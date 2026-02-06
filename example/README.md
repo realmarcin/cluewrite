@@ -35,7 +35,7 @@ See `PROJECT.md` for the project context that guides the AI agent.
 ### Step 2: Plan the Manuscript
 
 ```
-User: "Use plan-manuscript to create an outline for Bioinformatics journal"
+User: "Use cluewrite-plan-manuscript to create an outline for Bioinformatics journal"
 
 Agent: [Reads PROJECT.md, scans data/ and scripts/]
        [Creates manuscript_plan.md with sections mapped to files]
@@ -46,7 +46,7 @@ Output: `manuscript_plan.md`
 ### Step 3: Draft Individual Sections
 
 ```
-User: "Use draft-section to write the Methods section"
+User: "Use cluewrite-draft-section to write the Methods section"
 
 Agent: [Reads scripts/train_model.py and scripts/evaluate.py]
        [References data files to understand pipeline]
@@ -56,10 +56,10 @@ Agent: [Reads scripts/train_model.py and scripts/evaluate.py]
 Output: `drafts/methods.md`
 
 ```
-User: "Use draft-section to write the Results section"
+User: "Use cluewrite-draft-section to write the Results section"
 
 Agent: [Reads data/benchmark_results.csv]
-       [Verifies numbers using verify_stats.py]
+       [Verifies numbers using cluewrite-verify-stats.py]
        [References figures/accuracy_comparison.png]
        [Generates drafts/results.md]
 ```
@@ -69,7 +69,7 @@ Output: `drafts/results.md`
 ### Step 4: Review for Compliance
 
 ```
-User: "Use review-manuscript to check the draft"
+User: "Use cluewrite-review-manuscript to check the draft"
 
 Agent: [Reads all drafts/*]
        [Checks Bioinformatics journal requirements]

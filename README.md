@@ -40,14 +40,14 @@ cd my-research-project
 # Edit PROJECT.md with your findings and data sources
 
 # Step 2: Plan the manuscript
-"Use plan-manuscript to create an outline for Bioinformatics journal"
+"Use cluewrite-plan-manuscript to create an outline for Bioinformatics journal"
 
 # Step 3: Draft sections
-"Use draft-section to write the Methods section"
-"Use draft-section to write the Results section"
+"Use cluewrite-draft-section to write the Methods section"
+"Use cluewrite-draft-section to write the Results section"
 
 # Step 4: Review for compliance
-"Use review-manuscript to check the draft"
+"Use cluewrite-review-manuscript to check the draft"
 ```
 
 **Result**: A complete manuscript draft where every claim is traced back to your source data.
@@ -106,9 +106,9 @@ cd /path/to/your/research/project
 - Creates `~/.claude/skills/` directory
 - Creates **symbolic links** (not copies) pointing to ClueWrite skills:
   ```
-  ~/.claude/skills/plan-manuscript → /path/to/cluewrite/.claude/skills/plan-manuscript
-  ~/.claude/skills/draft-section → /path/to/cluewrite/.claude/skills/draft-section
-  ~/.claude/skills/review-manuscript → /path/to/cluewrite/.claude/skills/review-manuscript
+  ~/.claude/skills/cluewrite-plan-manuscript → /path/to/cluewrite/.claude/skills/cluewrite-plan-manuscript
+  ~/.claude/skills/cluewrite-draft-section → /path/to/cluewrite/.claude/skills/cluewrite-draft-section
+  ~/.claude/skills/cluewrite-review-manuscript → /path/to/cluewrite/.claude/skills/cluewrite-review-manuscript
   ```
 - **Benefit**: Update ClueWrite once (`git pull`), all projects get updates automatically
 
@@ -116,7 +116,7 @@ cd /path/to/your/research/project
 Prepares your research project by:
 1. Creating directory structure (`drafts/`, `scripts/`, `figures/`, `data/`)
 2. Copying `PROJECT.md` template for documenting findings
-3. Copying verification tools (`verify_stats.py`, `clean_ipynb.py`)
+3. Copying verification tools (`cluewrite-verify-stats.py`, `cluewrite-clean-ipynb.py`)
 4. Creating `.gitignore` for manuscript drafts
 
 #### `./install.sh local`
@@ -139,37 +139,37 @@ your-project/
 
 ### 2. Planning
 
-The `plan-manuscript` skill creates a detailed outline:
+The `cluewrite-plan-manuscript` skill creates a detailed outline:
 - Maps each section to specific files
 - Links claims to data sources
 - Applies journal-specific structure
 
 ### 3. Drafting with Verification
 
-The `draft-section` skill:
+The `cluewrite-draft-section` skill:
 - Reads relevant code/data files
 - Generates academic prose
-- **Verifies every number** using `verify_stats.py`
+- **Verifies every number** using `cluewrite-verify-stats.py`
 - Cites from your `references.bib`
 
 Example fact-checking:
 ```bash
 # Agent writes: "The model achieved 87% accuracy"
 # Behind the scenes:
-python scripts/verify_stats.py --file data/results.csv --col accuracy --op mean
+python scripts/cluewrite-verify-stats.py --file data/results.csv --col accuracy --op mean
 # Returns: 0.87 ✓
 ```
 
 ### 4. Review
 
-The `review-manuscript` skill acts as "Reviewer #2":
+The `cluewrite-review-manuscript` skill acts as "Reviewer #2":
 - Checks journal-specific requirements
 - Verifies citation integrity
 - Flags missing figures or data availability statements
 
 ## 🎓 Skills Included
 
-### `plan-manuscript`
+### `cluewrite-plan-manuscript`
 Maps your repository to a manuscript outline for your target journal.
 
 **Supports**:
@@ -177,7 +177,7 @@ Maps your repository to a manuscript outline for your target journal.
 - PLOS Computational Biology
 - Bioinformatics
 
-### `draft-section`
+### `cluewrite-draft-section`
 Writes individual sections with fact-checking.
 
 **Features**:
@@ -186,7 +186,7 @@ Writes individual sections with fact-checking.
 - Generates LaTeX equations from code
 - Maintains variable name consistency
 
-### `review-manuscript`
+### `cluewrite-review-manuscript`
 Reviews drafts for compliance and accuracy.
 
 **Checks**:
@@ -215,20 +215,20 @@ your-research-project/
 
 ClueWrite includes Python tools to ensure accuracy:
 
-### `verify_stats.py`
+### `cluewrite-verify-stats.py`
 Verifies numerical claims against source data:
 ```bash
-python scripts/verify_stats.py \
+python scripts/cluewrite-verify-stats.py \
   --file data/results.csv \
   --col accuracy \
   --op mean
 # Output: 0.8734
 ```
 
-### `clean_ipynb.py`
+### `cluewrite-clean-ipynb.py`
 Converts Jupyter notebooks to clean markdown:
 ```bash
-python scripts/clean_ipynb.py notebook.ipynb -o clean.md
+python scripts/cluewrite-clean-ipynb.py notebook.ipynb -o clean.md
 # Removes base64 images, keeps code and markdown
 ```
 
@@ -236,11 +236,11 @@ python scripts/clean_ipynb.py notebook.ipynb -o clean.md
 
 ```mermaid
 graph LR
-    A[Research Code] --> B[plan-manuscript]
+    A[Research Code] --> B[cluewrite-plan-manuscript]
     B --> C[manuscript_plan.md]
-    C --> D[draft-section]
+    C --> D[cluewrite-draft-section]
     D --> E[drafts/*.md]
-    E --> F[review-manuscript]
+    E --> F[cluewrite-review-manuscript]
     F --> G[review_report.md]
     G --> H[Revise & Compile]
     H --> I[Final Manuscript]
@@ -296,7 +296,7 @@ optimizer = torch.optim.AdamW(
 ## 🤝 Contributing
 
 We welcome contributions! To add:
-- **New journal templates**: Add to skills/plan-manuscript
+- **New journal templates**: Add to skills/cluewrite-plan-manuscript
 - **New verification tools**: Add to scripts/
 - **Documentation improvements**: Update README or USAGE_GUIDE
 
@@ -360,7 +360,7 @@ A: No! The verification loop ensures every number comes from your data files.
 
 **"Skills not found"?**
 - Check if skills are linked: `ls -la ~/.claude/skills/`
-- Verify symlinks point to correct location: `readlink ~/.claude/skills/plan-manuscript`
+- Verify symlinks point to correct location: `readlink ~/.claude/skills/cluewrite-plan-manuscript`
 - If path is wrong, re-run: `./install.sh global` from the correct ClueWrite directory
 
 **"Can't find install.sh"?**
