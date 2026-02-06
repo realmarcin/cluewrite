@@ -326,8 +326,10 @@ If ClueWrite helps your research, please cite:
 
 ## 🔗 Resources
 
+- **[Complete Workflow](WORKFLOW.md)**: Step-by-step manuscript generation guide
 - **[Full Example](example/)**: Complete protein prediction project
 - **[Usage Guide](USAGE_GUIDE.md)**: Detailed integration instructions
+- **[Installation Guide](INSTALL.md)**: Comprehensive setup instructions
 - **[Technical Spec](data/deepresearch.md)**: Architecture details
 
 ## ❓ FAQ
@@ -346,18 +348,19 @@ A: No! The verification loop ensures every number comes from your data files.
 
 ## 🎯 Next Steps
 
-1. **Try the example**: `cd example/` and explore
-2. **Install globally**:
+1. **Read the workflow**: See [WORKFLOW.md](WORKFLOW.md) for complete guide
+2. **Try the example**: `cd example/` and explore
+3. **Install globally**:
    ```bash
    cd /path/where/you/cloned/cluewrite
    ./install.sh global
    ```
-3. **Setup your project**:
+4. **Setup your project**:
    ```bash
    cd /your/research/project
    /path/to/cluewrite/install.sh setup-project
    ```
-4. **Start writing**: Use the skills with your AI agent
+5. **Start writing**: In your AI agent, type `/workflow` for guided assistance
 
 ## 🔍 Installation Troubleshooting
 
