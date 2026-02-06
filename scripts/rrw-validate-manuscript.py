@@ -3,11 +3,11 @@
 Validate manuscript outputs against LinkML schema.
 
 Usage:
-    python scripts/cluewrite-validate-manuscript.py --file manuscript/outline.md --type outline
-    python scripts/cluewrite-validate-manuscript.py --file manuscript/literature.md --type literature
-    python scripts/cluewrite-validate-manuscript.py --file manuscript/abstract.md --type section
-    python scripts/cluewrite-validate-manuscript.py --file manuscript/full_manuscript.md --type manuscript
-    python scripts/cluewrite-validate-manuscript.py --file manuscript/review_manuscript_v1.md --type review
+    python scripts/rrw-validate-manuscript.py --file manuscript/outline.md --type outline
+    python scripts/rrw-validate-manuscript.py --file manuscript/literature.md --type literature
+    python scripts/rrw-validate-manuscript.py --file manuscript/abstract.md --type section
+    python scripts/rrw-validate-manuscript.py --file manuscript/full_manuscript.md --type manuscript
+    python scripts/rrw-validate-manuscript.py --file manuscript/review_manuscript_v1.md --type review
 """
 
 import argparse

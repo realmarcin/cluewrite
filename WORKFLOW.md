@@ -62,7 +62,7 @@ Use /rrw-plan-manuscript to create an outline for [Target Journal]
 
 **Example:**
 ```
-"Use cluewrite-plan-manuscript to create an outline for Bioinformatics journal"
+"Use /rrw-plan-manuscript to create an outline for Bioinformatics journal"
 ```
 
 **Output**: `manuscript_plan.md`
@@ -102,7 +102,7 @@ Use /rrw-research-literature to find relevant papers for my [topic] manuscript
 
 **Example:**
 ```
-"Use /rrw-research-literature to research background for transformer-based protein structure prediction"
+"Use /rrw-research-literature for transformer-based protein structure prediction"
 ```
 
 **What happens:**
@@ -170,8 +170,8 @@ Use /rrw-draft-section to write the [Section Name] section
 1. Reads relevant files from manuscript_plan.md
 2. Reads citations from bib_index.md or references.bib
 3. Generates text with proper formatting
-4. **Verifies numerical claims** using cluewrite-verify-stats.py
-5. Saves to `cluewrite-drafts/[section_name].md`
+4. **Verifies numerical claims** using rrw-verify-stats.py
+5. Saves to `rrw-drafts/[section_name].md`
 
 #### Step 4.2: Verify Numerical Claims (Critical!)
 
@@ -364,7 +364,7 @@ your-research-project/
 ### During Drafting
 - ✅ Draft one section at a time
 - ✅ Verify every number with rrw-verify-stats.py
-- ✅ Use exact citation keys from bib_index.md
+- ✅ Use exact citation keys from references.bib
 
 ### During Review
 - ✅ Address major issues before minor ones
@@ -431,7 +431,7 @@ grep "alphafold2021" references.bib
 
 ## 🎓 Learning Path
 
-**First time using ClueWrite?** Follow this progression:
+**First time using RRW?** Follow this progression:
 
 1. **Explore the example** (`cd example/`)
    - Read CLUEWRITE.md to see how findings are documented

@@ -3,8 +3,8 @@
 Assemble full manuscript from individual section files.
 
 Usage:
-    python scripts/cluewrite-assemble-manuscript.py
-    python scripts/cluewrite-assemble-manuscript.py --output manuscript/full_manuscript.md
+    python scripts/rrw-assemble-manuscript.py
+    python scripts/rrw-assemble-manuscript.py --output manuscript/full_manuscript.md
 """
 
 import argparse
@@ -96,8 +96,8 @@ def assemble_manuscript(manuscript_dir="manuscript", output_file=None):
 
     print("\nNext steps:")
     print(f"1. Review the manuscript: {output_file}")
-    print(f"2. Validate: python scripts/cluewrite-validate-manuscript.py --file {output_file} --type manuscript")
-    print(f"3. Review: Use cluewrite-review-manuscript skill")
+    print(f"2. Validate: python scripts/rrw-validate-manuscript.py --file {output_file} --type manuscript")
+    print(f"3. Review: Use /rrw-review-manuscript skill")
 
     return True
 

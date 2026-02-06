@@ -39,7 +39,7 @@ nano CLUEWRITE.md  # or use your preferred editor
 ```
 
 **What this does:**
-- Creates directory structure (cluewrite-drafts/, scripts/, figures/, data/)
+- Creates directory structure (rrw-drafts/, scripts/, figures/, data/)
 - Copies CLUEWRITE.md template
 - Copies verification scripts
 - Creates .gitignore
@@ -49,8 +49,8 @@ nano CLUEWRITE.md  # or use your preferred editor
 **Note:** If you used `install.sh setup-project`, the scripts are already copied!
 
 The setup script automatically:
-- Copies `cluewrite-verify-stats.py` to `scripts/`
-- Copies `cluewrite-clean-ipynb.py` to `scripts/`
+- Copies `rrw-verify-stats.py` to `scripts/`
+- Copies `rrw-clean-ipynb.py` to `scripts/`
 - Makes them executable
 
 **Manual copy (if needed):**
@@ -75,7 +75,7 @@ In the agent, invoke the skills:
 
 "Use the /rrw-draft-section skill to write the Methods section"
 
-"Use the cluewrite-review-manuscript skill to check the draft"
+"Use the /rrw-review-manuscript skill to check the draft"
 ```
 
 ## Scenario 2: Installing Per-Project (No Global Installation)
@@ -179,11 +179,11 @@ cp ~/research-writer/scripts/research-writer-verify-stats.py ./scripts/
 ### In Claude session:
 
 ```
-User: "Use cluewrite-plan-manuscript to outline a paper for PLOS Comp Bio"
+User: "Use /rrw-plan-manuscript to outline a paper for PLOS Comp Bio"
 
 Claude: Agent: [Analyzes repo, creates manuscript_plan.md]
 
-User: "Use cluewrite-draft-section to write the Results section"
+User: "Use /rrw-draft-section to write the Results section"
 
 Claude: Agent: [Reads relevant data files, generates rrw-drafts/results.md]
 

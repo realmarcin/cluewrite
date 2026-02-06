@@ -72,7 +72,7 @@ Use /rrw-research-literature to research background for [your topic]
 
 **Example:**
 ```
-Use cluewrite-research-literature for transformer-based protein structure prediction
+Use /rrw-research-literature for transformer-based protein structure prediction
 ```
 
 **Outputs:**
@@ -82,7 +82,7 @@ Use cluewrite-research-literature for transformer-based protein structure predic
 
 **Then review:**
 ```
-Use /rrw-review-manuscript to review cluewrite-drafts/literature_review.md
+Use /rrw-review-manuscript to review rrw-drafts/literature_review.md
 ```
 
 **Manual step:**
@@ -161,11 +161,11 @@ Use /rrw-review-manuscript to review rrw-drafts/full_manuscript.md
 
 **Combine sections:**
 ```bash
-cat cluewrite-drafts/abstract.md \
-    cluewrite-drafts/introduction.md \
-    cluewrite-drafts/methods.md \
-    cluewrite-drafts/results.md \
-    cluewrite-drafts/discussion.md \
+cat rrw-drafts/abstract.md \
+    rrw-drafts/introduction.md \
+    rrw-drafts/methods.md \
+    rrw-drafts/results.md \
+    rrw-drafts/discussion.md \
     > rrw-drafts/full_manuscript.md
 ```
 
@@ -193,7 +193,7 @@ pandoc rrw-drafts/full_manuscript.md \
 "Use /rrw-plan-manuscript for [Journal]"
 
 # Literature
-"Use cluewrite-research-literature for [topic]"
+"Use /rrw-research-literature for [topic]"
 
 # Drafting (one at a time)
 "Use /rrw-draft-section to write the Methods section"
