@@ -1,0 +1,64 @@
+{
+  "version": "1.0",
+  "project_name": "repo-research-writer",
+  "target_journal": "Bioinformatics",
+  "created": "2026-02-05T21:36:53.617417",
+  "last_updated": "2026-02-06T00:13:01.627938",
+  "workflow_status": {
+    "plan": {
+      "status": "completed",
+      "file": "manuscript/outline.md",
+      "completed_at": "2026-02-05T21:37:00",
+      "git_commit": "0db2eab"
+    },
+    "research": {
+      "status": "completed",
+      "file": "manuscript/literature.md",
+      "completed_at": "2026-02-05T21:45:30",
+      "git_commit": null,
+      "papers_found": 29
+    },
+    "draft": {
+      "status": "completed",
+      "sections_completed": [
+        "abstract",
+        "introduction",
+        "methods",
+        "results",
+        "discussion"
+      ],
+      "sections_pending": [],
+      "last_section": "discussion",
+      "completed_at": "2026-02-06T00:07:06.463254"
+    },
+    "critique": {
+      "status": "completed",
+      "iterations": [
+        {
+          "version": 1,
+          "file_path": "manuscript/critique_manuscript_v1.md",
+          "created_at": "2026-02-06T00:13:01.627932",
+          "recommendation": "MAJOR_REVISIONS",
+          "major_issues": 10,
+          "minor_issues": 12,
+          "compliance_score": "4/10"
+        }
+      ]
+    },
+    "assembly": {
+      "status": "not_started",
+      "file": null,
+      "completed_at": null
+    }
+  },
+  "runs": [],
+  "provenance": {
+    "input_files": [],
+    "verification_runs": []
+  },
+  "metadata": {
+    "rrwrite_version": "1.0.0",
+    "git_repo": "https://github.com/realmarcin/repo-research-writer.git",
+    "git_branch": "main"
+  }
+}

@@ -9,12 +9,15 @@ venv/
 ENV/
 
 # Self-generated manuscripts (when running RRWrite on itself)
-# Examples in examples/ are committed; self-docs in manuscript/ are gitignored
-manuscript/repo-research-writer_*/
+# V1 is the reference example (committed)
+# V2+ are generated content (gitignored)
+manuscript/repo-research-writer_v[2-9]/
+manuscript/repo-research-writer_v[1-9][0-9]/
 manuscript/archives/
 
 # Keep manuscript directory structure in git
 !manuscript/.gitkeep
+!manuscript/repo-research-writer_v1/
 
 # Legacy drafts and outputs (project-specific)
 drafts/
