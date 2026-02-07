@@ -30,7 +30,7 @@ RRWrite:
 
 ## 🚀 Quick Example
 
-See a real example: [example/](example/) - A complete protein structure prediction project
+See a real example: [manuscript/repo_research_writer_v2/](manuscript/repo_research_writer_v2/) - RRWrite documenting itself!
 
 ```bash
 # In your research project directory
@@ -57,22 +57,23 @@ cd my-research-project
 
 ## 📊 Real-World Example
 
-The `example/` directory contains a complete demonstration:
+The `manuscript/repo_research_writer_v2/` directory contains a complete self-documentation demonstration:
 
-**Input**: Protein prediction project with:
-- CSV data: `benchmark_results.csv` (model accuracies)
-- Python scripts: `train_model.py`, `evaluate.py`
-- Figures: `accuracy_comparison.png`
-- BibTeX: `references.bib`
+**Input**: RRWrite's own repository with:
+- Python scripts: Multi-agent framework code
+- Documentation: README, skill protocols, schemas
+- Templates: Journal configurations, repo analysis
+- State tracking: Workflow management system
 
 **RRWrite Output**:
-- Detailed manuscript plan mapping data→sections
-- Methods section describing the code implementation
-- Results section with verified statistics
-- Proper figure captions derived from plotting code
-- Journal-compliant formatting for Bioinformatics
+- Complete manuscript for Bioinformatics journal (3,788 words)
+- 23 DOI-verified citations with evidence tracking
+- 6 sections: Abstract, Introduction, Methods, Results, Discussion, Availability
+- Literature review from 20 papers
+- Comprehensive critique identifying 6 major + 8 minor issues
+- Complete provenance: outline → literature → drafts → critique
 
-[→ View Full Example](example/)
+[→ View Full Example](manuscript/repo_research_writer_v2/)
 
 ## 🔧 Installation
 
@@ -163,7 +164,7 @@ python scripts/rrwrite-verify-stats.py --file data/results.csv --col accuracy --
 
 ### 4. Critique
 
-The `/rrwrite-critique-manuscript` skill acts as "Reviewer #2":
+The `/rrwrite-critique-manuscript` skill applies critical, demanding critique style:
 - Checks journal-specific requirements
 - Verifies citation integrity
 - Flags missing figures or data availability statements
@@ -188,7 +189,7 @@ Writes individual sections with fact-checking.
 - Maintains variable name consistency
 
 ### `/rrwrite-critique-manuscript`
-Critiques drafts for compliance and accuracy.
+Critiques drafts for compliance and accuracy using critical, demanding style.
 
 **Checks**:
 - Word counts
@@ -339,32 +340,34 @@ See [VERSIONING.md](VERSIONING.md) for details.
 
 ## 📚 Example Outputs
 
-### From PROJECT.md:
+### From Repository Analysis:
 ```markdown
-## Key Finding
-Our model achieves 87% accuracy on the benchmark.
+## Key Features
+[REMOVED] integrates 864,363 validated species from KG-Microbe,
+57 Bakta-annotated genomes (667K features), and 245+ publications.
 
-Evidence: data/results.csv (line 45), figures/accuracy.png
+Evidence: README.md (lines 13-20), data/designs/MP_plus/MP_plus_v10/
 ```
 
 ### Generated Methods Section:
 ```markdown
 ## Methods
 
-The model was trained using AdamW optimizer (learning rate 1e-4,
-weight decay 0.01) for 100 epochs on 4× NVIDIA A100 GPUs. The loss
-function combined RMSD and TM-score as implemented in
-`scripts/train_model.py:87-89`.
+The multi-agent framework comprised four specialized agents operating on
+shared data infrastructure: LiteratureAgent, AnalogyReasoningAgent,
+GenomeFunctionAgent, and MediaFormulationAgent. All agents interfaced
+with a DuckDB backend containing KG-Microbe (864,363 validated species
+across 1.5M nodes and 5.1M edges) as implemented in
+`src/[REMOVED]/agents/`.
 ```
 
 ### With Verification:
 ```python
-# The agent reads train_model.py and finds:
-optimizer = torch.optim.AdamW(
-    model.parameters(),
-    lr=1e-4,          # ← Extracted
-    weight_decay=0.01  # ← Extracted
-)
+# The agent reads README.md and finds:
+# - 864,363 validated species across bacteria, archaea, fungi, and protozoa
+# - 57 Bakta-annotated genomes (667K features)
+# - 245+ publications
+# All statistics verified against source documentation
 ```
 
 ## 🤝 Contributing
@@ -398,7 +401,7 @@ If RRWrite helps your research, please cite:
 ## 🔗 Resources
 
 - **[Complete Workflow](WORKFLOW.md)**: Step-by-step manuscript generation guide
-- **[Full Example](example/)**: Complete protein prediction project
+- **[Full Example](manuscript/repo_research_writer_v2/)**: RRWrite self-documentation
 - **[Usage Guide](USAGE_GUIDE.md)**: Detailed integration instructions
 - **[Installation Guide](INSTALL.md)**: Comprehensive setup instructions
 - **[Technical Spec](data/gemini_deepresearch_cluewrite_concept.md)**: Architecture details
@@ -428,7 +431,7 @@ A: No! The verification loop ensures every number comes from your data files.
 
 2. **View the example**:
    ```bash
-   cat ~/repo-research-writer/examples/repo-research-writer_v1/README.md
+   cat ~/repo-research-writer/manuscript/repo_research_writer_v2/README.md
    ```
 
 3. **Generate your first manuscript**:
