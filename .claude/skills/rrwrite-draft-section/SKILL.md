@@ -106,6 +106,42 @@ All experimental data are deposited in Zenodo (DOI: 10.5281/zenodo.1234567).
 ... complete documentation following FAIR principles [Wilkinson2016].
 ```
 
+### Results Section Citations
+
+When drafting Results sections, cite ONLY to report what was observed or measured, not to explain concepts or provide justification:
+
+**✅ Appropriate citations:**
+- Papers/datasets that were analyzed or benchmarked against (e.g., [Smith2020] for comparison dataset)
+- Examples of findings from your analysis (e.g., "identified 29 papers including [ExamplePaper2024]")
+- Tools whose performance was measured (e.g., [Tool2024] achieved 85% accuracy in our tests)
+- Specific data sources that were processed (e.g., analyzed sequences from [GTDB2024])
+
+**❌ Inappropriate citations:**
+- Explaining what concepts mean (e.g., "establishing provenance chains [citations]")
+- Justifying why you did something (e.g., "addressing concerns about hallucination [citations]")
+- Discussing future possibilities (e.g., "for future integration with standards [citations]")
+- Providing background context or motivation
+
+**Rationale:** Results reports OBSERVATIONS and MEASUREMENTS from your work. Explanations, justifications, and contextual citations belong in Introduction (motivation/background) or Discussion (interpretation/implications).
+
+**Example (correct):**
+```markdown
+The literature search identified 29 papers spanning reproducible research [Wilkinson2016, Barker2022], computational notebooks [Pimentel2023], and AI-assisted writing [CHI2024, Ros2025].
+```
+(These are examples of papers found - actual results being reported)
+
+**Example (incorrect):**
+```markdown
+Literature evidence tracking established provenance chains between claims and sources [Himmelstein2019, CliVER2024].
+```
+(This explains what provenance chains are/do, not reporting a measurement)
+
+**Example (incorrect):**
+```markdown
+This evidence chain addresses concerns about hallucination in AI writing [CliVER2024].
+```
+(This justifies WHY we did something - belongs in Introduction or Discussion)
+
 ## Output and Naming (per schema: schemas/manuscript.yaml)
 
 Write the section to `{target_dir}/SECTIONNAME.md` where SECTIONNAME is:

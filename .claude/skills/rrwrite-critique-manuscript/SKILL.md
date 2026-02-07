@@ -91,6 +91,21 @@ Focus on:
     *   **Rationale:** Methods describes what was done in THIS work, not general field principles. Abstract concepts belong in Introduction or Discussion.
     *   **Action if violated:** Flag as minor issue. Recommend moving abstract principle citations to Introduction (for motivation) or Discussion (for broader context), keeping only tool-specific citations in Methods.
 
+6.  **Results Section Citations:**
+    *   Check Results sections for explanatory/justification citations vs. observational citations.
+    *   **ACCEPTABLE citations:**
+        - Papers/datasets analyzed or benchmarked (e.g., compared performance against [Smith2020])
+        - Examples of findings (e.g., "identified papers including [Example2024, Example2025]")
+        - Data sources processed (e.g., sequences from [GTDB2024])
+        - Tools whose performance was measured
+    *   **UNACCEPTABLE citations:**
+        - Explaining concepts (e.g., "establishing provenance chains [citations]")
+        - Justifying methodology (e.g., "addressing concerns about hallucination [citations]")
+        - Future possibilities (e.g., "for future integration with standards [citations]")
+        - Background context or motivation
+    *   **Rationale:** Results reports OBSERVATIONS and MEASUREMENTS. Explanations belong in Introduction; justifications and future directions belong in Discussion.
+    *   **Action if violated:** Flag as minor issue. Remove explanatory citations or move content to Discussion if it describes future directions or broader implications.
+
 ## Additional Critique Criteria
 
 ### For Outlines (manuscript_plan.md):

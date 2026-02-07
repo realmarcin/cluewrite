@@ -200,6 +200,36 @@ Documentation: https://project.readthedocs.io.
 Data deposited in Zenodo: DOI 10.5281/zenodo.1234567.
 ```
 
+**Special Note: Results Section**
+
+When drafting Results, cite ONLY to report observations and measurements, not to explain or justify:
+
+✅ **Appropriate citations:**
+- Papers/datasets analyzed or compared (e.g., "compared against [Smith2020]")
+- Examples of findings (e.g., "identified papers including [Example2024]")
+- Data sources processed (e.g., "analyzed sequences from [GTDB2024]")
+- Tools whose performance was measured
+
+❌ **Inappropriate citations:**
+- Explaining concepts (e.g., "establishing provenance chains [citations]")
+- Justifying methods (e.g., "addressing concerns about hallucination [citations]")
+- Future possibilities (e.g., "for future integration [citations]")
+- Background or motivation
+
+**Rationale:** Results reports WHAT YOU FOUND, not why you did it or what it means. Explanations belong in Introduction; interpretations belong in Discussion.
+
+**Example (correct):**
+```markdown
+The literature search identified 29 papers spanning reproducible research [Wilkinson2016, Barker2022] and AI writing [CHI2024, Ros2025].
+```
+(These are examples of papers found - actual results)
+
+**Example (incorrect):**
+```markdown
+Evidence tracking established provenance chains [Himmelstein2019, CliVER2024].
+```
+(This explains what provenance chains do, not a measurement)
+
 #### Step 4.2: Verify Numerical Claims (Critical!)
 
 After drafting, manually verify key claims:
