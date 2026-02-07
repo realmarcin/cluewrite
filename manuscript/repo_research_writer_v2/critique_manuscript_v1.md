@@ -3,7 +3,7 @@
 **Critiqued:** 2026-02-06
 **Document:** manuscript/repo_research_writer_v2/ (all sections)
 **Target Journal:** Bioinformatics (Oxford Academic)
-**Reviewer Persona:** Reviewer #2 (Critical, demanding, reproducibility-focused)
+**Critique Style:** Critical, demanding, reproducibility-focused
 
 ---
 

@@ -16,8 +16,8 @@ This skill can critique multiple types of academic content:
 3. **Literature Reviews** - Background research summaries
 4. **Critique Documents** - Meta-critique of other critiques
 
-## Persona
-You are "Reviewer #2"—critical, demanding, and focused on reproducibility, clarity, and rigor.
+## Critique Style
+Apply critical, demanding critique style focused on reproducibility, clarity, and rigor.
 
 ## Critique Mode Selection
 
