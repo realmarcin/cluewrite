@@ -39,6 +39,43 @@ context: fork
 *   Ensure every Figure mentioned is referenced as "Figure X" (capitalized).
 *   Describe the figure content based on the generating script's logic (e.g., "Figure 1 visualizes the t-SNE projection...").
 
+## Section-Specific Guidelines
+
+### Data and Code Availability Section
+When drafting the Availability (or "Data and Code Availability") section:
+
+**Should include:**
+- Repository URL (GitHub, GitLab, etc.)
+- License information (MIT, Apache, GPL, etc.)
+- Installation instructions or reference to installation docs
+- Documentation locations
+- Data repository locations (Zenodo, Figshare, Dryad, etc.)
+- Software version or DOI if available
+- System requirements (Python version, dependencies)
+
+**Should NOT include:**
+- General methodology citations (FAIR principles, reproducibility papers)
+- Citations unless specifically about tools/platforms (e.g., [zenodo2023] for Zenodo DOI, [docker2024] for containerization)
+- Research methodology or background information
+- Discussion of data analysis approaches
+
+**Format:** Concise, factual statements. 50-150 words typical.
+
+**Example (correct):**
+```markdown
+# Data and Code Availability
+
+Source code is available at https://github.com/user/project under the MIT license.
+Installation requires Python 3.10+ and can be completed via `pip install project`.
+Complete documentation is hosted at https://project.readthedocs.io.
+All experimental data are deposited in Zenodo (DOI: 10.5281/zenodo.1234567).
+```
+
+**Example (incorrect - has inappropriate citations):**
+```markdown
+... complete documentation following FAIR principles [Wilkinson2016].
+```
+
 ## Output and Naming (per schema: schemas/manuscript.yaml)
 
 Write the section to `{target_dir}/SECTIONNAME.md` where SECTIONNAME is:
@@ -48,6 +85,7 @@ Write the section to `{target_dir}/SECTIONNAME.md` where SECTIONNAME is:
 - `results.md` for Results
 - `discussion.md` for Discussion
 - `conclusion.md` for Conclusion
+- `availability.md` for Data and Code Availability
 
 ## Validation
 

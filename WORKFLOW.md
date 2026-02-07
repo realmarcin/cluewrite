@@ -164,6 +164,7 @@ Use /rrwrite-draft-section to write the [Section Name] section
 "Use /rrwrite-draft-section to write the Introduction section"
 "Use /rrwrite-draft-section to write the Discussion section"
 "Use /rrwrite-draft-section to write the Abstract"
+"Use /rrwrite-draft-section to write the Availability section"
 ```
 
 **What happens:**
@@ -172,6 +173,32 @@ Use /rrwrite-draft-section to write the [Section Name] section
 3. Generates text with proper formatting
 4. **Verifies numerical claims** using rrwrite-verify-stats.py
 5. Saves to `rrwrite-drafts/[section_name].md`
+
+**Special Note: Data and Code Availability Section**
+
+When drafting the Availability section, include ONLY factual access information:
+
+✅ **Should include:**
+- Repository URL (GitHub, GitLab, Zenodo, etc.)
+- License type (MIT, Apache 2.0, GPL-3.0, etc.)
+- Installation method or documentation reference
+- Data repository DOIs (Zenodo, Figshare, Dryad)
+- Software version or release DOI
+- System requirements (Python 3.10+, dependencies)
+
+❌ **Should NOT include:**
+- General methodology citations (FAIR principles, reproducibility frameworks)
+- Research background or justification
+- Citations unless specifically about tools/platforms
+- Analysis methodology discussions
+
+**Example (correct):**
+```markdown
+Source code available at https://github.com/user/project (MIT license).
+Installation via `pip install project` requires Python 3.10+.
+Documentation: https://project.readthedocs.io.
+Data deposited in Zenodo: DOI 10.5281/zenodo.1234567.
+```
 
 #### Step 4.2: Verify Numerical Claims (Critical!)
 

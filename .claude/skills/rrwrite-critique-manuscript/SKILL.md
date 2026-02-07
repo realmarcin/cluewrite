@@ -69,6 +69,12 @@ Focus on:
 3.  **Figure Callouts:**
     *   Ensure logical ordering (Figure 1 appears before Figure 2).
     *   Flag any figures in the `figures/` folder that are not referenced in the text.
+4.  **Availability Section Citations:**
+    *   Check Data and Code Availability (or similar) sections for inappropriate citations.
+    *   **ACCEPTABLE citations:** Specific tools/platforms (Zenodo DOI, Docker, GitHub, data repositories).
+    *   **UNACCEPTABLE citations:** General methodology papers (FAIR principles, reproducibility frameworks, workflow standards).
+    *   **Rationale:** Availability sections should contain factual access information, not methodology justifications.
+    *   **Action if violated:** Flag as minor issue, recommend removing general citations and keeping only tool-specific ones.
 
 ## Additional Critique Criteria
 
