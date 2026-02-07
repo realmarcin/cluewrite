@@ -41,6 +41,36 @@ context: fork
 
 ## Section-Specific Guidelines
 
+### Methods Section Citations
+
+When drafting Methods sections, cite ONLY specific tools, datasets, and methodologies that were actually used:
+
+**✅ Appropriate citations:**
+- Specific software tools used (e.g., [LinkML2024] for schema validation)
+- Datasets accessed (e.g., [GTDB2024] for taxonomic data)
+- Published algorithms implemented (e.g., [Smith2020] for MaxPro design)
+- Computational methods applied (e.g., [Jones2019] for embedding generation)
+- Analysis frameworks employed (e.g., [pandas2023] for data processing)
+
+**❌ Inappropriate citations:**
+- Abstract principles (FAIR data sharing, reproducibility frameworks)
+- General best practices papers
+- Related tools NOT used in this work
+- Methodological reviews unless specific method was implemented
+- Workflow standards not explicitly followed
+
+**Rationale:** Methods describes what YOU did, not general principles. Abstract concepts belong in Introduction (motivation) or Discussion (broader context).
+
+**Example (correct):**
+```markdown
+Schema validation was performed using LinkML specifications [LinkML2024].
+```
+
+**Example (incorrect):**
+```markdown
+All data followed FAIR principles [Wilkinson2016].
+```
+
 ### Data and Code Availability Section
 When drafting the Availability (or "Data and Code Availability") section:
 

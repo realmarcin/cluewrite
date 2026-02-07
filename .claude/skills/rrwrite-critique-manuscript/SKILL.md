@@ -76,6 +76,21 @@ Focus on:
     *   **Rationale:** Availability sections should contain factual access information, not methodology justifications.
     *   **Action if violated:** Flag as minor issue, recommend removing general citations and keeping only tool-specific ones.
 
+5.  **Methods Section Citations:**
+    *   Check Methods sections for abstract concept citations vs. specific tool citations.
+    *   **ACCEPTABLE citations:**
+        - Specific software tools actually used (e.g., LinkML for schema validation, pandas for data processing)
+        - Datasets accessed (e.g., GTDB for taxonomic data, MediaDive for media formulations)
+        - Published algorithms implemented (e.g., MaxPro for experimental design)
+        - Computational methods applied (e.g., graph embeddings, flux balance analysis)
+    *   **UNACCEPTABLE citations:**
+        - Abstract principles (FAIR data sharing [Wilkinson2016], reproducibility frameworks)
+        - General best practices papers (workflow standards, documentation guidelines)
+        - Related tools NOT used (e.g., citing Manubot when not using it)
+        - Methodological reviews unless specific method was implemented
+    *   **Rationale:** Methods describes what was done in THIS work, not general field principles. Abstract concepts belong in Introduction or Discussion.
+    *   **Action if violated:** Flag as minor issue. Recommend moving abstract principle citations to Introduction (for motivation) or Discussion (for broader context), keeping only tool-specific citations in Methods.
+
 ## Additional Critique Criteria
 
 ### For Outlines (manuscript_plan.md):
