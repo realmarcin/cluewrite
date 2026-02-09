@@ -28,18 +28,96 @@ Conduct comprehensive literature research on the manuscript topic and generate a
 
 ## Workflow
 
+### Phase 0: Version Reuse Detection (Automatic)
+
+**Purpose:** Detect if a previous manuscript version exists with completed literature research and offer to reuse it as a starting point.
+
+1. **Auto-Detect Previous Version:**
+   ```bash
+   python scripts/rrwrite_import_evidence_tool.py \
+     --detect-only \
+     --target-dir {target_dir}
+   ```
+
+2. **If Previous Version Found:**
+   Display information about the detected version and ask user if they want to reuse the literature:
+
+   ```
+   ✓ Detected previous version: manuscript/project_v1
+   - Created: 2026-02-05
+   - Papers: 23
+   - Status: Research completed
+
+   Reuse literature from previous version as starting point?
+   This will:
+   - Import literature review and citations
+   - Validate all DOIs (check if still accessible)
+   - Allow you to expand with new recent papers
+
+   Reuse previous literature? [Y/n]:
+   ```
+
+3. **If User Accepts (Y or blank):**
+   Import and validate evidence:
+   ```bash
+   python scripts/rrwrite_import_evidence_tool.py \
+     --target-dir {target_dir} \
+     --validate
+   ```
+
+   This imports:
+   - `literature.md` (copied as base for expansion)
+   - `literature_citations.bib` (validated subset only)
+   - `literature_evidence.csv` (validated subset only)
+   - `literature_evidence_metadata.json` (provenance tracking)
+
+   Display results:
+   ```
+   ✓ Imported 20 of 23 papers from manuscript/project_v1
+   ✓ Valid: 18 papers
+   ⚠ Stale: 2 papers (>5 years old, marked for review)
+   ✗ Invalid: 3 papers (DOIs not found, removed)
+
+   Proceeding to Phase 1 to expand with recent research (2024-2026)...
+   ```
+
+   **Save imported files as backups:**
+   ```bash
+   cp {target_dir}/literature_evidence.csv {target_dir}/literature_evidence_imported.csv
+   ```
+
+   **Adjust search strategy for Phases 1-2:**
+   - Focus on papers from **last 2 years** (2024-2026) only
+   - Target 10-15 new papers (not 20-25)
+   - Avoid duplicating papers already in `literature_evidence_imported.csv`
+   - Use imported `literature.md` to extract additional context
+
+4. **If User Declines (n):**
+   Skip to Phase 1 (fresh research from scratch)
+   - Do not import any previous evidence
+   - Follow standard workflow
+
+5. **If No Previous Version Found:**
+   Skip to Phase 1 (fresh research from scratch)
+   - No user prompt shown
+   - Continue with normal workflow
+
+**Note:** Version reuse applies **only to literature evidence** (not repository evidence, as repos change).
+
 ### Phase 1: Topic Extraction
 1. **Read Context Documents:**
    - Read `PROJECT.md` to understand the research domain
    - Read `manuscript_plan.md` if available (for detailed topics)
    - Read `{target_dir}/introduction.md` or `{target_dir}/abstract.md` if available
    - Read `references.bib` to see what's already cited
+   - **If evidence was imported:** Read `{target_dir}/literature.md` and `{target_dir}/literature_evidence_imported.csv` to understand existing coverage
 
 2. **Extract Key Research Topics:**
    - Primary methodology (e.g., "transformer-based protein structure prediction")
    - Domain area (e.g., "computational biology", "deep learning")
    - Specific techniques (e.g., "attention mechanisms", "MSA features")
    - Comparison methods (e.g., "AlphaFold2", "RoseTTAFold")
+   - **If building on previous version:** Note topics already covered and identify gaps to fill
 
 3. **Formulate Search Queries:**
    Create 3-5 targeted search queries combining:
@@ -50,6 +128,17 @@ Conduct comprehensive literature research on the manuscript topic and generate a
    - Each competing method mentioned
 
 ### Phase 2: Literature Search
+
+**Search Strategy:**
+
+**If building on previous version (evidence was imported in Phase 0):**
+- **Focus exclusively on recent papers (2024-2026)**
+- Target 10-15 new papers to add
+- Check against `literature_evidence_imported.csv` to avoid duplicates
+- Prioritize: NeurIPS 2024/2025, ICLR 2025, Nature/Science 2024+
+- Query format: "[method] 2024", "[method] 2025", "[method] recent"
+
+**If starting fresh (no previous version):**
 
 **Use WebSearch tool to find:**
 1. **Foundational Papers** (highly cited, >1000 citations)
@@ -75,6 +164,15 @@ Conduct comprehensive literature research on the manuscript topic and generate a
 - **Capture direct quote**: Extract 1-2 sentences that best represent the key finding or contribution
 
 ### Phase 3: Synthesis
+
+**If building on previous version:**
+1. Read imported `{target_dir}/literature.md`
+2. Integrate new papers into existing sections
+3. Update "Recent Advances" section with 2024-2026 papers
+4. Preserve existing foundational and related work sections
+5. Mark additions with comment: `<!-- Added from v2 research 2026-02-08 -->`
+
+**If starting fresh:**
 
 Generate a structured summary in `{target_dir}/literature.md`:
 
@@ -179,6 +277,20 @@ Generate a structured summary in `{target_dir}/literature.md`:
 
 ### Phase 4: Citation File Generation
 
+**If building on previous version:**
+- Merge imported `{target_dir}/literature_citations.bib` with newly found papers
+- Use merge script to avoid duplicates:
+  ```bash
+  python scripts/rrwrite_import_evidence_tool.py \
+    --merge \
+    --old {target_dir}/literature_evidence_imported.csv \
+    --new {target_dir}/literature_evidence_new.csv \
+    --output {target_dir}/literature_evidence.csv
+  ```
+- Update `literature_citations.bib` to include only papers in final merged evidence
+
+**If starting fresh:**
+
 Create or update `bib_additions.bib` with BibTeX entries for all newly found papers:
 
 ```bibtex
@@ -244,6 +356,35 @@ python scripts/rrwrite-validate-manuscript.py --file {target_dir}/literature.md 
 ## State Update
 
 After successful validation, update workflow state:
+
+**If evidence was imported (building on previous version):**
+```python
+import sys
+import json
+from pathlib import Path
+sys.path.insert(0, str(Path('scripts').resolve()))
+from rrwrite_state_manager import StateManager
+
+manager = StateManager(output_dir="{target_dir}")
+
+# Load provenance metadata
+with open('{target_dir}/literature_evidence_metadata.json', 'r') as f:
+    metadata = json.load(f)
+
+# Count papers
+papers_imported = metadata['validation_summary']['papers_imported']
+papers_new = len(pd.read_csv('{target_dir}/literature_evidence_new.csv'))
+
+# Update state with import info
+manager.update_research_with_import(
+    source_version=metadata['source_version'],
+    papers_imported=papers_imported,
+    papers_new=papers_new,
+    validation_summary=metadata['validation_summary']
+)
+```
+
+**If starting fresh (no import):**
 ```python
 import sys
 from pathlib import Path

@@ -97,6 +97,10 @@ class StateManager:
                     "file": None,
                     "topics_count": 0,
                     "papers_found": 0,
+                    "papers_from_previous": 0,
+                    "papers_new": 0,
+                    "source_version": None,
+                    "validation_summary": None,
                     "completed_at": None,
                     "git_commit": None
                 },
@@ -312,6 +316,36 @@ class StateManager:
         self.state["files"]["assessment_report"] = assessment_file
         self.state["files"]["author_guidelines"] = guidelines_path
 
+        self._save_state()
+
+    def update_research_with_import(
+        self,
+        source_version: str,
+        papers_imported: int,
+        papers_new: int,
+        validation_summary: dict
+    ):
+        """Update research stage with import metadata.
+
+        Args:
+            source_version: Path to source version directory
+            papers_imported: Number of papers imported from previous version
+            papers_new: Number of newly found papers
+            validation_summary: Validation summary dictionary
+        """
+        total_papers = papers_imported + papers_new
+
+        self.state["workflow_status"]["research"] = {
+            "status": "completed",
+            "file": f"{self.manuscript_dir}/literature.md",
+            "papers_found": total_papers,
+            "papers_from_previous": papers_imported,
+            "papers_new": papers_new,
+            "source_version": source_version,
+            "validation_summary": validation_summary,
+            "completed_at": self._get_timestamp(),
+            "git_commit": self._get_git_commit()
+        }
         self._save_state()
 
     def update_section_status(self, section: str, status: str, file_path: Optional[str] = None):
