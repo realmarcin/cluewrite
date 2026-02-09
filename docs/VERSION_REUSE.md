@@ -70,12 +70,15 @@ Reuse previous literature? [Y/n]:
 
 **If you press Y (or Enter):**
 
-The system:
+The system executes a **three-step workflow**:
+
+### Step 1: Import and Validate (Phase 0)
 1. Copies `literature.md`, `literature_citations.bib`, `literature_evidence.csv` from v1
 2. Validates each DOI via HTTP HEAD request
 3. Checks paper freshness (flags papers >5 years old)
 4. Removes papers with invalid DOIs
 5. Saves validated evidence to v2
+6. Creates backup files (`literature_evidence_imported.csv`)
 
 **Validation Results:**
 
@@ -98,17 +101,64 @@ Next step: Review flagged papers and decide whether to:
     → See details in: literature_evidence_validation.csv
 
 ============================================================
-IMPORT COMPLETE
+IMPORT COMPLETE - Proceeding to NEW Literature Search
 ============================================================
-
-Ready to continue with Phase 1-3: Literature search for recent papers (2024-2026)...
 ```
 
-**Then:** The skill continues with **focused new research**:
-- Searches only for recent papers (2024-2026)
-- Targets 10-15 new papers
-- Avoids duplicating imported papers
-- Merges old + new evidence
+### Step 2: NEW Literature Search (Phases 1-3)
+
+**IMPORTANT:** The workflow automatically continues to conduct a NEW literature search. This is the "review, extend, and refine" step:
+
+**Search Strategy:**
+- **Focus:** Papers from **2024-2026 only** (last 2 years)
+- **Target:** 10-15 new papers
+- **Topics:** Identified from imported literature + repository context
+- **Queries:**
+  - "AI-driven cultivation systems 2024"
+  - "Multi-agent systems for science 2025"
+  - "Knowledge graph applications biology 2024"
+  - "High-throughput screening 2025"
+- **Deduplication:** Check against imported papers to avoid duplicates
+
+**Output:** `literature_evidence_new.csv` (10-15 recent papers)
+
+### Step 3: Merge Evidence
+
+Automatically merge imported + new papers:
+
+```bash
+python scripts/rrwrite_import_evidence_tool.py \
+  --merge \
+  --old literature_evidence_imported.csv \
+  --new literature_evidence_new.csv \
+  --output literature_evidence.csv
+```
+
+**Merge Results:**
+```
+Papers from previous version: 20
+Papers from new search: 12
+Duplicates removed: 2
+Total merged papers: 30
+```
+
+**Final Outputs:**
+- `literature.md` - Updated with new papers in "Recent Advances" section
+- `literature_citations.bib` - All 30 citations
+- `literature_evidence.csv` - Merged and deduplicated
+- `literature_evidence_metadata.json` - Complete provenance tracking
+
+### Why This Workflow?
+
+**Review:** Validate that v1 papers are still current and accessible
+**Extend:** Add 10-15 new papers from 2024-2026
+**Refine:** Merge both sources, remove duplicates, update literature review
+
+This approach:
+- ✅ Saves time (don't re-search for foundational papers)
+- ✅ Ensures currency (add latest 2024-2026 papers)
+- ✅ Maintains quality (validate all DOIs, check freshness)
+- ✅ Full traceability (provenance metadata tracks everything)
 
 ## Validation Process
 
@@ -225,45 +275,85 @@ RRWrite updates `.rrwrite/state.json` to track the import:
 
 ## Example Workflow
 
-### Scenario: Creating v2 from v1
+### Scenario: Creating v2 from v1 (Complete Workflow)
 
 **v1 (completed):**
 - 23 papers total
 - Literature research completed on 2026-02-05
 - Includes foundational work (2018-2022) and recent work (2023-2024)
 
-**v2 (new version):**
+**v2 (new version) - Three-Step Workflow:**
 
-1. **Auto-detection:**
-   ```
-   ✓ Detected previous version: manuscript/project_v1
-   Reuse previous literature? [Y/n]: Y
-   ```
+#### Step 1: Import and Validate (Phase 0)
+```
+✓ Detected previous version: manuscript/project_v1
+Reuse previous literature? [Y/n]: Y
 
-2. **Validation:**
-   ```
-   Validating evidence DOIs...
-   ✓ Imported 20 of 23 papers
-   ```
+Validating evidence DOIs...
 
-3. **Focused new research:**
-   - Search: "protein structure prediction 2024"
-   - Search: "protein structure prediction 2025"
-   - Find 12 new papers
+VALIDATION RESULTS:
+✓ Imported 20 of 23 papers from project_v1
 
-4. **Merge:**
-   ```
-   Papers from previous version: 20
-   Papers from new search: 12
-   Duplicates removed: 2
-   Total merged papers: 30
-   ```
+Papers imported:
+  • 18 papers - Valid (DOI resolves, <5 years old)
+  • 2 papers - Flagged for review (>5 years old, may need update)
 
-5. **Result:**
-   - `literature.md`: Updated with 12 new papers in "Recent Advances"
-   - `literature_citations.bib`: 30 entries
-   - `literature_evidence.csv`: 30 rows
-   - `literature_evidence_metadata.json`: Provenance tracking
+Papers excluded:
+  • 3 papers - DOI does not resolve (404 error)
+
+IMPORT COMPLETE - Proceeding to NEW Literature Search
+```
+
+#### Step 2: NEW Literature Search (Phases 1-3)
+```
+Phase 1: Topic Extraction
+✓ Extracted 8 topics from imported literature + repository
+  - AI-driven cultivation systems
+  - Multi-agent frameworks
+  - Knowledge graph applications
+  - High-throughput screening methods
+
+Phase 2: Literature Search (2024-2026 only)
+Searching: "AI cultivation systems 2024"
+Searching: "multi-agent science 2025"
+Searching: "knowledge graphs biology 2024"
+
+✓ Found 12 new papers (2024-2026)
+
+Phase 3: Evidence Extraction
+✓ Extracted quotes from 12 papers
+✓ Generated BibTeX entries with DOIs
+```
+
+#### Step 3: Merge Results
+```
+Merging evidence...
+
+Papers from previous version: 20
+Papers from new search: 12
+Duplicates removed: 2
+Total merged papers: 30
+
+✓ Updated literature.md with new "Recent Advances" section
+✓ Merged literature_citations.bib (30 entries)
+✓ Merged literature_evidence.csv (30 rows)
+✓ Updated provenance metadata
+```
+
+#### Final Result:
+```
+manuscript/project_v2/
+├── literature.md                       # Updated with 12 new papers
+├── literature_citations.bib            # 30 citations total
+├── literature_evidence.csv             # 30 papers (merged)
+├── literature_evidence_imported.csv    # 20 papers from v1 (backup)
+├── literature_evidence_new.csv         # 12 papers from 2024-2026 (backup)
+├── literature_evidence_validation.csv  # DOI validation report
+└── literature_evidence_metadata.json   # Complete provenance
+
+Total papers: 30 (20 from v1 + 10 new, 2 duplicates removed)
+Time saved: ~45 minutes vs. searching 30 papers from scratch
+```
 
 ### Scenario: Creating v3 from v2
 

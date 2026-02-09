@@ -58,7 +58,8 @@ Conduct comprehensive literature research on the manuscript topic and generate a
    ```
 
 3. **If User Accepts (Y or blank):**
-   Import and validate evidence:
+
+   **Step A: Import and Validate Evidence**
    ```bash
    python scripts/rrwrite_import_evidence_tool.py \
      --target-dir {target_dir} \
@@ -91,32 +92,51 @@ Conduct comprehensive literature research on the manuscript topic and generate a
        → See details in: literature_evidence_validation.csv
 
    ============================================================
-   IMPORT COMPLETE
+   IMPORT COMPLETE - Proceeding to NEW Literature Search
    ============================================================
-
-   Ready to continue with Phase 1-3: Literature search for recent papers (2024-2026)...
    ```
 
-   **Save imported files as backups:**
+   **Step B: Save imported files as backups**
    ```bash
    cp {target_dir}/literature_evidence.csv {target_dir}/literature_evidence_imported.csv
+   cp {target_dir}/literature.md {target_dir}/literature_imported.md
    ```
 
-   **Adjust search strategy for Phases 1-2:**
-   - Focus on papers from **last 2 years** (2024-2026) only
-   - Target 10-15 new papers (not 20-25)
-   - Avoid duplicating papers already in `literature_evidence_imported.csv`
-   - Use imported `literature.md` to extract additional context
+   **Step C: CONTINUE AUTOMATICALLY to Phases 1-3**
+
+   **IMPORTANT:** After import, the skill MUST continue to Phases 1-3 to conduct NEW literature search. This is not optional - it's the "review, extend, and refine" part of the workflow.
+
+   **Adjusted search strategy for Phases 1-3:**
+   - **Focus:** Papers from **last 2 years only** (2024-2026)
+   - **Target:** 10-15 new papers (not 20-25)
+   - **Avoid duplicates:** Check against `literature_evidence_imported.csv`
+   - **Context:** Use imported `literature.md` to identify gaps and extensions
+   - **Goal:** Update "Recent Advances" section with latest research
+
+   **After Phase 3 (new search complete), merge automatically:**
+   ```bash
+   python scripts/rrwrite_import_evidence_tool.py \
+     --merge \
+     --old {target_dir}/literature_evidence_imported.csv \
+     --new {target_dir}/literature_evidence_new.csv \
+     --output {target_dir}/literature_evidence.csv
+   ```
+
+   **Final output:**
+   - Updated `literature.md` with new papers integrated
+   - Updated `literature_citations.bib` with all citations
+   - Merged `literature_evidence.csv` (deduplicated by DOI)
+   - Total: ~30 papers (20 from v1 + 10 new)
 
 4. **If User Declines (n):**
    Skip to Phase 1 (fresh research from scratch)
    - Do not import any previous evidence
-   - Follow standard workflow
+   - Follow standard workflow (20-25 papers total)
 
 5. **If No Previous Version Found:**
    Skip to Phase 1 (fresh research from scratch)
    - No user prompt shown
-   - Continue with normal workflow
+   - Continue with normal workflow (20-25 papers total)
 
 **Note:** Version reuse applies **only to literature evidence** (not repository evidence, as repos change).
 
