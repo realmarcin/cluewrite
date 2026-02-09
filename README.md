@@ -544,7 +544,17 @@ rrwrite/                          # Tool repository (clone this)
 ├── docs/                         # Documentation
 │   └── GIT_ARCHITECTURE.md       # Git architecture explained
 ├── example/                      # Example manuscripts (for reference)
-│   └── (generate with /rrwrite --repo /path/to/rrwrite --output-dir example/rrwrite_v1)
+│   ├── README.md                 # Example documentation
+│   └── repo_research_writer_v2/  # Self-referential manuscript example
+│       ├── abstract.md
+│       ├── introduction.md
+│       ├── methods.md
+│       ├── results.md
+│       ├── discussion.md
+│       ├── availability.md
+│       ├── literature.md
+│       ├── literature_citations.bib
+│       └── ...
 └── manuscript/                   # Your workspace (auto-created, gitignored)
     └── yourrepo_v1/              # Your manuscript project
         ├── .git/                 # Separate git repo for your manuscript
@@ -788,14 +798,32 @@ python scripts/rrwrite.py --repo /path/to/research --no-git
 
 ## Examples
 
-To generate an example manuscript about the RRWrite tool itself:
+### Included Example: repo_research_writer_v2
 
+See `example/repo_research_writer_v2/` for a complete self-referential manuscript documenting the RRWrite tool itself.
+
+This example includes:
+- All manuscript sections (abstract through availability)
+- Literature review and citations
+- Evidence tracking database
+- Critique report
+- Complete workflow state
+
+**Explore the example:**
 ```bash
-# Generate a self-referential manuscript
-/rrwrite --repo /path/to/rrwrite --output-dir example/rrwrite_v1
+cd example/repo_research_writer_v2/
+ls -la  # See all generated files
+cat README.md  # Overview of the manuscript
 ```
 
-This creates a complete manuscript in `example/rrwrite_v1/` that documents the RRWrite tool, demonstrating all features and outputs.
+### Generate Your Own Example
+
+To create a manuscript for your repository:
+
+```bash
+# Generate manuscript for your project
+/rrwrite --repo /path/to/your-repo --output-dir manuscript/yourproject_v1
+```
 
 ---
 
