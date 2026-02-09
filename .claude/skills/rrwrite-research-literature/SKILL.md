@@ -1,6 +1,6 @@
 ---
 name: rrwrite-research-literature
-description: Performs deep literature research on manuscript topics and generates a comprehensive one-page summary of background and related work with citations.
+description: Use when outline exists and you need literature background. Performs search, extracts DOIs, generates evidence file with quotes. Do NOT use before outline or after literature review complete.
 arguments:
   - name: target_dir
     description: Output directory for manuscript files (e.g., manuscript/repo_v1)

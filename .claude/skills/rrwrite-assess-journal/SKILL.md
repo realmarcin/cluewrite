@@ -1,6 +1,6 @@
 ---
 name: rrwrite-assess-journal
-description: Analyzes manuscript outline for journal suitability, recommends optimal journal, and fetches author guidelines
+description: Use when outline complete and journal uncertain. Compares outline to journal requirements, recommends best fit. Do NOT use before outline exists or when journal already selected.
 arguments:
   - name: target_dir
     description: Output directory for manuscript files

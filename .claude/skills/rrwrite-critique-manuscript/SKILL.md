@@ -1,6 +1,6 @@
 ---
 name: rrwrite-critique-manuscript
-description: Performs adversarial critique of manuscripts, outlines, literature reviews, or other academic content against journal requirements and quality standards.
+description: Use when manuscript draft exists and needs review. Runs two-stage review (content validity, then format compliance). Do NOT use before draft exists or for planning. Outputs separate content and format reports.
 arguments:
   - name: target_dir
     description: Output directory for manuscript files (e.g., manuscript/repo_v1)
@@ -8,6 +8,57 @@ arguments:
 allowed-tools:
 ---
 # Academic Critique Protocol
+
+## Two-Stage Review Process
+
+### Why Separate Stages?
+
+1. **Different mindsets:** Content requires domain expertise and skepticism; format requires attention to detail
+2. **Parallel execution:** Can run simultaneously with different agents
+3. **Clear priorities:** Content issues are Major, format issues are Minor
+4. **Reduced cognitive load:** Reviewer focuses on one concern type
+
+### Stage 1: Content Review (Priority Issues)
+**Focus:** Scientific validity, argument strength, evidence quality
+**Mindset:** Skeptical scientist - assume claims are wrong until proven
+
+```bash
+python scripts/rrwrite-critique-content.py \
+  --file {target_dir}/manuscript.md \
+  --output {target_dir}/critique_content_v{N}.md
+```
+
+**Checks:**
+- [ ] Does it answer the stated research question?
+- [ ] Are all claims supported by evidence?
+- [ ] Are there logical gaps in arguments?
+- [ ] Is the narrative coherent?
+- [ ] Are methods reproducible?
+- [ ] Are results interpretations valid?
+
+### Stage 2: Format Review (Secondary Issues)
+**Focus:** Citation formatting, structure compliance, journal requirements
+**Mindset:** Copy editor - trust content, verify presentation
+
+```bash
+python scripts/rrwrite-critique-format.py \
+  --file {target_dir}/manuscript.md \
+  --journal {journal} \
+  --output {target_dir}/critique_format_v{N}.md
+```
+
+**Checks:**
+- [ ] Citations complete and formatted correctly?
+- [ ] Tables have captions and are numbered?
+- [ ] Figures numbered correctly?
+- [ ] No orphaned references?
+- [ ] Word counts within limits?
+- [ ] Required sections present?
+- [ ] Journal-specific requirements met?
+
+---
+
+# Legacy Single-Stage Critique (Optional)
 
 ## Scope
 This skill can critique multiple types of academic content:

@@ -1,6 +1,6 @@
 ---
 name: rrwrite-plan-manuscript
-description: Analyzes the repository structure and generates a detailed manuscript outline based on target journal guidelines (Nature, PLOS, Bioinformatics).
+description: Use after repository analysis completes and you need manuscript structure. Creates detailed outline with section content, word targets, evidence mapping. Do NOT use before analysis or when outline exists.
 arguments:
   - name: target_dir
     description: Output directory for manuscript files (e.g., manuscript/repo_v1)

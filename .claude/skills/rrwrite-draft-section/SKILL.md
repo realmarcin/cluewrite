@@ -1,6 +1,6 @@
 ---
 name: rrwrite-draft-section
-description: Drafts a specific manuscript section using repository data and citation indices. Enforces fact-checking via Python tools.
+description: Use when outline is complete and you need to draft a specific section (abstract, introduction, methods, results, discussion, availability). Do NOT use before outline exists or for entire manuscript at once. Enforces citation verification and fact-checking.
 arguments:
   - name: target_dir
     description: Output directory for manuscript files (e.g., manuscript/repo_v1)
@@ -236,16 +236,46 @@ Write the section to `{target_dir}/SECTIONNAME.md` where SECTIONNAME is:
 - `conclusion.md` for Conclusion
 - `availability.md` for Data and Code Availability
 
-## Validation
+## The Iron Law of Academic Drafting
 
-After drafting, validate the section:
+**NO SECTION COMPLETION WITHOUT VERIFICATION CHECKLIST**
+
+| Rationalization | Reality |
+|-----------------|---------|
+| "I'll fix citations after drafting all sections" | Citations-after = "what did I write about?" Citations-during = "what should I write about?" Missing citations means unsupported claims. |
+| "Word count is close enough" | Journals auto-reject at word limit violations. ±20% ensures safety margin for editing. |
+| "This is just a first draft, doesn't need perfect citations" | First drafts with incomplete citations → forgotten sources → plagiarism risk. Evidence tracking starts now. |
+| "I can verify citations manually later" | Manual verification misses 40% of issues. Automated validation takes 5 seconds. |
+| "The DOI check is too strict" | DOIs are permanent identifiers. If DOI fails now, it's unavailable to readers later. |
+
+## Verification Gate (MANDATORY)
+
+### BEFORE claiming section complete:
+
+**1. IDENTIFY:** What proves this section is complete?
+   → Validation command that checks word count, citations, structure
+
+**2. RUN:** Execute validation fresh
 ```bash
-python scripts/rrwrite-validate-manuscript.py --file {target_dir}/SECTIONNAME.md --type section
+python scripts/rrwrite-validate-manuscript.py \
+  --file {target_dir}/SECTIONNAME.md \
+  --type section
 ```
+
+**3. READ:** Complete validation output, verify exit code
+
+**4. VERIFY:** Do all checks pass?
+   - [ ] Word count within ±20% of target
+   - [ ] All citations have DOIs in literature_evidence.csv
+   - [ ] No orphaned figure/table references
+   - [ ] Required subsections present (if applicable)
+   - [ ] Exit code = 0
+
+**5. ONLY THEN:** Update StateManager with completion status
 
 ## State Update
 
-After successful validation, update workflow state:
+After successful validation (exit code 0), update workflow state:
 ```python
 import sys
 from pathlib import Path
@@ -261,4 +291,16 @@ Display updated progress:
 python scripts/rrwrite-status.py --output-dir {target_dir}
 ```
 
-Report validation status and updated workflow progress. If validation fails, fix issues and re-validate.
+## If Validation Fails
+
+**DO NOT:**
+- Update state as complete
+- Move to next section
+- Rationalize failures away
+
+**DO:**
+1. Read complete error message
+2. Fix specific issues listed
+3. Re-run validation
+4. Verify exit code = 0
+5. Then update state

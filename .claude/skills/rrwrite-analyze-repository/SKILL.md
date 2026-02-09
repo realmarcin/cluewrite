@@ -1,6 +1,6 @@
 ---
 name: rrwrite-analyze-repository
-description: Analyzes a GitHub repository or local directory to extract structure, files, and research context
+description: Use when starting manuscript workflow for new repository. Extracts file structure, generates data tables, identifies research indicators. Do NOT use for repositories already analyzed or mid-workflow.
 arguments:
   - name: repo_path
     description: GitHub URL or local repository path to analyze
