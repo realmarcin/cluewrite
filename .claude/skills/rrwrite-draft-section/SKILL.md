@@ -16,6 +16,29 @@ context: fork
 *   **Context Files:** The list of code/data files identified in `{target_dir}/outline.md`.
 
 ## Workflow
+
+### Task Decomposition: The 2-5 Minute Rule
+
+Break section drafting into verifiable micro-tasks (see `docs/2-5-minute-rule.md` for full pattern).
+
+**Pattern:** Each task has (1) requirement, (2) action, (3) verification, (4) checkpoint.
+
+**Example: Methods Section (800 words)**
+- Task 1: Data collection paragraph (2 min, 180 words, 2-3 citations)
+- Task 2: Analysis methods paragraph (3 min, 225 words, tool citations only)
+- Task 3: Validation paragraph (2 min, 175 words)
+- Task 4: Reproducibility paragraph (2 min, 125 words, URLs + versions)
+- Task 5: Final assembly (1 min, verify total 705 words in 640-960 range)
+
+**After each task:**
+```python
+from rrwrite_state_manager import StateManager
+manager = StateManager(output_dir="{target_dir}")
+manager.update_section_progress(section="{section}", completed_tasks=["task1"], total_tasks=5)
+```
+
+### Detailed Steps
+
 1.  **Read Outline:** Read `{target_dir}/outline.md` to understand section requirements and evidence files.
 2.  **Load Word Limits:** Check section-specific word limits:
     ```bash
@@ -24,10 +47,11 @@ context: fork
     This ensures the draft meets the target word count (±20% variance allowed).
 3.  **Load Context:** Read the specified code/data files. DO NOT read unrelated files to save tokens.
 4.  **Load Citations:** Read `references.bib` or `{target_dir}/literature_citations.bib` to find relevant citation keys.
-5.  **Drafting:** Write the text in Markdown, adhering to word limits from step 2.
+5.  **Drafting:** Write the text in Markdown using 2-5 minute task chunks, adhering to word limits from step 2.
     *   Use **LaTeX** for math (e.g., `$x^2$`).
     *   Use **[Key]** format for citations (e.g., `[smith2020]`).
     *   **Style:** Formal academic prose. Passive voice for Methods; Active voice for Results.
+    *   **Verify each task** before moving to next (word count, citation validity)
 
 ## Fact-Checking Requirement
 **CRITICAL:** You must verify all numerical claims.

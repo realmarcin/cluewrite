@@ -35,6 +35,13 @@ except ImportError:
     DEFENSE_IN_DEPTH_AVAILABLE = False
     print("Warning: Defense-in-depth citation validation not available")
 
+# Import root cause tracer
+try:
+    from rrwrite_citation_tracer import CitationErrorTracer
+    ROOT_CAUSE_TRACING_AVAILABLE = True
+except ImportError:
+    ROOT_CAUSE_TRACING_AVAILABLE = False
+
 class ManuscriptValidator:
     """Validates manuscript files against schema requirements with defense-in-depth citation validation."""
 
