@@ -1,0 +1,67 @@
+#!/bin/bash
+# Pre-commit hook for manuscript validation
+# Validates all manuscript sections before allowing commit
+#
+# Installation:
+#   cp docs/git-hooks/pre-commit-manuscript .git/hooks/pre-commit
+#   chmod +x .git/hooks/pre-commit
+#
+# Bypass if needed:
+#   git commit --no-verify -m "Work in progress"
+
+MANUSCRIPT_DIR="manuscript"
+FAILED=0
+
+echo "🔍 Validating manuscript sections..."
+
+# Find all manuscript directories
+for ms_dir in ${MANUSCRIPT_DIR}/*_v*/; do
+    if [ ! -d "$ms_dir" ]; then
+        continue
+    fi
+
+    echo "  Checking: $ms_dir"
+
+    # Validate each section
+    for section in abstract introduction methods results discussion availability; do
+        SECTION_FILE="${ms_dir}${section}.md"
+
+        if [ -f "$SECTION_FILE" ]; then
+            python scripts/rrwrite-validate-manuscript.py \
+                --file "$SECTION_FILE" \
+                --type section \
+                --expert \
+                --quiet
+
+            if [ $? -ne 0 ]; then
+                echo "  ❌ Validation failed: $section"
+                FAILED=1
+            fi
+        fi
+    done
+
+    # Validate full manuscript if exists
+    MANUSCRIPT_FILE="${ms_dir}manuscript.md"
+    if [ -f "$MANUSCRIPT_FILE" ]; then
+        python scripts/rrwrite-validate-manuscript.py \
+            --file "$MANUSCRIPT_FILE" \
+            --type manuscript \
+            --expert \
+            --quiet
+
+        if [ $? -ne 0 ]; then
+            echo "  ❌ Validation failed: manuscript"
+            FAILED=1
+        fi
+    fi
+done
+
+if [ $FAILED -eq 1 ]; then
+    echo ""
+    echo "❌ Pre-commit validation failed"
+    echo "Fix errors or bypass with: git commit --no-verify"
+    exit 1
+fi
+
+echo "✅ All validations passed"
+exit 0
