@@ -135,15 +135,20 @@ def assemble_manuscript(manuscript_dir="manuscript", output_file=None,
         if not success:
             print("Warning: .docx conversion failed (manuscript .md still available)")
 
+    # Generate evidence report
+    print("\nGenerating evidence report...")
+    generate_evidence_report(manuscript_dir)
+
     print("\nNext steps:")
     print(f"1. Read the manuscript: {output_file}")
+    print(f"2. Review evidence report: {manuscript_dir / 'EVIDENCE_REPORT.md'}")
     if convert_docx:
         docx_file = output_file.with_suffix('.docx')
-        print(f"2. Open Word document: {docx_file}")
-        print(f"3. Import to Google Docs: Upload {docx_file} to docs.google.com")
-    print(f"4. Validate: python scripts/rrwrite-validate-manuscript.py --file {output_file} --type manuscript")
-    print(f"5. Critique: Use /rrwrite-critique-manuscript skill")
-    print(f"6. Check status: python scripts/rrwrite-status.py")
+        print(f"3. Open Word document: {docx_file}")
+        print(f"4. Import to Google Docs: Upload {docx_file} to docs.google.com")
+    print(f"5. Validate: python scripts/rrwrite-validate-manuscript.py --file {output_file} --type manuscript")
+    print(f"6. Critique: Use /rrwrite-critique-manuscript skill")
+    print(f"7. Check status: python scripts/rrwrite-status.py")
     if figures_copied > 0:
         print(f"\n✓ Copied {figures_copied} figure(s) to {manuscript_dir / 'figures'}")
 
@@ -248,6 +253,44 @@ def normalize_figure_references(content: str, manuscript_dir: Path) -> str:
         return match.group(0)
 
     return re.sub(pattern, replace_path, content)
+
+
+def generate_evidence_report(manuscript_dir: Path) -> bool:
+    """
+    Generate comprehensive evidence report.
+
+    Args:
+        manuscript_dir: Manuscript directory
+
+    Returns:
+        True if generation succeeded
+    """
+    import subprocess
+    import sys
+
+    script_path = Path(__file__).parent / 'rrwrite-generate-evidence-report.py'
+
+    if not script_path.exists():
+        print("  Evidence report script not found")
+        return False
+
+    try:
+        cmd = [
+            sys.executable,
+            str(script_path),
+            '--manuscript-dir', str(manuscript_dir)
+        ]
+
+        result = subprocess.run(cmd, capture_output=True, text=True, check=True)
+        print(result.stdout.strip())
+        return True
+
+    except subprocess.CalledProcessError as e:
+        print(f"  Warning: Evidence report generation failed: {e.stderr}")
+        return False
+    except Exception as e:
+        print(f"  Warning: Could not generate evidence report: {e}")
+        return False
 
 
 def convert_to_docx(markdown_file: Path) -> bool:

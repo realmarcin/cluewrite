@@ -326,11 +326,19 @@ The assembly process generates:
    - Embedded figures
    - Ready for Google Docs import
 
-3. **`{target_dir}/figures/`** (if --include-figures used)
+3. **`{target_dir}/EVIDENCE_REPORT.md`** ✨ NEW
+   - Comprehensive evidence summary
+   - Repository statistics with evidence counts
+   - Research topics with evidence files
+   - Literature citation status
+   - Evidence quality assessment
+   - References to all data files
+
+4. **`{target_dir}/figures/`** (if --include-figures used)
    - All figure files from repository
    - Referenced by markdown and embedded in .docx
 
-4. **`{target_dir}/manifest.json`**
+5. **`{target_dir}/manifest.json`**
    - Assembly metadata
    - Word counts per section
    - Citation statistics
