@@ -7,7 +7,7 @@ arguments:
     default: manuscript
   - name: include_figures
     description: Copy figures from repository to manuscript/figures directory
-    default: false
+    default: true
   - name: convert_docx
     description: Convert assembled manuscript to .docx format for Google Docs import
     default: true
@@ -84,24 +84,24 @@ Combine all drafted manuscript sections into a complete manuscript file with val
    - Optional .docx conversion using pandoc
 
    ```bash
-   # Basic assembly
+   # Standard assembly (includes figures and .docx conversion by default)
    python scripts/rrwrite-assemble-manuscript.py --output-dir {target_dir}
 
-   # With figures (copies figures from repository to {target_dir}/figures/)
+   # Disable figure copying
    python scripts/rrwrite-assemble-manuscript.py \
        --output-dir {target_dir} \
-       --include-figures
+       --no-include-figures
 
-   # With .docx conversion (for Google Docs import)
+   # Disable .docx conversion
    python scripts/rrwrite-assemble-manuscript.py \
        --output-dir {target_dir} \
-       --convert-docx
+       --no-convert-docx
 
-   # Full assembly with all features
+   # Markdown only (no figures, no .docx)
    python scripts/rrwrite-assemble-manuscript.py \
        --output-dir {target_dir} \
-       --include-figures \
-       --convert-docx
+       --no-include-figures \
+       --no-convert-docx
    ```
 
 2. **Figure Handling Process:**

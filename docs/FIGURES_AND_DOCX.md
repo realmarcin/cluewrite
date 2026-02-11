@@ -60,7 +60,11 @@ This will:
 ### Using the Skill
 
 ```bash
-/rrwrite-assemble --include-figures true
+# Figures are included by default
+/rrwrite-assemble
+
+# Disable if not needed
+/rrwrite-assemble --include-figures false
 ```
 
 ---
@@ -113,15 +117,24 @@ python scripts/rrwrite-convert-to-docx.py \
 **During assembly:**
 
 ```bash
+# .docx conversion is enabled by default
+python scripts/rrwrite-assemble-manuscript.py \
+    --output-dir example/rrwrite_v1
+
+# Disable if you only want markdown
 python scripts/rrwrite-assemble-manuscript.py \
     --output-dir example/rrwrite_v1 \
-    --convert-docx
+    --no-convert-docx
 ```
 
 Or via skill:
 
 ```bash
-/rrwrite-assemble --convert-docx true
+# .docx conversion enabled by default
+/rrwrite-assemble
+
+# Disable if needed
+/rrwrite-assemble --convert-docx false
 ```
 
 ### Importing to Google Docs
@@ -147,11 +160,11 @@ Starting from a completed manuscript:
 # Navigate to manuscript directory
 cd example/rrwrite_v1/
 
-# Assemble with figures and .docx conversion
-python ../../scripts/rrwrite-assemble-manuscript.py \
-    --output-dir . \
-    --include-figures \
-    --convert-docx
+# Assemble (figures and .docx conversion enabled by default)
+python ../../scripts/rrwrite-assemble-manuscript.py --output-dir .
+
+# Or via skill
+/rrwrite-assemble
 ```
 
 **Output:**
@@ -186,8 +199,11 @@ Next steps:
 ### Using Skills (Recommended)
 
 ```bash
-# Full assembly with all features
-/rrwrite-assemble --include-figures true --convert-docx true
+# Standard assembly (figures and .docx enabled by default)
+/rrwrite-assemble
+
+# Disable features if needed
+/rrwrite-assemble --include-figures false --convert-docx false
 ```
 
 ---
@@ -307,19 +323,23 @@ done
 
 ### Quick Reference
 
-**Include figures in assembly:**
+**Standard assembly (both features enabled by default):**
 ```bash
-/rrwrite-assemble --include-figures true
+/rrwrite-assemble
 ```
 
-**Convert to .docx:**
+**Markdown only (disable both):**
 ```bash
-/rrwrite-assemble --convert-docx true
+/rrwrite-assemble --include-figures false --convert-docx false
 ```
 
-**Both:**
+**Disable specific features:**
 ```bash
-/rrwrite-assemble --include-figures true --convert-docx true
+# No figures
+/rrwrite-assemble --include-figures false
+
+# No .docx
+/rrwrite-assemble --convert-docx false
 ```
 
 **Standalone .docx conversion:**

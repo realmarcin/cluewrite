@@ -314,7 +314,14 @@ def main():
     parser.add_argument(
         '--include-figures',
         action='store_true',
-        help='Copy figure files from repository to manuscript/figures directory'
+        default=True,
+        help='Copy figure files from repository to manuscript/figures directory (default: True, use --no-include-figures to disable)'
+    )
+    parser.add_argument(
+        '--no-include-figures',
+        action='store_false',
+        dest='include_figures',
+        help='Disable figure copying'
     )
     parser.add_argument(
         '--repository-path',
@@ -323,7 +330,14 @@ def main():
     parser.add_argument(
         '--convert-docx',
         action='store_true',
-        help='Convert assembled manuscript to .docx format (requires pandoc)'
+        default=True,
+        help='Convert assembled manuscript to .docx format (requires pandoc, default: True, use --no-convert-docx to disable)'
+    )
+    parser.add_argument(
+        '--no-convert-docx',
+        action='store_false',
+        dest='convert_docx',
+        help='Disable .docx conversion'
     )
 
     args = parser.parse_args()
