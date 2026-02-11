@@ -1,6 +1,6 @@
 ---
 name: rrwrite-workflow
-description: Use for complete end-to-end manuscript generation. Orchestrates all steps from repository analysis to final manuscript with validation gates, two-stage review, and citation verification. Equivalent to individual commands but fully automated.
+description: Use for complete end-to-end manuscript generation. Orchestrates all steps from repository analysis to final manuscript with validation gates, two-stage review, citation verification, and automated revision.
 arguments:
   - name: repo_path
     description: Path to research repository (local or GitHub URL)
@@ -8,6 +8,9 @@ arguments:
   - name: target_dir
     description: Output directory for manuscript (default: manuscript/reponame_v1)
     default: manuscript
+  - name: max_revisions
+    description: After critique, automatically revise up to N times (0=disabled, default 0)
+    default: 0
 allowed-tools:
 context: fork
 ---
@@ -31,10 +34,11 @@ Comprehensive, guided workflow incorporating all reliability improvements:
 | 3. Assess Journal | 2-3 min | journal_assessment.md | User selection |
 | 4. Research Literature | 5-10 min | literature.md, evidence.csv, citations.bib | DOI verification |
 | 5. Draft Sections | 20-40 min | abstract.md, intro.md, etc. | **Verification gates** |
-| 6. Assemble Manuscript | 1-2 min | manuscript.md | Citation sync, completeness |
-| 7. Two-Stage Review | 10-15 min | critique_content.md, critique_format.md | Content → Format |
+| 6. Assemble Manuscript | 1-2 min | manuscript_full.md, .docx | Citation sync, completeness |
+| 7. Review & Revision | 10-15 min (+2-6 min per revision) | critique_v{N}.md | Content → Format → **Auto-revision** |
 
-**Total:** 40-80 minutes | **Validation:** Continuous at every phase
+**Total:** 40-80 minutes (without revision) | 45-90 minutes (with 2 revisions)
+**Validation:** Continuous at every phase
 
 ---
 
@@ -282,18 +286,25 @@ python scripts/rrwrite-status.py --output-dir {target_dir}
 
 ```bash
 python scripts/rrwrite-assemble-manuscript.py \
-  --target-dir {target_dir} \
-  --journal {selected_journal}
+  --output-dir {target_dir} \
+  --max-revisions {max_revisions}
 ```
 
 **Generates:**
-- `manuscript.md` - Complete assembled manuscript
+- `manuscript_full.md` - Complete assembled manuscript
+- `manuscript_full.docx` - Word document (if pandoc available)
+- `EVIDENCE_REPORT.md` - Citation evidence report
 
 **Defense-in-Depth Layer 3 activated:** Assembly validation
 - All citations synchronized between text and bibliography
 - No orphaned references
 - Section order correct for journal
 - Metadata complete
+
+**If max_revisions > 0:**
+- Automatically runs critique after assembly
+- Iteratively revises sections to address issues
+- Stops when major issues resolved or max iterations reached
 
 ### Step 6.2: Validate Assembly
 
@@ -317,17 +328,22 @@ python scripts/rrwrite_citation_tracer.py {failing_citation} manuscript {target_
 
 ---
 
-## Phase 7: Two-Stage Review
+## Phase 7: Two-Stage Review and Revision
+
+**Note:** If `max_revisions > 0` was set in Phase 6, critique and automated revision have already been completed. This phase is for manual review of results or additional critique if needed.
 
 ### Stage 1: Content Review (PRIORITY ISSUES)
 
 **Mindset:** Skeptical scientist - assume claims wrong until proven
 
 ```bash
-python scripts/rrwrite-critique-content.py \
-  --file {target_dir}/manuscript.md \
-  --output {target_dir}/critique_content_v1.md
+python scripts/rrwrite-critique-manuscript.py \
+  --manuscript-dir {target_dir}
 ```
+
+**Generates:**
+- `critique_content_v1.md` - Content validation report
+- `critique_format_v1.md` - Format compliance report
 
 **Checks (6 validations):**
 1. Research question clearly stated?
@@ -337,17 +353,49 @@ python scripts/rrwrite-critique-content.py \
 5. Results interpretations valid?
 6. Narrative coherent?
 
-**Output:** Major issues (content validity)
+**Output:** Major issues (content validity), minor issues (improvements)
 
-**Action:** Fix all major issues before format review.
+**Action:**
+- If `max_revisions = 0`: Manually fix issues and re-assemble
+- If `max_revisions > 0`: Review automated revision results in critique_content_v{N}.md
 
-### Stage 2: Format Review (SECONDARY ISSUES)
+### Stage 2: Automated Revision (OPTIONAL)
+
+**Only if max_revisions > 0 (already completed in Phase 6)**
+
+The automated revision system iteratively addresses issues:
+
+1. **Parse critique reports** → Extract structured issues
+2. **Map to sections** → Determine which sections need revision
+3. **Apply revisions** → Use specialized revisers (rule-based + LLM)
+4. **Re-assemble** → Combine revised sections
+5. **Re-critique** → Generate new critique report
+6. **Check convergence** → Stop if major issues resolved or max iterations reached
+
+**Convergence criteria** (stops when ANY met):
+- ✓ Major issues == 0 (primary goal)
+- Max iterations reached
+- Stalled (< 5% improvement)
+
+**Review results:**
+```bash
+# Check revision summary
+cat {target_dir}/.rrwrite/state.json | grep -A 20 "revision"
+
+# View final critique
+cat {target_dir}/critique_content_v{N}.md
+```
+
+### Stage 3: Format Review (SECONDARY ISSUES)
 
 **Mindset:** Copy editor - trust content, verify presentation
 
+**Note:** Format critique already generated in Stage 1 as `critique_format_v1.md`
+
 ```bash
+# If running critique manually:
 python scripts/rrwrite-critique-format.py \
-  --file {target_dir}/manuscript.md \
+  --file {target_dir}/manuscript_full.md \
   --journal {selected_journal} \
   --output {target_dir}/critique_format_v1.md
 ```
