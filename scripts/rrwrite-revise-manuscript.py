@@ -278,19 +278,43 @@ class RevisionOrchestrator:
 
     def _run_critique(self, version: int):
         """Re-run critique on updated manuscript."""
-        critique_script = Path(__file__).parent / "rrwrite-critique-manuscript.py"
+        # Run content critique
+        content_script = Path(__file__).parent / "rrwrite-critique-content.py"
+        content_output = self.manuscript_dir / f"critique_content_v{version}.md"
 
-        cmd = [
+        cmd_content = [
             sys.executable,
-            str(critique_script),
-            "--manuscript-dir", str(self.manuscript_dir),
-            "--version", str(version)
+            str(content_script),
+            "--file", str(self.manuscript_dir / "manuscript_full.md"),
+            "--output", str(content_output)
         ]
 
-        result = subprocess.run(cmd, capture_output=True, text=True)
+        result = subprocess.run(cmd_content, capture_output=True, text=True)
 
-        if result.returncode != 0:
-            raise Exception(f"Critique failed: {result.stderr}")
+        # Note: critique scripts return exit code 1 when issues found (expected behavior)
+        # Only treat as error if output file wasn't created
+        if not content_output.exists():
+            error_msg = result.stderr if result.stderr else result.stdout
+            raise Exception(f"Content critique failed: {error_msg}")
+
+        # Run format critique
+        format_script = Path(__file__).parent / "rrwrite-critique-format.py"
+        format_output = self.manuscript_dir / f"critique_format_v{version}.md"
+
+        cmd_format = [
+            sys.executable,
+            str(format_script),
+            "--file", str(self.manuscript_dir / "manuscript_full.md"),
+            "--output", str(format_output)
+        ]
+
+        result = subprocess.run(cmd_format, capture_output=True, text=True)
+
+        # Note: critique scripts return exit code 1 when issues found (expected behavior)
+        # Only treat as error if output file wasn't created
+        if not format_output.exists():
+            error_msg = result.stderr if result.stderr else result.stdout
+            raise Exception(f"Format critique failed: {error_msg}")
 
     def _git_commit_iteration(self, iteration: int, metrics_before: Dict, metrics_after: Dict):
         """Commit iteration changes to git."""

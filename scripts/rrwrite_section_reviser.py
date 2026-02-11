@@ -14,9 +14,15 @@ Revision strategies:
 """
 
 import re
-import anthropic
 import os
 from pathlib import Path
+
+# Optional anthropic import for LLM-based revisions
+try:
+    import anthropic
+    ANTHROPIC_AVAILABLE = True
+except ImportError:
+    ANTHROPIC_AVAILABLE = False
 from typing import List, Optional, Dict, Any
 from dataclasses import dataclass
 import logging
@@ -308,6 +314,10 @@ class SectionReviser:
         Returns:
             Condensed content
         """
+        if not ANTHROPIC_AVAILABLE:
+            self.logger.warning("Anthropic SDK not available, skipping LLM condensation")
+            return content
+
         client = anthropic.Anthropic(api_key=os.environ.get("ANTHROPIC_API_KEY"))
 
         prompt = f"""Condense the following text to approximately {target_words} words while preserving all key points, citations, and technical details.
@@ -342,6 +352,10 @@ Condensed version:"""
         Returns:
             Updated content with citations
         """
+        if not ANTHROPIC_AVAILABLE:
+            self.logger.warning("Anthropic SDK not available, skipping LLM citation addition")
+            return content
+
         client = anthropic.Anthropic(api_key=os.environ.get("ANTHROPIC_API_KEY"))
 
         citation_info = "\n".join([

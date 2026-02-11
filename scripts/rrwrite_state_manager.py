@@ -551,6 +551,19 @@ class StateManager:
         Args:
             max_revisions: Maximum number of revision iterations
         """
+        # Initialize revision state if it doesn't exist (backward compatibility)
+        if "revision" not in self.state["workflow_status"]:
+            self.state["workflow_status"]["revision"] = {
+                "status": "not_started",
+                "max_revisions": 0,
+                "current_iteration": 0,
+                "iterations": [],
+                "convergence_status": None,
+                "convergence_reason": None,
+                "completed_at": None,
+                "git_commit": None
+            }
+
         self.state["workflow_status"]["revision"]["status"] = "in_progress"
         self.state["workflow_status"]["revision"]["max_revisions"] = max_revisions
         self.state["workflow_status"]["revision"]["current_iteration"] = 0
@@ -662,6 +675,10 @@ class StateManager:
         Returns:
             Dict with revision metrics
         """
+        # Handle backward compatibility
+        if "revision" not in self.state["workflow_status"]:
+            return {"status": "not_started"}
+
         revision_state = self.state["workflow_status"]["revision"]
 
         if revision_state["status"] == "not_started":
