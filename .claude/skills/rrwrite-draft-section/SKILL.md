@@ -1,6 +1,6 @@
 ---
 name: rrwrite-draft-section
-description: Use when outline is complete and you need to draft a specific section (abstract, introduction, methods, results, discussion, availability). Do NOT use before outline exists or for entire manuscript at once. Enforces citation verification and fact-checking.
+description: Drafts a specific manuscript section using repository data and citation indices. Enforces fact-checking via Python tools.
 arguments:
   - name: target_dir
     description: Output directory for manuscript files (e.g., manuscript/repo_v1)
@@ -16,29 +16,6 @@ context: fork
 *   **Context Files:** The list of code/data files identified in `{target_dir}/outline.md`.
 
 ## Workflow
-
-### Task Decomposition: The 2-5 Minute Rule
-
-Break section drafting into verifiable micro-tasks (see `docs/2-5-minute-rule.md` for full pattern).
-
-**Pattern:** Each task has (1) requirement, (2) action, (3) verification, (4) checkpoint.
-
-**Example: Methods Section (800 words)**
-- Task 1: Data collection paragraph (2 min, 180 words, 2-3 citations)
-- Task 2: Analysis methods paragraph (3 min, 225 words, tool citations only)
-- Task 3: Validation paragraph (2 min, 175 words)
-- Task 4: Reproducibility paragraph (2 min, 125 words, URLs + versions)
-- Task 5: Final assembly (1 min, verify total 705 words in 640-960 range)
-
-**After each task:**
-```python
-from rrwrite_state_manager import StateManager
-manager = StateManager(output_dir="{target_dir}")
-manager.update_section_progress(section="{section}", completed_tasks=["task1"], total_tasks=5)
-```
-
-### Detailed Steps
-
 1.  **Read Outline:** Read `{target_dir}/outline.md` to understand section requirements and evidence files.
 2.  **Load Word Limits:** Check section-specific word limits:
     ```bash
@@ -47,11 +24,10 @@ manager.update_section_progress(section="{section}", completed_tasks=["task1"], 
     This ensures the draft meets the target word count (±20% variance allowed).
 3.  **Load Context:** Read the specified code/data files. DO NOT read unrelated files to save tokens.
 4.  **Load Citations:** Read `references.bib` or `{target_dir}/literature_citations.bib` to find relevant citation keys.
-5.  **Drafting:** Write the text in Markdown using 2-5 minute task chunks, adhering to word limits from step 2.
+5.  **Drafting:** Write the text in Markdown, adhering to word limits from step 2.
     *   Use **LaTeX** for math (e.g., `$x^2$`).
     *   Use **[Key]** format for citations (e.g., `[smith2020]`).
     *   **Style:** Formal academic prose. Passive voice for Methods; Active voice for Results.
-    *   **Verify each task** before moving to next (word count, citation validity)
 
 ## Fact-Checking Requirement
 **CRITICAL:** You must verify all numerical claims.
@@ -59,9 +35,82 @@ manager.update_section_progress(section="{section}", completed_tasks=["task1"], 
 *   If the number involves a calculation (e.g., mean, p-value), generate a temporary Python script to compute it from the raw data and verify your claim.
 *   **Command:** `python scripts/rrwrite-verify-stats.py --file <PATH> --col [NAME] --op [mean/max/min]`
 
+## Figure discovery and inclusion
+
+### When to include figures
+
+Include figures when:
+1. Visual representation communicates concepts better than text
+2. Showing trends, distributions, or complex relationships
+3. Within journal figure limits (Bioinformatics: 7, Nature: 6, PLOS: 10)
+
+### Discovering available figures
+
+**Priority System:**
+- **Priority 1**: Figures from analyzed repository (`figures/from_repo/`) - these are ACTUAL research outputs
+- **Priority 2**: Generated analysis figures (`figures/generated/`) - these are supplementary visualizations
+
+Before drafting, check for figures from manifest:
+
+```python
+from pathlib import Path
+import json
+import sys
+sys.path.append(str(Path.cwd() / "scripts"))
+from rrwrite_figure_generator import FigureSelector
+
+# Check for figure manifest (created by extraction stage)
+manifest_path = Path("{target_dir}") / "figures/figure_manifest.json"
+
+if manifest_path.exists():
+    # Get figures recommended for this section (prioritizes repo figures)
+    section_figures = FigureSelector.get_figures_from_manifest(
+        section_name="{section_name}",
+        manifest_path=manifest_path,
+        prioritize_repo_figures=True  # Priority 1 first
+    )
+
+    print(f"Available figures for {section_name}:")
+    for fig in section_figures:
+        priority_label = "REPO" if fig['priority'] == 1 else "GENERATED"
+        print(f"  [{priority_label}] {fig['id']}: {fig['default_caption']}")
+        print(f"      Path: {fig['path']}")
+        if 'generating_script' in fig and fig['generating_script']:
+            print(f"      Script: {fig['generating_script']}")
+else:
+    # Fallback: use old method (generated figures only)
+    from rrwrite_figure_generator import FigureSelector
+
+    figures_dir = Path("{target_dir}") / "figures"
+    available_figures = FigureSelector.get_figures_for_section(
+        section_name="{section_name}",
+        figures_dir=figures_dir
+    )
+
+    print(f"Found {len(available_figures)} figures for {section_name}")
+```
+
+### Including figures in sections
+
+**Markdown format for figures:**
+
+```markdown
+![Workflow diagram showing analysis pipeline](../figures/from_repo/workflow_diagram.pdf)
+
+**Figure 1**: Workflow diagram showing the complete analysis pipeline implemented in this repository. This figure illustrates the data flow from input processing through statistical analysis to final output generation.
+```
+
+**Guidelines:**
+- Use relative paths from `sections/` directory (e.g., `../figures/from_repo/`)
+- Caption format: `**Figure N**: Description`
+- Reference in text: "As shown in Figure 1, the workflow..."
+- Prioritize repository figures over generated figures when both are available
+- Describe figure content based on what it actually shows (check the file if needed)
+
 ## Figure referencing
 *   Ensure every Figure mentioned is referenced as "Figure X" (capitalized).
-*   Describe the figure content based on the generating script's logic (e.g., "Figure 1 visualizes the t-SNE projection...").
+*   Describe the figure content based on the manifest metadata or generating script's logic.
+*   **PRIORITY**: Use repository figures (Priority 1) over generated figures (Priority 2) when both illustrate the same concept.
 
 ## Table discovery and inclusion
 
@@ -260,46 +309,16 @@ Write the section to `{target_dir}/SECTIONNAME.md` where SECTIONNAME is:
 - `conclusion.md` for Conclusion
 - `availability.md` for Data and Code Availability
 
-## The Iron Law of Academic Drafting
+## Validation
 
-**NO SECTION COMPLETION WITHOUT VERIFICATION CHECKLIST**
-
-| Rationalization | Reality |
-|-----------------|---------|
-| "I'll fix citations after drafting all sections" | Citations-after = "what did I write about?" Citations-during = "what should I write about?" Missing citations means unsupported claims. |
-| "Word count is close enough" | Journals auto-reject at word limit violations. ±20% ensures safety margin for editing. |
-| "This is just a first draft, doesn't need perfect citations" | First drafts with incomplete citations → forgotten sources → plagiarism risk. Evidence tracking starts now. |
-| "I can verify citations manually later" | Manual verification misses 40% of issues. Automated validation takes 5 seconds. |
-| "The DOI check is too strict" | DOIs are permanent identifiers. If DOI fails now, it's unavailable to readers later. |
-
-## Verification Gate (MANDATORY)
-
-### BEFORE claiming section complete:
-
-**1. IDENTIFY:** What proves this section is complete?
-   → Validation command that checks word count, citations, structure
-
-**2. RUN:** Execute validation fresh
+After drafting, validate the section:
 ```bash
-python scripts/rrwrite-validate-manuscript.py \
-  --file {target_dir}/SECTIONNAME.md \
-  --type section
+python scripts/rrwrite-validate-manuscript.py --file {target_dir}/SECTIONNAME.md --type section
 ```
-
-**3. READ:** Complete validation output, verify exit code
-
-**4. VERIFY:** Do all checks pass?
-   - [ ] Word count within ±20% of target
-   - [ ] All citations have DOIs in literature_evidence.csv
-   - [ ] No orphaned figure/table references
-   - [ ] Required subsections present (if applicable)
-   - [ ] Exit code = 0
-
-**5. ONLY THEN:** Update StateManager with completion status
 
 ## State Update
 
-After successful validation (exit code 0), update workflow state:
+After successful validation, update workflow state:
 ```python
 import sys
 from pathlib import Path
@@ -315,16 +334,4 @@ Display updated progress:
 python scripts/rrwrite-status.py --output-dir {target_dir}
 ```
 
-## If Validation Fails
-
-**DO NOT:**
-- Update state as complete
-- Move to next section
-- Rationalize failures away
-
-**DO:**
-1. Read complete error message
-2. Fix specific issues listed
-3. Re-run validation
-4. Verify exit code = 0
-5. Then update state
+Report validation status and updated workflow progress. If validation fails, fix issues and re-validate.

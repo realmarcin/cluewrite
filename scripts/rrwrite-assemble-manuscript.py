@@ -2,32 +2,32 @@
 """
 Assemble full manuscript from individual section files.
 
+Generates multiple output formats:
+- Markdown (.md): Source format with all content
+- DOCX (.docx): Microsoft Word format with proper figure/table handling
+- PDF (.pdf): PDF format (if pdflatex/weasyprint/wkhtmltopdf available)
+
+Figure and Table Handling:
+- Images: Place image files (PNG, JPG, PDF) in the manuscript directory or subdirectories
+- Reference in markdown: ![Caption text](path/to/image.png)
+- Images will be embedded in DOCX using --resource-path and --extract-media options
+- Tables: Use markdown pipe syntax or reference external data tables
+
+Data Tables:
+- TSV files in data_tables/ can be converted to markdown tables using:
+  python scripts/rrwrite-convert-tsv-to-table.py --input data_tables/file.tsv
+
 Usage:
     python scripts/rrwrite-assemble-manuscript.py
-    python scripts/rrwrite-assemble-manuscript.py --output manuscript/full_manuscript.md
-    python scripts/rrwrite-assemble-manuscript.py --include-figures --convert-docx
+    python scripts/rrwrite-assemble-manuscript.py --output-dir manuscript/project_v1
 """
 
 import argparse
-import shutil
-import re
 from pathlib import Path
 from datetime import datetime
 
-def assemble_manuscript(manuscript_dir="manuscript", output_file=None,
-                       include_figures=False, repository_path=None, convert_docx=False,
-                       max_revisions=0, run_critique=True):
-    """Assemble sections into full manuscript with optional figure handling.
-
-    Args:
-        manuscript_dir: Directory containing section files
-        output_file: Output file path
-        include_figures: If True, copy figures from repository to manuscript dir
-        repository_path: Path to source repository (for figure copying)
-        convert_docx: If True, convert output to .docx format after assembly
-        max_revisions: If > 0, run automated revision after critique (default: 0)
-        run_critique: If True, run automated critique after assembly (default: True)
-    """
+def assemble_manuscript(manuscript_dir="manuscript", output_file=None):
+    """Assemble sections into full manuscript."""
 
     manuscript_dir = Path(manuscript_dir)
 
@@ -45,14 +45,25 @@ def assemble_manuscript(manuscript_dir="manuscript", output_file=None,
         "conclusion.md"
     ]
 
-    # Check which sections exist
+    # Check for sections in two possible locations:
+    # 1. Direct: manuscript_dir/abstract.md
+    # 2. Subdirectory: manuscript_dir/sections/abstract.md
+    sections_dir = manuscript_dir / "sections"
     found_sections = []
     missing_sections = []
+    section_paths = {}  # Map section name to full path
 
     for section in section_order:
-        section_path = manuscript_dir / section
-        if section_path.exists():
+        # Try direct path first
+        direct_path = manuscript_dir / section
+        sections_subdir_path = sections_dir / section
+
+        if direct_path.exists():
             found_sections.append(section)
+            section_paths[section] = direct_path
+        elif sections_subdir_path.exists():
+            found_sections.append(section)
+            section_paths[section] = sections_subdir_path
         else:
             # Conclusion is optional
             if section != "conclusion.md":
@@ -63,13 +74,8 @@ def assemble_manuscript(manuscript_dir="manuscript", output_file=None,
         print("Proceeding with available sections...\n")
 
     if not found_sections:
-        print("Error: No section files found in manuscript/ directory")
+        print(f"Error: No section files found in {manuscript_dir}/ or {sections_dir}/")
         return False
-
-    # Handle figures if requested
-    figures_copied = 0
-    if include_figures:
-        figures_copied = copy_figures_to_manuscript(manuscript_dir, repository_path)
 
     # Determine output file
     if output_file is None:
@@ -91,7 +97,7 @@ def assemble_manuscript(manuscript_dir="manuscript", output_file=None,
 
         # Write each section
         for section in found_sections:
-            section_path = manuscript_dir / section
+            section_path = section_paths[section]
             section_name = section.replace('.md', '').title()
 
             # Add section header if not already in file
@@ -114,6 +120,92 @@ def assemble_manuscript(manuscript_dir="manuscript", output_file=None,
         words = len(content.split())
         print(f"  Estimated words: {words}")
 
+    # Generate DOCX and PDF versions
+    import subprocess
+    import shutil
+
+    if shutil.which("pandoc"):
+        print("\nGenerating alternate formats...")
+
+        # Generate DOCX with proper figure and table handling
+        docx_file = output_file.with_suffix('.docx')
+        try:
+            # Set resource paths to include both figure and table directories
+            # Priority 1: from_repo directories (original research outputs)
+            # Priority 2: generated directories (analysis visualizations)
+            resource_paths = [
+                str(manuscript_dir),
+                str(manuscript_dir / "figures/from_repo"),
+                str(manuscript_dir / "figures/generated"),
+                str(manuscript_dir / "tables/from_repo"),
+                str(manuscript_dir / "tables/generated"),
+                str(manuscript_dir / "figures"),  # Fallback for old manuscripts
+                str(manuscript_dir / "tables")    # Fallback for old manuscripts
+            ]
+
+            # Build pandoc command with proper image/table support
+            pandoc_cmd = [
+                "pandoc",
+                str(output_file),
+                "-o", str(docx_file),
+                "--standalone",
+                "--resource-path", ":".join(resource_paths),  # Colon-separated paths
+                "--extract-media", str(manuscript_dir / "media"),
+                "--wrap=preserve",
+                "--metadata", "title=Manuscript"
+            ]
+
+            # Add reference doc if available (for consistent styling)
+            reference_doc = Path(__file__).parent.parent / "templates/reference.docx"
+            if reference_doc.exists():
+                pandoc_cmd.extend(["--reference-doc", str(reference_doc)])
+
+            subprocess.run(pandoc_cmd, check=True, capture_output=True)
+
+            docx_size = docx_file.stat().st_size / 1024  # KB
+            print(f"  ✓ DOCX generated: {docx_file} ({docx_size:.1f} KB)")
+            print(f"    - Images resolved from:")
+            print(f"      • {manuscript_dir / 'figures/from_repo'}/ (Priority 1: Repository)")
+            print(f"      • {manuscript_dir / 'figures/generated'}/ (Priority 2: Generated)")
+            print(f"    - Media extracted to: {manuscript_dir / 'media'}/")
+        except subprocess.CalledProcessError as e:
+            print(f"  ⚠ DOCX generation failed: {e.stderr.decode()}")
+        except Exception as e:
+            print(f"  ⚠ DOCX generation failed: {e}")
+
+        # Generate PDF (try multiple engines)
+        pdf_file = output_file.with_suffix('.pdf')
+        pdf_engines = ['pdflatex', 'weasyprint', 'wkhtmltopdf']
+        pdf_generated = False
+
+        for engine in pdf_engines:
+            try:
+                subprocess.run([
+                    "pandoc",
+                    str(output_file),
+                    "-o", str(pdf_file),
+                    "--pdf-engine=" + engine,
+                    "-V", "geometry:margin=1in"
+                ], check=True, capture_output=True, timeout=60)
+                pdf_size = pdf_file.stat().st_size / 1024  # KB
+                print(f"  ✓ PDF generated: {pdf_file} ({pdf_size:.1f} KB) [engine: {engine}]")
+                pdf_generated = True
+                break
+            except subprocess.CalledProcessError:
+                continue
+            except subprocess.TimeoutExpired:
+                print(f"  ⚠ PDF generation timed out with {engine}")
+                continue
+            except Exception:
+                continue
+
+        if not pdf_generated:
+            print(f"  ⚠ PDF generation skipped (requires pdflatex, weasyprint, or wkhtmltopdf)")
+            print(f"    Install with: brew install basictex  # for pdflatex")
+    else:
+        print("\n  Note: Pandoc not found. Install to generate DOCX/PDF:")
+        print("    brew install pandoc")
+
     # Update state
     try:
         import sys
@@ -131,319 +223,13 @@ def assemble_manuscript(manuscript_dir="manuscript", output_file=None,
     except Exception as e:
         print(f"  Note: Could not update state ({e})")
 
-    # Convert to .docx if requested
-    if convert_docx:
-        print("\nConverting to .docx format...")
-        success = convert_to_docx(output_file)
-        if not success:
-            print("Warning: .docx conversion failed (manuscript .md still available)")
-
-    # Generate evidence report
-    print("\nGenerating evidence report...")
-    generate_evidence_report(manuscript_dir)
-
-    # Run automated critique and revision if requested
-    if run_critique:
-        print("\nRunning automated critique...")
-        critique_success = run_automated_critique(manuscript_dir)
-
-        if critique_success and max_revisions > 0:
-            # Check if there are major issues to address
-            from rrwrite_revision_parser import CritiqueParser
-            parser = CritiqueParser(manuscript_dir)
-            issues = parser.parse_critique_reports(version=1)
-            metrics = parser.count_issues(issues)
-
-            if metrics['major'] > 0:
-                print(f"\nFound {metrics['major']} major issues")
-                print(f"Starting automated revision (max iterations: {max_revisions})...")
-
-                revision_success = run_automated_revision(manuscript_dir, max_revisions)
-
-                if revision_success:
-                    print("\n✓ Automated revision completed")
-                else:
-                    print("\n⚠ Automated revision encountered errors")
-
     print("\nNext steps:")
     print(f"1. Read the manuscript: {output_file}")
-    print(f"2. Review evidence report: {manuscript_dir / 'EVIDENCE_REPORT.md'}")
-    if convert_docx:
-        docx_file = output_file.with_suffix('.docx')
-        print(f"3. Open Word document: {docx_file}")
-        print(f"4. Import to Google Docs: Upload {docx_file} to docs.google.com")
-    print(f"5. Validate: python scripts/rrwrite-validate-manuscript.py --file {output_file} --type manuscript")
-    if not run_critique:
-        print(f"6. Critique: Use /rrwrite-critique-manuscript skill")
-    if max_revisions == 0 and run_critique:
-        print(f"6. Revise: python scripts/rrwrite-revise-manuscript.py --manuscript-dir {manuscript_dir} --max-iterations 2")
-    print(f"7. Check status: python scripts/rrwrite-status.py")
-    if figures_copied > 0:
-        print(f"\n✓ Copied {figures_copied} figure(s) to {manuscript_dir / 'figures'}")
+    print(f"2. Validate: python scripts/rrwrite-validate-manuscript.py --file {output_file} --type manuscript")
+    print(f"3. Critique: Use /rrwrite-critique-manuscript skill")
+    print(f"4. Check status: python scripts/rrwrite-status.py")
 
     return True
-
-
-def copy_figures_to_manuscript(manuscript_dir: Path, repository_path: Path = None) -> int:
-    """
-    Copy figure files from repository to manuscript figures directory.
-
-    Args:
-        manuscript_dir: Manuscript directory
-        repository_path: Source repository path (auto-detect if None)
-
-    Returns:
-        Number of figures copied
-    """
-    # Determine repository path
-    if repository_path is None:
-        # Try to get from state file
-        try:
-            import sys
-            sys.path.insert(0, str(Path(__file__).parent))
-            from rrwrite_state_manager import StateManager
-
-            manager = StateManager(output_dir=str(manuscript_dir))
-            repository_path = Path(manager.state.get('repository_path', '.'))
-        except Exception:
-            # Fallback to parent of manuscript dir
-            repository_path = manuscript_dir.parent
-
-    repository_path = Path(repository_path)
-
-    # Figure patterns to search for
-    figure_patterns = ['*.png', '*.jpg', '*.jpeg', '*.pdf', '*.svg', '*.eps']
-
-    # Find figures in repository
-    figures = []
-    for pattern in figure_patterns:
-        figures.extend(repository_path.rglob(pattern))
-
-    # Filter out non-figure directories
-    skip_dirs = {'.git', '__pycache__', '.ipynb_checkpoints', 'node_modules',
-                 '.venv', 'venv', 'env', 'dist', 'build'}
-    figures = [f for f in figures if not any(skip in f.parts for skip in skip_dirs)]
-
-    if not figures:
-        print("No figures found in repository")
-        return 0
-
-    # Create figures directory in manuscript dir
-    figures_dir = manuscript_dir / 'figures'
-    figures_dir.mkdir(exist_ok=True)
-
-    # Copy figures
-    copied = 0
-    for fig in figures:
-        try:
-            dest = figures_dir / fig.name
-            # Avoid overwriting if file exists
-            if not dest.exists():
-                shutil.copy2(fig, dest)
-                copied += 1
-                print(f"  Copied: {fig.name}")
-        except Exception as e:
-            print(f"  Warning: Could not copy {fig.name}: {e}")
-
-    return copied
-
-
-def normalize_figure_references(content: str, manuscript_dir: Path) -> str:
-    """
-    Normalize figure references to use local figures/ directory.
-
-    Args:
-        content: Markdown content
-        manuscript_dir: Manuscript directory path
-
-    Returns:
-        Content with normalized figure references
-    """
-    # Pattern to match markdown image syntax: ![alt](path)
-    pattern = r'!\[([^\]]*)\]\(([^)]+)\)'
-
-    def replace_path(match):
-        alt_text = match.group(1)
-        img_path = match.group(2)
-
-        # If path is already using figures/, leave it
-        if img_path.startswith('figures/') or img_path.startswith('./figures/'):
-            return match.group(0)
-
-        # Extract filename
-        filename = Path(img_path).name
-
-        # Check if file exists in figures/ directory
-        figures_dir = manuscript_dir / 'figures'
-        if (figures_dir / filename).exists():
-            return f'![{alt_text}](figures/{filename})'
-
-        # Return original if not found
-        return match.group(0)
-
-    return re.sub(pattern, replace_path, content)
-
-
-def generate_evidence_report(manuscript_dir: Path) -> bool:
-    """
-    Generate comprehensive evidence report.
-
-    Args:
-        manuscript_dir: Manuscript directory
-
-    Returns:
-        True if generation succeeded
-    """
-    import subprocess
-    import sys
-
-    script_path = Path(__file__).parent / 'rrwrite-generate-evidence-report.py'
-
-    if not script_path.exists():
-        print("  Evidence report script not found")
-        return False
-
-    try:
-        cmd = [
-            sys.executable,
-            str(script_path),
-            '--manuscript-dir', str(manuscript_dir)
-        ]
-
-        result = subprocess.run(cmd, capture_output=True, text=True, check=True)
-        print(result.stdout.strip())
-        return True
-
-    except subprocess.CalledProcessError as e:
-        print(f"  Warning: Evidence report generation failed: {e.stderr}")
-        return False
-    except Exception as e:
-        print(f"  Warning: Could not generate evidence report: {e}")
-        return False
-
-
-def run_automated_critique(manuscript_dir: Path) -> bool:
-    """
-    Run automated critique on assembled manuscript.
-
-    Args:
-        manuscript_dir: Manuscript directory
-
-    Returns:
-        True if critique succeeded
-    """
-    import subprocess
-    import sys
-
-    # Check if critique script exists
-    critique_script = Path(__file__).parent / 'rrwrite-critique-manuscript.py'
-
-    if not critique_script.exists():
-        print("  Critique script not found")
-        return False
-
-    try:
-        cmd = [
-            sys.executable,
-            str(critique_script),
-            '--manuscript-dir', str(manuscript_dir)
-        ]
-
-        result = subprocess.run(cmd, capture_output=True, text=True, check=True)
-        print(result.stdout.strip())
-        return True
-
-    except subprocess.CalledProcessError as e:
-        print(f"  Critique failed: {e.stderr}")
-        return False
-    except Exception as e:
-        print(f"  Error running critique: {e}")
-        return False
-
-
-def run_automated_revision(manuscript_dir: Path, max_iterations: int) -> bool:
-    """
-    Run automated revision on manuscript.
-
-    Args:
-        manuscript_dir: Manuscript directory
-        max_iterations: Maximum number of revision iterations
-
-    Returns:
-        True if revision succeeded
-    """
-    import subprocess
-    import sys
-
-    # Check if revision script exists
-    revision_script = Path(__file__).parent / 'rrwrite-revise-manuscript.py'
-
-    if not revision_script.exists():
-        print("  Revision script not found")
-        return False
-
-    try:
-        cmd = [
-            sys.executable,
-            str(revision_script),
-            '--manuscript-dir', str(manuscript_dir),
-            '--max-iterations', str(max_iterations)
-        ]
-
-        result = subprocess.run(cmd, capture_output=True, text=True, check=True)
-        print(result.stdout.strip())
-        return True
-
-    except subprocess.CalledProcessError as e:
-        print(f"  Revision failed: {e.stderr}")
-        return False
-    except Exception as e:
-        print(f"  Error running revision: {e}")
-        return False
-
-
-def convert_to_docx(markdown_file: Path) -> bool:
-    """
-    Convert markdown file to .docx format using pandoc.
-
-    Args:
-        markdown_file: Path to markdown file
-
-    Returns:
-        True if conversion succeeded
-    """
-    import subprocess
-
-    docx_file = markdown_file.with_suffix('.docx')
-
-    # Check if pandoc is available
-    if not shutil.which('pandoc'):
-        print("  Pandoc not found. Install with: brew install pandoc")
-        print("  Or use: python scripts/rrwrite-convert-to-docx.py")
-        return False
-
-    try:
-        cmd = [
-            'pandoc',
-            str(markdown_file),
-            '-o', str(docx_file),
-            '-f', 'markdown',
-            '-t', 'docx',
-            '--standalone'
-        ]
-
-        result = subprocess.run(cmd, capture_output=True, text=True, check=True)
-
-        file_size = docx_file.stat().st_size / 1024
-        print(f"  ✓ Created: {docx_file} ({file_size:.1f} KB)")
-        return True
-
-    except subprocess.CalledProcessError as e:
-        print(f"  Conversion failed: {e.stderr}")
-        return False
-    except Exception as e:
-        print(f"  Error: {e}")
-        return False
 
 def main():
     parser = argparse.ArgumentParser(
@@ -463,60 +249,13 @@ def main():
         default=None,
         help='Output file path (default: <output-dir>/full_manuscript.md)'
     )
-    parser.add_argument(
-        '--include-figures',
-        action='store_true',
-        default=True,
-        help='Copy figure files from repository to manuscript/figures directory (default: True, use --no-include-figures to disable)'
-    )
-    parser.add_argument(
-        '--no-include-figures',
-        action='store_false',
-        dest='include_figures',
-        help='Disable figure copying'
-    )
-    parser.add_argument(
-        '--repository-path',
-        help='Source repository path for figure copying (auto-detected if not specified)'
-    )
-    parser.add_argument(
-        '--convert-docx',
-        action='store_true',
-        default=True,
-        help='Convert assembled manuscript to .docx format (requires pandoc, default: True, use --no-convert-docx to disable)'
-    )
-    parser.add_argument(
-        '--no-convert-docx',
-        action='store_false',
-        dest='convert_docx',
-        help='Disable .docx conversion'
-    )
-    parser.add_argument(
-        '--max-revisions',
-        type=int,
-        default=0,
-        help='After critique, automatically revise up to N times (0=disabled, default: 0)'
-    )
-    parser.add_argument(
-        '--no-critique',
-        action='store_true',
-        help='Skip automated critique step (for manual control)'
-    )
 
     args = parser.parse_args()
 
     # Prefer --output-dir over --manuscript-dir
     manuscript_dir = args.output_dir if args.output_dir else args.manuscript_dir
 
-    success = assemble_manuscript(
-        manuscript_dir,
-        args.output,
-        include_figures=args.include_figures,
-        repository_path=args.repository_path,
-        convert_docx=args.convert_docx,
-        max_revisions=args.max_revisions,
-        run_critique=not args.no_critique
-    )
+    success = assemble_manuscript(manuscript_dir, args.output)
 
     if not success:
         exit(1)

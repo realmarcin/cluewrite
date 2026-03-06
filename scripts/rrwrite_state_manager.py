@@ -104,6 +104,18 @@ class StateManager:
                     "completed_at": None,
                     "git_commit": None
                 },
+                "figure_table_extraction": {
+                    "status": "not_started",
+                    "figures_from_repo": 0,
+                    "figures_generated": 0,
+                    "tables_from_repo": 0,
+                    "tables_generated": 0,
+                    "figure_manifest_path": None,
+                    "table_manifest_path": None,
+                    "scripts_parsed": 0,
+                    "completed_at": None,
+                    "git_commit": None
+                },
                 "drafting": {
                     "status": "not_started",
                     "sections": {
@@ -359,6 +371,70 @@ class StateManager:
         }
         self._save_state()
 
+    def update_figure_table_extraction(
+        self,
+        figures_from_repo: int,
+        figures_generated: int,
+        tables_from_repo: int,
+        tables_generated: int,
+        figure_manifest_path: Optional[str] = None,
+        table_manifest_path: Optional[str] = None,
+        scripts_parsed: int = 0
+    ):
+        """Update figure_table_extraction workflow stage.
+
+        Args:
+            figures_from_repo: Number of figures extracted from repository
+            figures_generated: Number of figures generated from analysis
+            tables_from_repo: Number of tables extracted from repository
+            tables_generated: Number of tables generated from analysis
+            figure_manifest_path: Path to figure manifest JSON
+            table_manifest_path: Path to table manifest JSON
+            scripts_parsed: Number of scripts parsed for figure/table generation info
+        """
+        total_figures = figures_from_repo + figures_generated
+        total_tables = tables_from_repo + tables_generated
+
+        self.state["workflow_status"]["figure_table_extraction"] = {
+            "status": "completed",
+            "figures_from_repo": figures_from_repo,
+            "figures_generated": figures_generated,
+            "tables_from_repo": tables_from_repo,
+            "tables_generated": tables_generated,
+            "figure_manifest_path": figure_manifest_path,
+            "table_manifest_path": table_manifest_path,
+            "scripts_parsed": scripts_parsed,
+            "completed_at": self._get_timestamp(),
+            "git_commit": self._get_git_commit()
+        }
+
+        # Update metadata
+        self.state["metadata"]["figures_count"] = total_figures
+        self.state["metadata"]["tables_count"] = total_tables
+
+        self._save_state()
+
+        # Commit to git if enabled
+        if self.git_manager:
+            files_to_commit = []
+            if figure_manifest_path:
+                files_to_commit.append(figure_manifest_path)
+            if table_manifest_path:
+                files_to_commit.append(table_manifest_path)
+
+            # Add figure and table directories
+            files_to_commit.extend([
+                "figures/from_repo",
+                "figures/generated",
+                "tables/from_repo",
+                "tables/generated"
+            ])
+
+            self.git_manager.commit(
+                message=f"Extract figures/tables: {total_figures} figures, {total_tables} tables",
+                files=files_to_commit
+            )
+
     def update_repository_analysis(
         self,
         analysis_file: str,
@@ -529,6 +605,7 @@ class StateManager:
             "plan",
             "assessment",
             "research",
+            "figure_table_extraction",
             "drafting",
             "critique",
             "revision"
@@ -543,31 +620,24 @@ class StateManager:
 
         return "completed"
 
-    # ===== Revision Methods =====
+    # ===== Revision Stage Methods =====
 
     def start_revision(self, max_revisions: int):
-        """Start the revision workflow.
+        """Initialize revision tracking.
 
         Args:
             max_revisions: Maximum number of revision iterations
         """
-        # Initialize revision state if it doesn't exist (backward compatibility)
-        if "revision" not in self.state["workflow_status"]:
-            self.state["workflow_status"]["revision"] = {
-                "status": "not_started",
-                "max_revisions": 0,
-                "current_iteration": 0,
-                "iterations": [],
-                "convergence_status": None,
-                "convergence_reason": None,
-                "completed_at": None,
-                "git_commit": None
-            }
-
-        self.state["workflow_status"]["revision"]["status"] = "in_progress"
-        self.state["workflow_status"]["revision"]["max_revisions"] = max_revisions
-        self.state["workflow_status"]["revision"]["current_iteration"] = 0
-        self.state["workflow_status"]["revision"]["iterations"] = []
+        self.state["workflow_status"]["revision"] = {
+            "status": "in_progress",
+            "max_revisions": max_revisions,
+            "current_iteration": 0,
+            "iterations": [],
+            "convergence_status": None,
+            "convergence_reason": None,
+            "completed_at": None,
+            "git_commit": None
+        }
         self._save_state()
 
     def update_revision_iteration(
@@ -576,30 +646,28 @@ class StateManager:
         sections_revised: List[str],
         metrics_before: Dict[str, int],
         metrics_after: Dict[str, int],
-        critique_files: Optional[Dict[str, str]] = None
+        critique_files: Dict[str, str]
     ):
-        """Update state after completing a revision iteration.
+        """Record a revision iteration.
 
         Args:
-            iteration: Iteration number (1-based)
-            sections_revised: List of sections revised in this iteration
-            metrics_before: Issue counts before revision {'major': N, 'minor': N}
-            metrics_after: Issue counts after revision {'major': N, 'minor': N}
-            critique_files: Optional dict with 'content' and 'format' critique file paths
+            iteration: Iteration number
+            sections_revised: List of sections that were revised
+            metrics_before: Issue counts before revision
+            metrics_after: Issue counts after revision
+            critique_files: Paths to critique files generated
         """
-        # Calculate improvement metrics
-        major_resolved = metrics_before.get('major', 0) - metrics_after.get('major', 0)
-        minor_resolved = metrics_before.get('minor', 0) - metrics_after.get('minor', 0)
+        major_resolved = metrics_before['major'] - metrics_after['major']
+        minor_resolved = metrics_before['minor'] - metrics_after['minor']
 
-        improvement_rate = 0.0
-        if metrics_before.get('major', 0) > 0:
-            improvement_rate = major_resolved / metrics_before['major']
+        improvement_rate = (
+            major_resolved / metrics_before['major']
+            if metrics_before['major'] > 0
+            else 0.0
+        )
 
-        # Create iteration record
-        iteration_record = {
+        iteration_data = {
             "iteration": iteration,
-            "started_at": self._get_timestamp(),
-            "completed_at": self._get_timestamp(),
             "sections_revised": sections_revised,
             "issues_before": metrics_before,
             "issues_after": metrics_after,
@@ -608,16 +676,13 @@ class StateManager:
                 "minor_resolved": minor_resolved,
                 "improvement_rate": improvement_rate
             },
-            "git_commit": self._get_git_commit()
+            "critique_files": critique_files,
+            "git_commit": self._get_git_commit(),
+            "timestamp": self._get_timestamp()
         }
 
-        if critique_files:
-            iteration_record["critique_files"] = critique_files
-
-        # Add to iterations list
-        self.state["workflow_status"]["revision"]["iterations"].append(iteration_record)
+        self.state["workflow_status"]["revision"]["iterations"].append(iteration_data)
         self.state["workflow_status"]["revision"]["current_iteration"] = iteration
-
         self._save_state()
 
     def check_revision_convergence(
@@ -626,41 +691,41 @@ class StateManager:
         iteration: int,
         max_revisions: int,
         improvement_rate: float,
-        min_improvement: float = 0.05
+        min_improvement: float
     ) -> tuple[bool, str]:
-        """Check if revision should stop based on convergence criteria.
+        """Check if revision should stop.
 
         Args:
-            metrics_after: Issue counts after latest revision
+            metrics_after: Issue counts after this iteration
             iteration: Current iteration number
-            max_revisions: Maximum allowed iterations
-            improvement_rate: Improvement rate from last iteration (0.0-1.0)
-            min_improvement: Minimum improvement rate to continue (default: 0.05 = 5%)
+            max_revisions: Maximum iterations allowed
+            improvement_rate: Improvement rate for this iteration
+            min_improvement: Minimum improvement rate to continue
 
         Returns:
             Tuple of (should_stop, reason)
         """
-        # Criterion 1: Major issues resolved
-        if metrics_after.get('major', 0) == 0:
+        # All major issues resolved
+        if metrics_after['major'] == 0:
             return (True, "major_issues_resolved")
 
-        # Criterion 2: Max iterations reached
+        # Max iterations reached
         if iteration >= max_revisions:
             return (True, "max_iterations_reached")
 
-        # Criterion 3: Stalled (no improvement)
-        if improvement_rate <= min_improvement:
+        # Improvement stalled
+        if improvement_rate < min_improvement:
             return (True, "stalled_no_improvement")
 
-        # Continue iterating
+        # Continue
         return (False, None)
 
     def complete_revision(self, convergence_status: str, convergence_reason: str):
-        """Mark revision workflow as completed.
+        """Mark revision as completed.
 
         Args:
-            convergence_status: 'converged' or 'stalled'
-            convergence_reason: Reason for stopping (e.g., 'major_issues_resolved')
+            convergence_status: "converged" or "stalled"
+            convergence_reason: Reason for stopping
         """
         self.state["workflow_status"]["revision"]["status"] = "completed"
         self.state["workflow_status"]["revision"]["convergence_status"] = convergence_status
@@ -670,15 +735,11 @@ class StateManager:
         self._save_state()
 
     def get_revision_summary(self) -> Dict[str, Any]:
-        """Get summary of revision workflow.
+        """Get revision summary for reporting.
 
         Returns:
-            Dict with revision metrics
+            Summary dict with status, iterations, and metrics
         """
-        # Handle backward compatibility
-        if "revision" not in self.state["workflow_status"]:
-            return {"status": "not_started"}
-
         revision_state = self.state["workflow_status"]["revision"]
 
         if revision_state["status"] == "not_started":
@@ -692,18 +753,23 @@ class StateManager:
                 "iterations": 0
             }
 
-        # Get first and last iteration metrics
-        first_iter = iterations[0]
-        last_iter = iterations[-1]
+        # Get first and last metrics
+        first_iteration = iterations[0]
+        last_iteration = iterations[-1]
+
+        issues_initial = first_iteration["issues_before"]
+        issues_final = last_iteration["issues_after"]
+
+        total_major_resolved = issues_initial['major'] - issues_final['major']
+        total_minor_resolved = issues_initial['minor'] - issues_final['minor']
 
         return {
             "status": revision_state["status"],
             "iterations": len(iterations),
-            "max_revisions": revision_state.get("max_revisions", 0),
-            "issues_initial": first_iter["issues_before"],
-            "issues_final": last_iter["issues_after"],
-            "total_major_resolved": first_iter["issues_before"].get("major", 0) - last_iter["issues_after"].get("major", 0),
-            "total_minor_resolved": first_iter["issues_before"].get("minor", 0) - last_iter["issues_after"].get("minor", 0),
+            "issues_initial": issues_initial,
+            "issues_final": issues_final,
+            "total_major_resolved": total_major_resolved,
+            "total_minor_resolved": total_minor_resolved,
             "convergence_status": revision_state.get("convergence_status"),
             "convergence_reason": revision_state.get("convergence_reason")
         }

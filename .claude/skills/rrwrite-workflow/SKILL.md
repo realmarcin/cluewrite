@@ -187,7 +187,69 @@ python scripts/rrwrite_citation_tracer.py {citation_key} literature {target_dir}
 
 ---
 
-## Phase 5: Draft Sections (WITH VERIFICATION GATES)
+## Phase 5: Figure and Table Extraction (2-4 min)
+
+Extract existing figures and tables from the analyzed repository and generate supplementary visualizations.
+
+### Step 5.1: Run Extraction
+
+```bash
+python scripts/rrwrite-extract-figures-tables.py \
+  --repo-path {repo_path} \
+  --manuscript-dir {target_dir} \
+  --extract figures,tables \
+  --generate figures \
+  --verbose
+```
+
+**Generates:**
+- `figures/from_repo/` - Original repository figures (Priority 1)
+- `figures/generated/` - Analysis visualizations (Priority 2)
+- `tables/from_repo/` - Original data tables
+- `tables/generated/` - Analysis tables
+- `figure_manifest.json` - Metadata with priority and section recommendations
+- `table_manifest.json` - Table metadata
+
+### Step 5.2: Review Extraction Results
+
+Check the extraction summary:
+
+```bash
+# View figure manifest
+cat {target_dir}/figures/figure_manifest.json | grep -A 3 '"id"'
+
+# View repository figures index
+cat {target_dir}/figures/from_repo/README.md
+```
+
+**Validation:**
+- [ ] Repository figures copied to `from_repo/` directory
+- [ ] Generated figures created in `generated/` directory
+- [ ] Manifests created with valid JSON
+- [ ] Priority correctly assigned (1=repo, 2=generated)
+
+**Decision Points:**
+- If no repository figures found: Continue (generated figures still available)
+- If extraction errors: Check repository path and file permissions
+- If manifests invalid: Run validation:
+  ```bash
+  python scripts/rrwrite_manifest_generator.py \
+    --manuscript-dir {target_dir} \
+    --validate \
+    --schemas-dir schemas
+  ```
+
+**Output Summary:**
+```
+Figures from repository: N
+Figures generated: M
+Tables from repository: X
+Tables generated: Y
+```
+
+---
+
+## Phase 6: Draft Sections (WITH VERIFICATION GATES)
 
 ### **CRITICAL: Iron Law of Academic Drafting**
 
@@ -280,7 +342,7 @@ python scripts/rrwrite-status.py --output-dir {target_dir}
 
 ---
 
-## Phase 6: Assemble Manuscript
+## Phase 7: Assemble Manuscript
 
 ### Step 6.1: Assemble Sections
 
@@ -328,7 +390,7 @@ python scripts/rrwrite_citation_tracer.py {failing_citation} manuscript {target_
 
 ---
 
-## Phase 7: Two-Stage Review and Revision
+## Phase 8: Two-Stage Review and Revision
 
 **Note:** If `max_revisions > 0` was set in Phase 6, critique and automated revision have already been completed. This phase is for manual review of results or additional critique if needed.
 
