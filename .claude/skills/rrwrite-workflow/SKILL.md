@@ -33,11 +33,12 @@ Comprehensive, guided workflow incorporating all reliability improvements:
 | 2. Plan Manuscript | 3-5 min | outline.md | Word count, structure |
 | 3. Assess Journal | 2-3 min | journal_assessment.md | User selection |
 | 4. Research Literature | 5-10 min | literature.md, evidence.csv, citations.bib | DOI verification |
-| 5. Draft Sections | 20-40 min | abstract.md, intro.md, etc. | **Verification gates** |
-| 6. Assemble Manuscript | 1-2 min | manuscript_full.md, .docx | Citation sync, completeness |
-| 7. Review & Revision | 10-15 min (+2-6 min per revision) | critique_v{N}.md | Content → Format → **Auto-revision** |
+| 5. Extract Figures/Tables | 2-4 min | figure_manifest.json, table_manifest.json | Manifest validation |
+| 6. Draft Sections | 20-40 min | abstract.md, intro.md, etc. | **Verification gates** |
+| 7. Assemble Manuscript | 1-2 min | manuscript_full.md, .docx | Citation sync, completeness |
+| 8. Review & Revision | 10-15 min (+2-6 min per revision) | critique_v{N}.md | Content → Format → **Auto-revision** |
 
-**Total:** 40-80 minutes (without revision) | 45-90 minutes (with 2 revisions)
+**Total:** 45-90 minutes (without revision) | 50-100 minutes (with 2 revisions)
 **Validation:** Continuous at every phase
 
 ---
@@ -503,7 +504,7 @@ python scripts/rrwrite-critique-format.py \
 │   ├── file_inventory.tsv
 │   ├── repository_statistics.tsv
 │   └── research_indicators.tsv
-├── sections/                           # Phase 5 outputs (ALL VALIDATED)
+├── sections/                           # Phase 6 outputs (ALL VALIDATED)
 │   ├── abstract.md                     # ✅ Passed verification gate
 │   ├── introduction.md                 # ✅ Passed verification gate
 │   ├── methods.md                      # ✅ Passed verification gate
@@ -533,13 +534,13 @@ python scripts/rrwrite-critique-format.py \
 
 ### Defense-in-Depth Citation Validation (Active Throughout)
 
-**Layer 1: Entry Validation (Phase 4-5)**
+**Layer 1: Entry Validation (Phase 4-6)**
 - Fast-fail: Citation must be in evidence file before use
 
-**Layer 2: Business Logic (Phase 5)**
+**Layer 2: Business Logic (Phase 6)**
 - Section-specific appropriateness (Methods = tools, Results = observations)
 
-**Layer 3: Assembly Validation (Phase 6)**
+**Layer 3: Assembly Validation (Phase 7)**
 - Manuscript-wide completeness, bibliography synchronization
 
 **Layer 4: Audit Trail (Continuous)**
