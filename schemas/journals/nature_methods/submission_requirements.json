@@ -1,0 +1,257 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rrwrite.org/schemas/nature_methods/submission_requirements.json",
+  "title": "Nature Methods Submission Requirements",
+  "description": "Technical and policy requirements for Nature Methods submission",
+  "journal": "Nature Methods",
+  "submission": {
+    "system": "Manuscript Tracking System (MTS)",
+    "url": "https://mts-nmeth.nature.com/",
+    "account_required": true,
+    "orcid_required": true,
+    "presubmission_inquiry": {
+      "allowed": true,
+      "recommended_for": "Authors uncertain about fit",
+      "response_time": "1-2 weeks"
+    }
+  },
+  "required_files": {
+    "main_manuscript": {
+      "format": ["DOCX", "PDF"],
+      "content": [
+        "Title page with author info",
+        "Abstract",
+        "Introduction",
+        "Results",
+        "Discussion",
+        "References"
+      ],
+      "formatting": {
+        "line_numbers": true,
+        "page_numbers": true,
+        "continuous": true
+      }
+    },
+    "online_methods": {
+      "format": ["DOCX", "PDF"],
+      "separate_file": true,
+      "content": [
+        "Detailed protocols",
+        "Data availability statement",
+        "Code availability statement",
+        "Statistical methods"
+      ]
+    },
+    "figures": {
+      "format": ["TIFF", "EPS", "PDF", "PNG"],
+      "resolution_dpi": {
+        "halftones": 300,
+        "line_art": 800,
+        "combinations": 500
+      },
+      "color_mode": "RGB",
+      "size": {
+        "single_column": "89mm",
+        "double_column": "183mm",
+        "full_page_height": "247mm"
+      },
+      "legends": "Include in main manuscript or separate file"
+    },
+    "tables": {
+      "format": ["DOCX", "Excel"],
+      "editable": true,
+      "legends": "Include above table"
+    },
+    "supplementary_information": {
+      "format": ["PDF", "DOCX", "Excel", "ZIP"],
+      "max_size_mb": 10,
+      "types": [
+        "Supplementary Figures",
+        "Supplementary Tables",
+        "Supplementary Notes",
+        "Supplementary Methods",
+        "Supplementary Data",
+        "Supplementary Videos"
+      ]
+    },
+    "cover_letter": {
+      "required": true,
+      "content": [
+        "Brief summary of work",
+        "Statement of novelty",
+        "Broad applicability",
+        "Why Nature Methods is appropriate venue",
+        "Suggested reviewers (optional but recommended)",
+        "Excluded reviewers with justification"
+      ]
+    },
+    "reporting_summary": {
+      "required": true,
+      "template_url": "https://www.nature.com/documents/nr-reporting-summary.pdf",
+      "description": "Standardized checklist covering method reporting standards"
+    }
+  },
+  "data_and_code_requirements": {
+    "data_availability": {
+      "required": true,
+      "statement_location": "Online Methods",
+      "options": [
+        "Public repository (recommended)",
+        "Available from authors upon request",
+        "Included in Supplementary Information"
+      ],
+      "repositories": {
+        "genomic": ["NCBI SRA", "EBI ENA", "DDBJ"],
+        "structural": ["PDB", "EMDB"],
+        "general": ["Zenodo", "Dryad", "Figshare"],
+        "code": ["GitHub", "GitLab", "Bitbucket", "Zenodo"]
+      }
+    },
+    "code_availability": {
+      "required": true,
+      "statement_location": "Online Methods",
+      "requirements": [
+        "Source code for custom software",
+        "Scripts for data analysis",
+        "Version information for all software",
+        "Operating system and dependencies",
+        "Installation instructions"
+      ],
+      "preferred_format": "GitHub repository with DOI (via Zenodo)"
+    },
+    "materials_availability": {
+      "required_if_applicable": true,
+      "statement": "Reagents, cell lines, datasets must be available to readers"
+    }
+  },
+  "authorship_and_contributions": {
+    "author_list": {
+      "required": true,
+      "orcid_required": true,
+      "affiliations_numbered": true
+    },
+    "contributions": {
+      "required": true,
+      "format": "CRediT taxonomy or free text",
+      "credit_roles": [
+        "Conceptualization",
+        "Methodology",
+        "Software",
+        "Validation",
+        "Formal analysis",
+        "Investigation",
+        "Resources",
+        "Data curation",
+        "Writing - original draft",
+        "Writing - review & editing",
+        "Visualization",
+        "Supervision",
+        "Project administration",
+        "Funding acquisition"
+      ]
+    },
+    "corresponding_author": {
+      "required": true,
+      "contact_info": ["Email", "Phone", "ORCID"]
+    }
+  },
+  "competing_interests": {
+    "required": true,
+    "statement_required_even_if_none": true,
+    "types": [
+      "Financial",
+      "Non-financial",
+      "Patent applications",
+      "Employment",
+      "Consultancy"
+    ]
+  },
+  "ethics_and_standards": {
+    "human_subjects": {
+      "required_if_applicable": true,
+      "requirements": [
+        "IRB/Ethics committee approval",
+        "Informed consent",
+        "Approval number in manuscript"
+      ]
+    },
+    "animal_research": {
+      "required_if_applicable": true,
+      "requirements": [
+        "IACUC or equivalent approval",
+        "Compliance with ARRIVE guidelines",
+        "Approval number in manuscript"
+      ]
+    },
+    "cell_lines": {
+      "authentication_required": true,
+      "mycoplasma_testing_required": true
+    }
+  },
+  "peer_review_process": {
+    "model": "Single-blind",
+    "typical_review_time": "4-6 weeks",
+    "decision_types": [
+      "Accept",
+      "Minor revision",
+      "Major revision",
+      "Reject"
+    ],
+    "appeal_allowed": true,
+    "transfer_option": {
+      "available": true,
+      "journals": [
+        "Nature Communications",
+        "Communications Biology",
+        "Scientific Reports"
+      ]
+    }
+  },
+  "publication_fees": {
+    "open_access": {
+      "optional": true,
+      "apc": 5490,
+      "currency": "USD",
+      "waivers_available": true
+    },
+    "color_figures": {
+      "fee": 0,
+      "note": "No charge for color in online version; print color charges apply if requested"
+    }
+  },
+  "style_and_formatting": {
+    "reference_style": "Nature",
+    "citation_format": "Numbered, in order of appearance",
+    "abbreviations": "Define at first use",
+    "gene_nomenclature": "Follow standard nomenclature (e.g., HUGO for human genes)",
+    "statistics": {
+      "required_info": [
+        "Statistical test used",
+        "Sample size",
+        "p-values",
+        "Error bars (SD, SEM, CI - must specify)"
+      ]
+    },
+    "reporting_standards": {
+      "follow": [
+        "ARRIVE (animal research)",
+        "CONSORT (clinical trials)",
+        "PRISMA (systematic reviews)",
+        "STROBE (epidemiology)"
+      ]
+    }
+  },
+  "preprints": {
+    "allowed": true,
+    "servers": ["bioRxiv", "medRxiv", "arXiv"],
+    "note": "Preprint posting does not affect consideration; must be disclosed"
+  },
+  "metadata": {
+    "schema_version": "1.0",
+    "generated_at": "2026-03-06T16:30:00.000000",
+    "source_type": "manual",
+    "source_url": "https://www.nature.com/nmeth/for-authors",
+    "validated": true,
+    "last_updated": "2026-03-06"
+  }
+}

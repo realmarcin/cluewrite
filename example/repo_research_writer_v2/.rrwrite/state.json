@@ -1,65 +1,209 @@
 {
   "version": "1.0",
-  "project_name": "repo-research-writer",
-  "target_journal": "bioinformatics",
-  "created": "2026-02-06T12:48:16.108701",
-  "last_updated": "2026-02-06T15:08:01.534611",
+  "created_at": "2026-03-05T23:45:35.201430",
+  "last_updated": "2026-03-06T01:13:08.683016",
+  "manuscript_dir": "/Users/marcin/Documents/VIMSS/ontology/repo-research-writer/example/repo_research_writer_v2",
+  "repository_path": null,
+  "target_journal": null,
   "workflow_status": {
+    "repository_analysis": {
+      "status": "completed",
+      "file": null,
+      "completed_at": "2026-03-05T23:45:43.853023",
+      "git_commit": "7102f7a",
+      "file_path": "example/repo_research_writer_v2/repository_analysis.md"
+    },
     "plan": {
       "status": "completed",
-      "file": "manuscript/repo_research_writer_v2/outline.md",
-      "completed_at": "2026-02-06T12:54:00.000000",
-      "git_commit": "a6537e8"
+      "file": null,
+      "target_journal": null,
+      "completed_at": "2026-03-05T23:49:45.174665",
+      "git_commit": "7102f7a",
+      "file_path": "example/repo_research_writer_v2/outline.md"
+    },
+    "assessment": {
+      "status": "completed",
+      "file": null,
+      "journal_initial": null,
+      "journal_confirmed": null,
+      "compatibility_score": null,
+      "required_adjustments": 0,
+      "guidelines_path": null,
+      "completed_at": "2026-03-05T23:53:24.474806",
+      "git_commit": "7102f7a",
+      "data": {
+        "selected_journal": "bioinformatics",
+        "journal_name": "Bioinformatics (Oxford Academic)",
+        "compatibility_score": "High (recommended)",
+        "guidelines_file": "journal_guidelines.md",
+        "assessment_file": "journal_assessment.md"
+      }
     },
     "research": {
       "status": "completed",
-      "file": "manuscript/repo_research_writer_v2/literature.md",
-      "completed_at": "2026-02-06T13:05:00.000000",
+      "file": "literature.md",
+      "topics_count": 8,
+      "papers_found": 25,
+      "papers_from_previous": 0,
+      "papers_new": 25,
+      "source_version": null,
+      "validation_summary": null,
+      "completed_at": "2026-03-06T00:21:02.171711",
       "git_commit": null,
-      "papers_found": 22
+      "update_note": "Extended existing literature with 3 new papers from 2024-2025 (Pividori2024, Semmelrock2025, Hossain2025)"
     },
-    "draft": {
-      "status": "in_progress",
-      "sections_completed": [
-        "abstract",
-        "introduction",
-        "methods",
-        "results",
-        "discussion",
-        "availability"
-      ],
-      "sections_pending": [],
-      "last_section": "availability",
-      "completed_at": "2026-02-06T15:08:01.534600"
+    "figure_table_extraction": {
+      "status": "completed",
+      "figures_from_repo": 0,
+      "figures_generated": 0,
+      "tables_from_repo": 0,
+      "tables_generated": 0,
+      "figure_manifest_path": null,
+      "table_manifest_path": null,
+      "scripts_parsed": 0,
+      "completed_at": "2026-03-06T00:26:42.160561",
+      "git_commit": "7102f7a",
+      "data": {
+        "figures_from_repo": 1924,
+        "figures_generated": 3,
+        "tables_from_repo": 150,
+        "tables_generated": 0
+      }
+    },
+    "drafting": {
+      "status": "completed",
+      "sections": {
+        "abstract": {
+          "status": "completed",
+          "file": null,
+          "completed_at": "2026-03-06T00:34:23.538513"
+        },
+        "introduction": {
+          "status": "completed",
+          "file": {
+            "word_count": 525,
+            "citations": 17
+          },
+          "completed_at": "2026-03-06T00:42:41.999519"
+        },
+        "methods": {
+          "status": "completed",
+          "file": "methods.md",
+          "completed_at": "2026-03-06T00:50:03.192099"
+        },
+        "results": {
+          "status": "completed",
+          "file": null,
+          "completed_at": "2026-03-06T00:53:27.756146"
+        },
+        "discussion": {
+          "status": "completed",
+          "file": null,
+          "completed_at": "2026-03-06T00:55:59.389055"
+        },
+        "availability": {
+          "status": "completed",
+          "file": null,
+          "completed_at": "2026-03-06T00:57:27.016942"
+        }
+      },
+      "completed_sections": 6,
+      "total_sections": 6,
+      "completed_at": "2026-03-06T00:57:27.016968",
+      "git_commit": "7102f7a"
+    },
+    "assembly": {
+      "status": "completed",
+      "file": "full_manuscript.md",
+      "manifest_file": "assembly_manifest.json",
+      "sections_included": 14,
+      "sections_missing": 0,
+      "total_word_count": 3941,
+      "validation_warnings": 1,
+      "completed_at": "2026-03-06T01:04:42.606605",
+      "git_commit": null
     },
     "critique": {
       "status": "completed",
+      "file": null,
+      "issues_found": 0,
+      "issues_major": 0,
+      "issues_minor": 0,
+      "completed_at": "2026-03-06T01:07:03.895950",
+      "git_commit": "7102f7a",
+      "data": {
+        "version": 1,
+        "major_issues": 15,
+        "minor_issues": 18,
+        "content_critique": "critique_content_v1.md",
+        "format_critique": "critique_format_v1.md"
+      }
+    },
+    "revision": {
+      "status": "completed",
+      "max_revisions": 2,
+      "current_iteration": 1,
       "iterations": [
         {
-          "type": "manuscript",
-          "version": 1,
-          "file": "manuscript/repo_research_writer_v2/critique_manuscript_v1.md",
-          "completed_at": "2026-02-06T13:25:00.000000",
-          "recommendation": "MAJOR_REVISIONS",
-          "major_issues": 6,
-          "minor_issues": 8
+          "iteration": 1,
+          "sections_revised": [
+            "abstract",
+            "introduction",
+            "results",
+            "methods"
+          ],
+          "issues_before": {
+            "major": 33,
+            "minor": 2
+          },
+          "issues_after": {
+            "major": 36,
+            "minor": 3
+          },
+          "convergence_metrics": {
+            "major_resolved": -3,
+            "minor_resolved": -1,
+            "improvement_rate": -0.09090909090909091
+          },
+          "critique_files": {
+            "content": "critique_content_v2.md",
+            "format": "critique_format_v2.md"
+          },
+          "git_commit": "7102f7a",
+          "timestamp": "2026-03-06T01:13:08.477224"
         }
-      ]
-    },
-    "assembly": {
-      "status": "not_started",
-      "file": null,
-      "completed_at": null
+      ],
+      "convergence_status": "stalled",
+      "convergence_reason": "stalled_no_improvement",
+      "completed_at": "2026-03-06T01:13:08.671256",
+      "git_commit": "902de93"
     }
   },
-  "runs": [],
-  "provenance": {
-    "input_files": [],
-    "verification_runs": []
+  "files": {
+    "repository_analysis": null,
+    "outline": null,
+    "assessment_report": null,
+    "author_guidelines": null,
+    "literature_review": "literature.md",
+    "sections": {
+      "introduction": {
+        "word_count": 525,
+        "citations": 17
+      },
+      "methods": "methods.md"
+    },
+    "critique_report": null,
+    "final_manuscript": null
   },
   "metadata": {
-    "rrwrite_version": "1.0.0",
-    "git_repo": "https://github.com/realmarcin/repo-research-writer.git",
-    "git_branch": "main"
+    "total_word_count": 0,
+    "citations_count": 25,
+    "figures_count": 0,
+    "tables_count": 0,
+    "data_tables_generated": false
+  },
+  "git": {
+    "repository_initialized": true,
+    "initialized_at": "2026-03-05T23:45:43.852502"
   }
 }

@@ -1,6 +1,6 @@
 ---
 name: rrwrite-research-literature
-description: Use when outline exists and you need literature background. Performs search, extracts DOIs, generates evidence file with quotes. Do NOT use before outline or after literature review complete.
+description: Performs deep literature research on manuscript topics and generates a comprehensive one-page summary of background and related work with citations.
 arguments:
   - name: target_dir
     description: Output directory for manuscript files (e.g., manuscript/repo_v1)
@@ -176,50 +176,22 @@ Conduct comprehensive literature research on the manuscript topic and generate a
 
 **If starting fresh (no previous version):**
 
-**Cascading Year Search Strategy** (search recent first, expand back if needed):
-
-**Tier 1: Recent Work (Last 2-3 years: 2024-2026)**
-- Query: "[method] 2024", "[method] 2025", "[method] 2026"
-- Target: 15-20 papers
-- Venues: NeurIPS, ICLR, ICML, Nature, Science, major domain journals
-- **If ≥15 papers found:** Proceed to Phase 3 with recent papers
-- **If <15 papers found:** Continue to Tier 2
-
-**Tier 2: Medium Recent (4-6 years back: 2020-2023)**
-- Query: "[method] 2020..2023", "[method] recent advances"
-- Target: Fill gap to reach 15-20 total papers
-- Focus: High-impact venues, foundational methodology papers
-- **If total ≥15 papers:** Proceed to Phase 3
-- **If <15 papers found:** Continue to Tier 3
-
-**Tier 3: Foundational Work (7-10 years back: 2016-2019)**
-- Query: "[method] survey", "[domain] review", "[method] seminal"
-- Target: Fill remaining gap to reach 15-20 total papers
-- Focus: Highly cited (>500 citations), seminal/foundational papers
-- Include: Original method papers, influential reviews, key datasets
-
-**Stopping Criteria:**
-- **Success:** 15-20 papers found across all tiers
-- **Fallback:** If <15 papers after all tiers, accept what was found (minimum 8-10 papers for niche topics)
-
-**Search Categories** (apply tier strategy to each):
-
-1. **Foundational Papers** (highly cited, >500 citations)
+**Use WebSearch tool to find:**
+1. **Foundational Papers** (highly cited, >1000 citations)
    - Query: "[core method] review" OR "[domain] survey"
-   - Start with Tier 1, cascade back if needed
+   - Focus on papers from last 5 years for reviews, last 10 for foundations
 
-2. **Recent Advances** (prioritize Tier 1, then Tier 2)
-   - Query: "[method] YEAR" where YEAR in [2024, 2025, 2026, 2023, 2022...]
+2. **Recent Advances** (last 2 years, 2024-2026)
+   - Query: "[method] 2024" OR "[method] 2025" OR "[method] 2026"
    - Look for: NeurIPS, ICLR, ICML, Nature, Science papers
 
 3. **Direct Competitors** (methods you're comparing against)
    - Query: exact names of competing methods
-   - Find their original papers (may be Tier 3) and recent improvements (Tier 1-2)
+   - Find their original papers and recent improvements
 
 4. **Application Domain** (specific to your problem)
    - Query: "[your application] + [your method type]"
    - Example: "protein structure prediction transformers"
-   - Apply tier strategy: recent applications first, foundational work if needed
 
 **For each relevant paper found:**
 - Extract: Authors, Title, Venue, Year, **DOI** (critical!)

@@ -116,7 +116,7 @@ To generate a similar manuscript for your own repository:
 /rrwrite /path/to/your/repo --journal bioinformatics --version v1
 
 # Or analyze RRWrite itself to reproduce this example
-/rrwrite /Users/marcin/Documents/VIMSS/ontology/writing/repo-research-writer --journal bioinformatics --version v3
+/rrwrite /Users/marcin/Documents/VIMSS/ontology/repo-research-writer --journal bioinformatics --version v3
 ```
 
 ---

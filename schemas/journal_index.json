@@ -1,0 +1,52 @@
+{
+  "version": "1.0",
+  "last_updated": "2026-03-06T16:32:00.000000",
+  "journals": {
+    "bioinformatics": {
+      "name": "Bioinformatics",
+      "key": "bioinformatics",
+      "source_type": "yaml",
+      "source_path": "templates/journal_guidelines.yaml",
+      "generated_at": "2026-03-05T23:31:18.471098",
+      "schemas": {
+        "submission": "schemas/journals/bioinformatics/submission_requirements.json",
+        "structure": "schemas/journals/bioinformatics/manuscript_structure.json"
+      },
+      "validated": false
+    },
+    "nature_methods": {
+      "name": "Nature Methods",
+      "key": "nature_methods",
+      "publisher": "Nature Publishing Group",
+      "impact_factor": 47.99,
+      "source_type": "manual",
+      "source_url": "https://www.nature.com/nmeth/for-authors",
+      "generated_at": "2026-03-06T16:30:00.000000",
+      "schemas": {
+        "metadata": "schemas/journals/nature_methods/metadata.json",
+        "submission": "schemas/journals/nature_methods/submission_requirements.json",
+        "structure": "schemas/journals/nature_methods/manuscript_structure.json"
+      },
+      "validated": true,
+      "constraints": {
+        "main_text_words": {
+          "min": 2500,
+          "max": 3500,
+          "recommended": 3000
+        },
+        "abstract_words": {
+          "max": 200
+        },
+        "max_figures": 6,
+        "max_tables": 6,
+        "display_items_max": 8
+      },
+      "special_requirements": {
+        "online_methods": true,
+        "reporting_summary": true,
+        "data_availability": true,
+        "code_availability": true
+      }
+    }
+  }
+}

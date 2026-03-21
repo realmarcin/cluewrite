@@ -1,0 +1,11 @@
+# generated_by: rrwrite-analyze-repo
+# description: Detected research topics with evidence
+#
+topic	confidence	evidence_count	example_files
+Data Analysis	high	7	repository_statistics.tsv, repository_statistics.tsv, rrwrite-analyze-repo.py
+Pipeline	medium	4	rrwrite-workflow.md, SKILL.md, WORKFLOW.md
+Api	medium	4	rrwrite-api-pubmed.py, rrwrite-api-semanticscholar.py, API_IMPLEMENTATION_SUMMARY.md
+Bioinformatics	medium	2	rrwrite_table_generator.py, TABLE_GENERATION.md
+Machine Learning	low	1	train_model.py
+Database	low	1	MANUSCRIPT_SCHEMA.md
+Testing	low	1	test_evidence_import.py

@@ -1,0 +1,501 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2000 1600" font-family="Arial, sans-serif">
+  <!-- Title -->
+  <text x="1000" y="30" font-size="24" font-weight="bold" text-anchor="middle" fill="#1a1a1a">
+    MicroGrowAgents: AI Framework for Microbial Growth Media Design
+  </text>
+
+  <!-- Legend -->
+  <g transform="translate(50, 50)">
+    <text font-size="14" font-weight="bold" fill="#1a1a1a">Legend:</text>
+    <rect x="0" y="15" width="30" height="20" fill="#e3f2fd" stroke="#1976d2" stroke-width="2"/>
+    <text x="35" y="30" font-size="12">Data Source</text>
+
+    <rect x="150" y="15" width="30" height="20" fill="#fff3e0" stroke="#f57c00" stroke-width="2"/>
+    <text x="185" y="30" font-size="12">Core Agent</text>
+
+    <rect x="300" y="15" width="30" height="20" fill="#f3e5f5" stroke="#7b1fa2" stroke-width="2"/>
+    <text x="335" y="30" font-size="12">Specialist Agent</text>
+
+    <rect x="480" y="15" width="30" height="20" fill="#e8f5e9" stroke="#388e3c" stroke-width="2"/>
+    <text x="515" y="30" font-size="12">Service</text>
+
+    <rect x="630" y="15" width="30" height="20" fill="#fff9c4" stroke="#f9a825" stroke-width="2"/>
+    <text x="665" y="30" font-size="12">Skill/Workflow</text>
+
+    <rect x="800" y="15" width="30" height="20" fill="#ffebee" stroke="#c62828" stroke-width="2"/>
+    <text x="835" y="30" font-size="12">Output</text>
+  </g>
+
+  <!-- DATA SOURCES LAYER -->
+  <g id="data-sources">
+    <text x="100" y="120" font-size="16" font-weight="bold" fill="#1976d2">Data Sources</text>
+
+    <!-- KG-Microbe -->
+    <rect x="50" y="140" width="150" height="60" fill="#e3f2fd" stroke="#1976d2" stroke-width="2" rx="5"/>
+    <text x="125" y="165" font-size="13" font-weight="bold" text-anchor="middle">KG-Microbe</text>
+    <text x="125" y="182" font-size="10" text-anchor="middle">Knowledge Graph</text>
+    <text x="125" y="195" font-size="9" text-anchor="middle" fill="#555">Genomes, Media, Lit</text>
+
+    <!-- MediaDive -->
+    <rect x="230" y="140" width="150" height="60" fill="#e3f2fd" stroke="#1976d2" stroke-width="2" rx="5"/>
+    <text x="305" y="165" font-size="13" font-weight="bold" text-anchor="middle">MediaDive</text>
+    <text x="305" y="182" font-size="10" text-anchor="middle">Media Database</text>
+    <text x="305" y="195" font-size="9" text-anchor="middle" fill="#555">1800+ formulations</text>
+
+    <!-- External Tools -->
+    <rect x="410" y="140" width="150" height="60" fill="#e3f2fd" stroke="#1976d2" stroke-width="2" rx="5"/>
+    <text x="485" y="165" font-size="13" font-weight="bold" text-anchor="middle">External Tools</text>
+    <text x="485" y="182" font-size="10" text-anchor="middle">Bakta, Gapmind</text>
+    <text x="485" y="195" font-size="9" text-anchor="middle" fill="#555">GEMSembler, BLAST</text>
+  </g>
+
+  <!-- CORE AGENTS LAYER -->
+  <g id="core-agents">
+    <text x="100" y="260" font-size="16" font-weight="bold" fill="#f57c00">Core Agents</text>
+
+    <!-- SQL Agent -->
+    <rect x="50" y="280" width="130" height="80" fill="#fff3e0" stroke="#f57c00" stroke-width="2" rx="5"/>
+    <text x="115" y="305" font-size="12" font-weight="bold" text-anchor="middle">SQL Agent</text>
+    <text x="115" y="322" font-size="9" text-anchor="middle">Query KG-Microbe</text>
+    <text x="115" y="335" font-size="8" text-anchor="middle" fill="#555">• Organism data</text>
+    <text x="115" y="347" font-size="8" text-anchor="middle" fill="#555">• Media compositions</text>
+    <text x="115" y="359" font-size="8" text-anchor="middle" fill="#555">• Hierarchical search</text>
+
+    <!-- Genome Function Agent -->
+    <rect x="200" y="280" width="130" height="80" fill="#fff3e0" stroke="#f57c00" stroke-width="2" rx="5"/>
+    <text x="265" y="305" font-size="12" font-weight="bold" text-anchor="middle">Genome Function</text>
+    <text x="265" y="322" font-size="9" text-anchor="middle">Analyze genome</text>
+    <text x="265" y="335" font-size="8" text-anchor="middle" fill="#555">• Metabolic pathways</text>
+    <text x="265" y="347" font-size="8" text-anchor="middle" fill="#555">• Auxotrophies</text>
+    <text x="265" y="359" font-size="8" text-anchor="middle" fill="#555">• Transport systems</text>
+
+    <!-- KG Reasoning Agent -->
+    <rect x="350" y="280" width="130" height="80" fill="#fff3e0" stroke="#f57c00" stroke-width="2" rx="5"/>
+    <text x="415" y="305" font-size="12" font-weight="bold" text-anchor="middle">KG Reasoning</text>
+    <text x="415" y="322" font-size="9" text-anchor="middle">Graph traversal</text>
+    <text x="415" y="335" font-size="8" text-anchor="middle" fill="#555">• Related organisms</text>
+    <text x="415" y="347" font-size="8" text-anchor="middle" fill="#555">• Media patterns</text>
+    <text x="415" y="359" font-size="8" text-anchor="middle" fill="#555">• Phylogeny</text>
+
+    <!-- Literature Agent -->
+    <rect x="500" y="280" width="130" height="80" fill="#fff3e0" stroke="#f57c00" stroke-width="2" rx="5"/>
+    <text x="565" y="305" font-size="12" font-weight="bold" text-anchor="middle">Literature</text>
+    <text x="565" y="322" font-size="9" text-anchor="middle">Evidence retrieval</text>
+    <text x="565" y="335" font-size="8" text-anchor="middle" fill="#555">• DOI validation</text>
+    <text x="565" y="347" font-size="8" text-anchor="middle" fill="#555">• PDF extraction</text>
+    <text x="565" y="359" font-size="8" text-anchor="middle" fill="#555">• Citation tracking</text>
+  </g>
+
+  <!-- SPECIALIST AGENTS LAYER -->
+  <g id="specialist-agents">
+    <text x="100" y="420" font-size="16" font-weight="bold" fill="#7b1fa2">Specialist Agents</text>
+
+    <!-- Gapmind Agent -->
+    <rect x="50" y="440" width="110" height="70" fill="#f3e5f5" stroke="#7b1fa2" stroke-width="2" rx="5"/>
+    <text x="105" y="463" font-size="11" font-weight="bold" text-anchor="middle">Gapmind</text>
+    <text x="105" y="477" font-size="8" text-anchor="middle">Pathway gaps</text>
+    <text x="105" y="489" font-size="7" text-anchor="middle" fill="#555">Metabolite needs</text>
+    <text x="105" y="500" font-size="7" text-anchor="middle" fill="#555">from genome</text>
+
+    <!-- GEMSembler Agent -->
+    <rect x="175" y="440" width="110" height="70" fill="#f3e5f5" stroke="#7b1fa2" stroke-width="2" rx="5"/>
+    <text x="230" y="463" font-size="11" font-weight="bold" text-anchor="middle">GEMSembler</text>
+    <text x="230" y="477" font-size="8" text-anchor="middle">Model building</text>
+    <text x="230" y="489" font-size="7" text-anchor="middle" fill="#555">FBA predictions</text>
+    <text x="230" y="500" font-size="7" text-anchor="middle" fill="#555">Growth simulation</text>
+
+    <!-- Metabolic Source Agent -->
+    <rect x="300" y="440" width="110" height="70" fill="#f3e5f5" stroke="#7b1fa2" stroke-width="2" rx="5"/>
+    <text x="355" y="463" font-size="11" font-weight="bold" text-anchor="middle">Metabolic Source</text>
+    <text x="355" y="477" font-size="8" text-anchor="middle">Source tracing</text>
+    <text x="355" y="489" font-size="7" text-anchor="middle" fill="#555">C/N/P/S origins</text>
+    <text x="355" y="500" font-size="7" text-anchor="middle" fill="#555">in media</text>
+
+    <!-- Transporter Agent -->
+    <rect x="425" y="440" width="110" height="70" fill="#f3e5f5" stroke="#7b1fa2" stroke-width="2" rx="5"/>
+    <text x="480" y="463" font-size="11" font-weight="bold" text-anchor="middle">Transporter</text>
+    <text x="480" y="477" font-size="8" text-anchor="middle">Uptake systems</text>
+    <text x="480" y="489" font-size="7" text-anchor="middle" fill="#555">TonB receptors</text>
+    <text x="480" y="500" font-size="7" text-anchor="middle" fill="#555">ABC transporters</text>
+
+    <!-- Cooccurrence Agent -->
+    <rect x="550" y="440" width="110" height="70" fill="#f3e5f5" stroke="#7b1fa2" stroke-width="2" rx="5"/>
+    <text x="605" y="463" font-size="11" font-weight="bold" text-anchor="middle">Cooccurrence</text>
+    <text x="605" y="477" font-size="8" text-anchor="middle">Pattern mining</text>
+    <text x="605" y="489" font-size="7" text-anchor="middle" fill="#555">Ingredient pairs</text>
+    <text x="605" y="500" font-size="7" text-anchor="middle" fill="#555">TF-IDF analysis</text>
+
+    <!-- Analogy Reasoning -->
+    <rect x="675" y="440" width="110" height="70" fill="#f3e5f5" stroke="#7b1fa2" stroke-width="2" rx="5"/>
+    <text x="730" y="463" font-size="11" font-weight="bold" text-anchor="middle">Analogy</text>
+    <text x="730" y="477" font-size="8" text-anchor="middle">Similar organisms</text>
+    <text x="730" y="489" font-size="7" text-anchor="middle" fill="#555">Phylogenetic</text>
+    <text x="730" y="500" font-size="7" text-anchor="middle" fill="#555">matching</text>
+  </g>
+
+  <!-- ORCHESTRATION AGENTS LAYER -->
+  <g id="orchestration-agents">
+    <text x="850" y="260" font-size="16" font-weight="bold" fill="#f57c00">Orchestration Agents</text>
+
+    <!-- Media Formulation Agent -->
+    <rect x="800" y="280" width="160" height="100" fill="#fff3e0" stroke="#f57c00" stroke-width="3" rx="5"/>
+    <text x="880" y="305" font-size="13" font-weight="bold" text-anchor="middle">Media Formulation</text>
+    <text x="880" y="322" font-size="10" text-anchor="middle">Orchestrates:</text>
+    <text x="880" y="338" font-size="8" text-anchor="middle" fill="#555">• SQL → Organism data</text>
+    <text x="880" y="350" font-size="8" text-anchor="middle" fill="#555">• GenomeFunction → Needs</text>
+    <text x="880" y="362" font-size="8" text-anchor="middle" fill="#555">• Gapmind → Gaps</text>
+    <text x="880" y="374" font-size="8" text-anchor="middle" fill="#555">• GenMediaConc → Amounts</text>
+
+    <!-- GenMediaConc Agent -->
+    <rect x="990" y="280" width="160" height="100" fill="#fff3e0" stroke="#f57c00" stroke-width="3" rx="5"/>
+    <text x="1070" y="305" font-size="13" font-weight="bold" text-anchor="middle">GenMediaConc</text>
+    <text x="1070" y="322" font-size="10" text-anchor="middle">Predicts amounts:</text>
+    <text x="1070" y="338" font-size="8" text-anchor="middle" fill="#555">• MediaDive → Patterns</text>
+    <text x="1070" y="350" font-size="8" text-anchor="middle" fill="#555">• Cooccurrence → Pairs</text>
+    <text x="1070" y="362" font-size="8" text-anchor="middle" fill="#555">• MetabolicSource → Roles</text>
+    <text x="1070" y="374" font-size="8" text-anchor="middle" fill="#555">• Validation → Constraints</text>
+
+    <!-- Alternate Ingredient Agent -->
+    <rect x="800" y="400" width="160" height="100" fill="#fff3e0" stroke="#f57c00" stroke-width="3" rx="5"/>
+    <text x="880" y="425" font-size="13" font-weight="bold" text-anchor="middle">Alternate Ingredient</text>
+    <text x="880" y="442" font-size="10" text-anchor="middle">Finds substitutes:</text>
+    <text x="880" y="458" font-size="8" text-anchor="middle" fill="#555">• Chemistry → Similarity</text>
+    <text x="880" y="470" font-size="8" text-anchor="middle" fill="#555">• Analogy → Related media</text>
+    <text x="880" y="482" font-size="8" text-anchor="middle" fill="#555">• MetabolicSource → Role</text>
+    <text x="880" y="494" font-size="8" text-anchor="middle" fill="#555">• Cooccurrence → Validation</text>
+
+    <!-- Cofactor Media Agent -->
+    <rect x="990" y="400" width="160" height="100" fill="#fff3e0" stroke="#f57c00" stroke-width="3" rx="5"/>
+    <text x="1070" y="425" font-size="13" font-weight="bold" text-anchor="middle">Cofactor Media</text>
+    <text x="1070" y="442" font-size="10" text-anchor="middle">Adds cofactors:</text>
+    <text x="1070" y="458" font-size="8" text-anchor="middle" fill="#555">• GenomeFunction → Needs</text>
+    <text x="1070" y="470" font-size="8" text-anchor="middle" fill="#555">• KG → Vitamin pathways</text>
+    <text x="1070" y="482" font-size="8" text-anchor="middle" fill="#555">• MediaDive → Typical conc</text>
+    <text x="1070" y="494" font-size="8" text-anchor="middle" fill="#555">• Literature → Evidence</text>
+  </g>
+
+  <!-- SERVICES LAYER -->
+  <g id="services">
+    <text x="1250" y="260" font-size="16" font-weight="bold" fill="#388e3c">Services</text>
+
+    <!-- Evidence Retrieval -->
+    <rect x="1200" y="280" width="140" height="60" fill="#e8f5e9" stroke="#388e3c" stroke-width="2" rx="5"/>
+    <text x="1270" y="303" font-size="11" font-weight="bold" text-anchor="middle">Evidence Retrieval</text>
+    <text x="1270" y="318" font-size="8" text-anchor="middle">DOI → PDF → Text</text>
+    <text x="1270" y="330" font-size="7" text-anchor="middle" fill="#555">Extract citations</text>
+
+    <!-- Confidence Scoring -->
+    <rect x="1200" y="355" width="140" height="60" fill="#e8f5e9" stroke="#388e3c" stroke-width="2" rx="5"/>
+    <text x="1270" y="378" font-size="11" font-weight="bold" text-anchor="middle">Confidence Scoring</text>
+    <text x="1270" y="393" font-size="8" text-anchor="middle">Evidence quality</text>
+    <text x="1270" y="405" font-size="7" text-anchor="middle" fill="#555">Multi-tier validation</text>
+
+    <!-- Cache Service -->
+    <rect x="1200" y="430" width="140" height="60" fill="#e8f5e9" stroke="#388e3c" stroke-width="2" rx="5"/>
+    <text x="1270" y="453" font-size="11" font-weight="bold" text-anchor="middle">Cache Service</text>
+    <text x="1270" y="468" font-size="8" text-anchor="middle">Embedding index</text>
+    <text x="1270" y="480" font-size="7" text-anchor="middle" fill="#555">Fast retrieval</text>
+  </g>
+
+  <!-- SKILLS/WORKFLOWS LAYER -->
+  <g id="skills">
+    <text x="850" y="560" font-size="16" font-weight="bold" fill="#f9a825">Skills & Workflows</text>
+
+    <!-- Recommend Media -->
+    <rect x="800" y="580" width="140" height="70" fill="#fff9c4" stroke="#f9a825" stroke-width="2" rx="5"/>
+    <text x="870" y="603" font-size="12" font-weight="bold" text-anchor="middle">Recommend Media</text>
+    <text x="870" y="618" font-size="8" text-anchor="middle">Complete workflow</text>
+    <text x="870" y="630" font-size="7" text-anchor="middle" fill="#555">Organism → Medium</text>
+    <text x="870" y="642" font-size="7" text-anchor="middle" fill="#555">+ concentrations</text>
+
+    <!-- Design MaxPro -->
+    <rect x="960" y="580" width="140" height="70" fill="#fff9c4" stroke="#f9a825" stroke-width="2" rx="5"/>
+    <text x="1030" y="603" font-size="12" font-weight="bold" text-anchor="middle">Design MaxPro</text>
+    <text x="1030" y="618" font-size="8" text-anchor="middle">DOE generation</text>
+    <text x="1030" y="630" font-size="7" text-anchor="middle" fill="#555">Optimal sampling</text>
+    <text x="1030" y="642" font-size="7" text-anchor="middle" fill="#555">Plate layouts</text>
+
+    <!-- Validate Media -->
+    <rect x="1120" y="580" width="140" height="70" fill="#fff9c4" stroke="#f9a825" stroke-width="2" rx="5"/>
+    <text x="1190" y="603" font-size="12" font-weight="bold" text-anchor="middle">Validate Media</text>
+    <text x="1190" y="618" font-size="8" text-anchor="middle">Constraint checking</text>
+    <text x="1190" y="630" font-size="7" text-anchor="middle" fill="#555">Osmolarity, pH</text>
+    <text x="1190" y="642" font-size="7" text-anchor="middle" fill="#555">Element balance</text>
+  </g>
+
+  <!-- OUTPUTS LAYER -->
+  <g id="outputs">
+    <text x="850" y="700" font-size="16" font-weight="bold" fill="#c62828">Outputs</text>
+
+    <!-- Media Recommendation -->
+    <rect x="750" y="720" width="150" height="70" fill="#ffebee" stroke="#c62828" stroke-width="2" rx="5"/>
+    <text x="825" y="743" font-size="12" font-weight="bold" text-anchor="middle">Media Recipe</text>
+    <text x="825" y="758" font-size="9" text-anchor="middle">Ingredients + Amounts</text>
+    <text x="825" y="771" font-size="8" text-anchor="middle" fill="#555">JSON, TSV, Markdown</text>
+    <text x="825" y="783" font-size="8" text-anchor="middle" fill="#555">With evidence</text>
+
+    <!-- Concentration Predictions -->
+    <rect x="920" y="720" width="150" height="70" fill="#ffebee" stroke="#c62828" stroke-width="2" rx="5"/>
+    <text x="995" y="743" font-size="12" font-weight="bold" text-anchor="middle">Concentrations</text>
+    <text x="995" y="758" font-size="9" text-anchor="middle">Predicted ranges</text>
+    <text x="995" y="771" font-size="8" text-anchor="middle" fill="#555">Confidence intervals</text>
+    <text x="995" y="783" font-size="8" text-anchor="middle" fill="#555">Stock solutions</text>
+
+    <!-- DOE Plate Design -->
+    <rect x="1090" y="720" width="150" height="70" fill="#ffebee" stroke="#c62828" stroke-width="2" rx="5"/>
+    <text x="1165" y="743" font-size="12" font-weight="bold" text-anchor="middle">Plate Design</text>
+    <text x="1165" y="758" font-size="9" text-anchor="middle">96/384-well layout</text>
+    <text x="1165" y="771" font-size="8" text-anchor="middle" fill="#555">Hamilton protocol</text>
+    <text x="1165" y="783" font-size="8" text-anchor="middle" fill="#555">Scatterplot viz</text>
+  </g>
+
+  <!-- DATA FLOW ARROWS -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#666"/>
+    </marker>
+    <marker id="arrowhead-red" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#d32f2f"/>
+    </marker>
+    <marker id="arrowhead-blue" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#1976d2"/>
+    </marker>
+    <marker id="arrowhead-green" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#388e3c"/>
+    </marker>
+    <marker id="arrowhead-purple" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#7b1fa2"/>
+    </marker>
+  </defs>
+
+  <!-- Data source to Core agents -->
+  <path d="M 125 200 L 115 280" stroke="#666" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  <path d="M 305 200 L 1070 280" stroke="#666" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  <path d="M 485 200 L 230 440" stroke="#666" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+
+  <!-- Core agents to specialists -->
+  <path d="M 115 360 L 105 440" stroke="#666" stroke-width="1.5" fill="none" marker-end="url(#arrowhead)"/>
+  <path d="M 265 360 L 230 440" stroke="#666" stroke-width="1.5" fill="none" marker-end="url(#arrowhead)"/>
+  <path d="M 415 360 L 730 440" stroke="#666" stroke-width="1.5" fill="none" marker-end="url(#arrowhead)"/>
+  <path d="M 565 360 L 1270 280" stroke="#666" stroke-width="1.5" fill="none" marker-end="url(#arrowhead)"/>
+
+  <!-- Specialists to orchestration -->
+  <path d="M 105 510 L 800 320" stroke="#666" stroke-width="1.5" fill="none" marker-end="url(#arrowhead)"/>
+  <path d="M 230 510 L 800 340" stroke="#666" stroke-width="1.5" fill="none" marker-end="url(#arrowhead)"/>
+  <path d="M 355 510 L 990 320" stroke="#666" stroke-width="1.5" fill="none" marker-end="url(#arrowhead)"/>
+  <path d="M 605 510 L 1070 320" stroke="#666" stroke-width="1.5" fill="none" marker-end="url(#arrowhead)"/>
+  <path d="M 730 510 L 880 400" stroke="#666" stroke-width="1.5" fill="none" marker-end="url(#arrowhead)"/>
+
+  <!-- Orchestration to Skills -->
+  <path d="M 880 380 L 870 580" stroke="#666" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  <path d="M 1070 380 L 1030 580" stroke="#666" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+
+  <!-- Skills to Outputs -->
+  <path d="M 870 650 L 825 720" stroke="#666" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  <path d="M 1030 650 L 995 720" stroke="#666" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  <path d="M 1190 650 L 1165 720" stroke="#666" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+
+  <!-- Services support -->
+  <path d="M 1200 320 L 1150 320" stroke="#388e3c" stroke-width="1.5" stroke-dasharray="5,5" fill="none" marker-end="url(#arrowhead-green)"/>
+  <path d="M 1200 390 L 1150 390" stroke="#388e3c" stroke-width="1.5" stroke-dasharray="5,5" fill="none" marker-end="url(#arrowhead-green)"/>
+
+  <!-- EXAMPLE PATHS -->
+  <g id="example-paths">
+    <text x="100" y="860" font-size="18" font-weight="bold" fill="#1a1a1a">Example Workflow Paths</text>
+
+    <!-- Path 1: Media Recommendation -->
+    <g transform="translate(50, 880)">
+      <text font-size="14" font-weight="bold" fill="#d32f2f">Path 1: Media Recommendation</text>
+      <rect x="0" y="10" width="700" height="120" fill="#fff" stroke="#d32f2f" stroke-width="2" rx="5"/>
+
+      <!-- Steps -->
+      <circle cx="30" cy="40" r="15" fill="#d32f2f" stroke="white" stroke-width="2"/>
+      <text x="30" y="45" font-size="12" fill="white" font-weight="bold" text-anchor="middle">1</text>
+      <text x="55" y="42" font-size="10">Input: Organism ID</text>
+      <text x="55" y="54" font-size="8" fill="#666">(e.g., "M. extorquens AM1")</text>
+
+      <path d="M 180 40 L 200 40" stroke="#d32f2f" stroke-width="2" marker-end="url(#arrowhead-red)"/>
+
+      <circle cx="230" cy="40" r="15" fill="#d32f2f" stroke="white" stroke-width="2"/>
+      <text x="230" y="45" font-size="12" fill="white" font-weight="bold" text-anchor="middle">2</text>
+      <text x="255" y="42" font-size="10">SQL Agent</text>
+      <text x="255" y="54" font-size="8" fill="#666">Query genome, growth data</text>
+
+      <path d="M 380 40 L 400 40" stroke="#d32f2f" stroke-width="2" marker-end="url(#arrowhead-red)"/>
+
+      <circle cx="430" cy="40" r="15" fill="#d32f2f" stroke="white" stroke-width="2"/>
+      <text x="430" y="45" font-size="12" fill="white" font-weight="bold" text-anchor="middle">3</text>
+      <text x="455" y="42" font-size="10">GenomeFunction</text>
+      <text x="455" y="54" font-size="8" fill="#666">Identify auxotrophies</text>
+
+      <path d="M 580 40 L 600 40" stroke="#d32f2f" stroke-width="2" marker-end="url(#arrowhead-red)"/>
+
+      <circle cx="630" cy="40" r="15" fill="#d32f2f" stroke="white" stroke-width="2"/>
+      <text x="630" y="45" font-size="12" fill="white" font-weight="bold" text-anchor="middle">4</text>
+      <text x="655" y="42" font-size="10">Gapmind</text>
+      <text x="655" y="54" font-size="8" fill="#666">Find pathway gaps</text>
+
+      <!-- Second row -->
+      <circle cx="30" cy="90" r="15" fill="#d32f2f" stroke="white" stroke-width="2"/>
+      <text x="30" y="95" font-size="12" fill="white" font-weight="bold" text-anchor="middle">5</text>
+      <text x="55" y="92" font-size="10">KG Reasoning</text>
+      <text x="55" y="104" font-size="8" fill="#666">Find similar organisms</text>
+
+      <path d="M 180 90 L 200 90" stroke="#d32f2f" stroke-width="2" marker-end="url(#arrowhead-red)"/>
+
+      <circle cx="230" cy="90" r="15" fill="#d32f2f" stroke="white" stroke-width="2"/>
+      <text x="230" y="95" font-size="12" fill="white" font-weight="bold" text-anchor="middle">6</text>
+      <text x="255" y="92" font-size="10">MediaFormulation</text>
+      <text x="255" y="104" font-size="8" fill="#666">Combine requirements</text>
+
+      <path d="M 380 90 L 400 90" stroke="#d32f2f" stroke-width="2" marker-end="url(#arrowhead-red)"/>
+
+      <circle cx="430" cy="90" r="15" fill="#d32f2f" stroke="white" stroke-width="2"/>
+      <text x="430" y="95" font-size="12" fill="white" font-weight="bold" text-anchor="middle">7</text>
+      <text x="455" y="92" font-size="10">GenMediaConc</text>
+      <text x="455" y="104" font-size="8" fill="#666">Predict concentrations</text>
+
+      <path d="M 580 90 L 600 90" stroke="#d32f2f" stroke-width="2" marker-end="url(#arrowhead-red)"/>
+
+      <circle cx="630" cy="90" r="15" fill="#d32f2f" stroke="white" stroke-width="2"/>
+      <text x="630" y="95" font-size="12" fill="white" font-weight="bold" text-anchor="middle">8</text>
+      <text x="655" y="92" font-size="10">Output</text>
+      <text x="655" y="104" font-size="8" fill="#666">Complete medium recipe</text>
+    </g>
+
+    <!-- Path 2: Concentration Prediction -->
+    <g transform="translate(50, 1020)">
+      <text font-size="14" font-weight="bold" fill="#1976d2">Path 2: Concentration Prediction</text>
+      <rect x="0" y="10" width="700" height="70" fill="#fff" stroke="#1976d2" stroke-width="2" rx="5"/>
+
+      <circle cx="30" cy="40" r="15" fill="#1976d2" stroke="white" stroke-width="2"/>
+      <text x="30" y="45" font-size="12" fill="white" font-weight="bold" text-anchor="middle">1</text>
+      <text x="55" y="42" font-size="10">Input: Ingredient list</text>
+      <text x="55" y="54" font-size="8" fill="#666">(glucose, peptone, yeast extract)</text>
+
+      <path d="M 240 40 L 260 40" stroke="#1976d2" stroke-width="2" marker-end="url(#arrowhead-blue)"/>
+
+      <circle cx="290" cy="40" r="15" fill="#1976d2" stroke="white" stroke-width="2"/>
+      <text x="290" y="45" font-size="12" fill="white" font-weight="bold" text-anchor="middle">2</text>
+      <text x="315" y="42" font-size="10">Cooccurrence</text>
+      <text x="315" y="54" font-size="8" fill="#666">Find typical pairs, TF-IDF</text>
+
+      <path d="M 440 40 L 460 40" stroke="#1976d2" stroke-width="2" marker-end="url(#arrowhead-blue)"/>
+
+      <circle cx="490" cy="40" r="15" fill="#1976d2" stroke="white" stroke-width="2"/>
+      <text x="490" y="45" font-size="12" fill="white" font-weight="bold" text-anchor="middle">3</text>
+      <text x="515" y="42" font-size="10">GenMediaConc</text>
+      <text x="515" y="54" font-size="8" fill="#666">Predict amounts, ranges</text>
+
+      <path d="M 640 40 L 660 40" stroke="#1976d2" stroke-width="2" marker-end="url(#arrowhead-blue)"/>
+
+      <circle cx="690" cy="40" r="15" fill="#1976d2" stroke="white" stroke-width="2"/>
+      <text x="690" y="45" font-size="12" fill="white" font-weight="bold" text-anchor="middle">4</text>
+      <text x="690" y="65" font-size="8" fill="#666" text-anchor="middle">Output:</text>
+      <text x="690" y="77" font-size="7" fill="#666" text-anchor="middle">Concentrations</text>
+    </g>
+
+    <!-- Path 3: Alternate Ingredient -->
+    <g transform="translate(50, 1110)">
+      <text font-size="14" font-weight="bold" fill="#388e3c">Path 3: Alternate Ingredient</text>
+      <rect x="0" y="10" width="700" height="70" fill="#fff" stroke="#388e3c" stroke-width="2" rx="5"/>
+
+      <circle cx="30" cy="40" r="15" fill="#388e3c" stroke="white" stroke-width="2"/>
+      <text x="30" y="45" font-size="12" fill="white" font-weight="bold" text-anchor="middle">1</text>
+      <text x="55" y="42" font-size="10">Input: Replace glucose</text>
+      <text x="55" y="54" font-size="8" fill="#666">Find C-source alternatives</text>
+
+      <path d="M 220 40 L 240 40" stroke="#388e3c" stroke-width="2" marker-end="url(#arrowhead-green)"/>
+
+      <circle cx="270" cy="40" r="15" fill="#388e3c" stroke="white" stroke-width="2"/>
+      <text x="270" y="45" font-size="12" fill="white" font-weight="bold" text-anchor="middle">2</text>
+      <text x="295" y="42" font-size="10">MetabolicSource</text>
+      <text x="295" y="54" font-size="8" fill="#666">Identify role (C-source)</text>
+
+      <path d="M 420 40 L 440 40" stroke="#388e3c" stroke-width="2" marker-end="url(#arrowhead-green)"/>
+
+      <circle cx="470" cy="40" r="15" fill="#388e3c" stroke="white" stroke-width="2"/>
+      <text x="470" y="45" font-size="12" fill="white" font-weight="bold" text-anchor="middle">3</text>
+      <text x="495" y="42" font-size="10">Analogy/Chemistry</text>
+      <text x="495" y="54" font-size="8" fill="#666">Find similar compounds</text>
+
+      <path d="M 630 40 L 650 40" stroke="#388e3c" stroke-width="2" marker-end="url(#arrowhead-green)"/>
+
+      <circle cx="680" cy="40" r="15" fill="#388e3c" stroke="white" stroke-width="2"/>
+      <text x="680" y="45" font-size="12" fill="white" font-weight="bold" text-anchor="middle">4</text>
+      <text x="680" y="65" font-size="8" fill="#666" text-anchor="middle">Output:</text>
+      <text x="680" y="77" font-size="7" fill="#666" text-anchor="middle">Alternatives</text>
+    </g>
+
+    <!-- Path 4: Add Ingredient -->
+    <g transform="translate(50, 1200)">
+      <text font-size="14" font-weight="bold" fill="#7b1fa2">Path 4: Add Ingredient (Cofactor)</text>
+      <rect x="0" y="10" width="700" height="70" fill="#fff" stroke="#7b1fa2" stroke-width="2" rx="5"/>
+
+      <circle cx="30" cy="40" r="15" fill="#7b1fa2" stroke="white" stroke-width="2"/>
+      <text x="30" y="45" font-size="12" fill="white" font-weight="bold" text-anchor="middle">1</text>
+      <text x="55" y="42" font-size="10">Input: Organism + Medium</text>
+      <text x="55" y="54" font-size="8" fill="#666">Enhance existing recipe</text>
+
+      <path d="M 230 40 L 250 40" stroke="#7b1fa2" stroke-width="2" marker-end="url(#arrowhead-purple)"/>
+
+      <circle cx="280" cy="40" r="15" fill="#7b1fa2" stroke="white" stroke-width="2"/>
+      <text x="280" y="45" font-size="12" fill="white" font-weight="bold" text-anchor="middle">2</text>
+      <text x="305" y="42" font-size="10">GenomeFunction</text>
+      <text x="305" y="54" font-size="8" fill="#666">Check vitamin pathways</text>
+
+      <path d="M 430 40 L 450 40" stroke="#7b1fa2" stroke-width="2" marker-end="url(#arrowhead-purple)"/>
+
+      <circle cx="480" cy="40" r="15" fill="#7b1fa2" stroke="white" stroke-width="2"/>
+      <text x="480" y="45" font-size="12" fill="white" font-weight="bold" text-anchor="middle">3</text>
+      <text x="505" y="42" font-size="10">CofactorMedia</text>
+      <text x="505" y="54" font-size="8" fill="#666">Add missing cofactors</text>
+
+      <path d="M 630 40 L 650 40" stroke="#7b1fa2" stroke-width="2" marker-end="url(#arrowhead-purple)"/>
+
+      <circle cx="680" cy="40" r="15" fill="#7b1fa2" stroke="white" stroke-width="2"/>
+      <text x="680" y="45" font-size="12" fill="white" font-weight="bold" text-anchor="middle">4</text>
+      <text x="680" y="65" font-size="8" fill="#666" text-anchor="middle">Output:</text>
+      <text x="680" y="77" font-size="7" fill="#666" text-anchor="middle">Enhanced recipe</text>
+    </g>
+  </g>
+
+  <!-- KEY FEATURES BOX -->
+  <g transform="translate(800, 880)">
+    <text font-size="16" font-weight="bold" fill="#1a1a1a">Key Features</text>
+    <rect x="0" y="10" width="390" height="390" fill="#f5f5f5" stroke="#666" stroke-width="2" rx="5"/>
+
+    <text x="10" y="35" font-size="12" font-weight="bold" fill="#1976d2">Multi-Agent Orchestration</text>
+    <text x="15" y="52" font-size="9">• Modular agents with specific expertise</text>
+    <text x="15" y="66" font-size="9">• Data flows through agent pipelines</text>
+    <text x="15" y="80" font-size="9">• Orchestration agents coordinate workflows</text>
+
+    <text x="10" y="105" font-size="12" font-weight="bold" fill="#f57c00">Evidence-Based Reasoning</text>
+    <text x="15" y="122" font-size="9">• All recommendations backed by citations</text>
+    <text x="15" y="136" font-size="9">• Multi-tier confidence scoring</text>
+    <text x="15" y="150" font-size="9">• Literature → PDF → Text extraction</text>
+
+    <text x="10" y="175" font-size="12" font-weight="bold" fill="#7b1fa2">Knowledge Graph Integration</text>
+    <text x="15" y="192" font-size="9">• KG-Microbe: 40K+ organisms, 1800+ media</text>
+    <text x="15" y="206" font-size="9">• Graph reasoning for related organisms</text>
+    <text x="15" y="220" font-size="9">• Hierarchical ingredient search</text>
+
+    <text x="10" y="245" font-size="12" font-weight="bold" fill="#388e3c">External Tool Integration</text>
+    <text x="15" y="262" font-size="9">• Bakta: Genome annotation</text>
+    <text x="15" y="276" font-size="9">• Gapmind: Pathway gap prediction</text>
+    <text x="15" y="290" font-size="9">• GEMSembler: Metabolic modeling (FBA)</text>
+    <text x="15" y="304" font-size="9">• MediaDive: 1800+ validated formulations</text>
+
+    <text x="10" y="329" font-size="12" font-weight="bold" fill="#c62828">Outputs</text>
+    <text x="15" y="346" font-size="9">• Media recipes with concentrations</text>
+    <text x="15" y="360" font-size="9">• DOE plate designs (96/384-well)</text>
+    <text x="15" y="374" font-size="9">• Multi-format: JSON, TSV, Markdown</text>
+    <text x="15" y="388" font-size="9">• Hamilton robot protocols</text>
+  </g>
+
+  <!-- Footer -->
+  <text x="1000" y="1580" font-size="10" text-anchor="middle" fill="#666">
+    MicroGrowAgents v1.0 | Framework for AI-Driven Microbial Growth Media Design
+  </text>
+</svg>

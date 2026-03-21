@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 850" font-family="Arial, sans-serif">
+  <!-- 8.5" x 11" landscape at 100 DPI = 1100 x 850 pixels -->
+
+  <!-- Title -->
+  <text x="550" y="40" font-size="28" font-weight="bold" text-anchor="middle" fill="#1a1a1a">
+    Example Workflow Paths
+  </text>
+  <text x="550" y="65" font-size="16" text-anchor="middle" fill="#666">
+    Four Common Tasks through the Multi-Agent System
+  </text>
+
+  <!-- WORKFLOW 1: Media Recommendation -->
+  <g id="workflow-1">
+    <text x="80" y="110" font-size="20" font-weight="bold" fill="#d32f2f">Path 1: Media Recommendation</text>
+    <rect x="40" y="125" width="1020" height="150" fill="#fff" stroke="#d32f2f" stroke-width="3" rx="8"/>
+
+    <!-- Row 1 -->
+    <circle cx="80" cy="165" r="20" fill="#d32f2f" stroke="white" stroke-width="3"/>
+    <text x="80" y="172" font-size="16" fill="white" font-weight="bold" text-anchor="middle">1</text>
+    <text x="110" y="165" font-size="14" font-weight="bold">Input</text>
+    <text x="110" y="182" font-size="12" fill="#666">Organism ID</text>
+    <text x="110" y="196" font-size="11" fill="#888">"M. extorquens AM1"</text>
+
+    <path d="M 235 165 L 265 165" stroke="#d32f2f" stroke-width="3" marker-end="url(#arrow-red)"/>
+
+    <circle cx="295" cy="165" r="20" fill="#d32f2f" stroke="white" stroke-width="3"/>
+    <text x="295" y="172" font-size="16" fill="white" font-weight="bold" text-anchor="middle">2</text>
+    <text x="325" y="165" font-size="14" font-weight="bold">SQL Agent</text>
+    <text x="325" y="182" font-size="12" fill="#666">Query genome</text>
+    <text x="325" y="196" font-size="11" fill="#888">and growth data</text>
+
+    <path d="M 445 165 L 475 165" stroke="#d32f2f" stroke-width="3" marker-end="url(#arrow-red)"/>
+
+    <circle cx="505" cy="165" r="20" fill="#d32f2f" stroke="white" stroke-width="3"/>
+    <text x="505" y="172" font-size="16" fill="white" font-weight="bold" text-anchor="middle">3</text>
+    <text x="535" y="165" font-size="14" font-weight="bold">GenomeFunction</text>
+    <text x="535" y="182" font-size="12" fill="#666">Identify</text>
+    <text x="535" y="196" font-size="11" fill="#888">auxotrophies</text>
+
+    <path d="M 685 165 L 715 165" stroke="#d32f2f" stroke-width="3" marker-end="url(#arrow-red)"/>
+
+    <circle cx="745" cy="165" r="20" fill="#d32f2f" stroke="white" stroke-width="3"/>
+    <text x="745" y="172" font-size="16" fill="white" font-weight="bold" text-anchor="middle">4</text>
+    <text x="775" y="165" font-size="14" font-weight="bold">Gapmind</text>
+    <text x="775" y="182" font-size="12" fill="#666">Pathway</text>
+    <text x="775" y="196" font-size="11" fill="#888">gaps</text>
+
+    <!-- Row 2 -->
+    <circle cx="80" cy="235" r="20" fill="#d32f2f" stroke="white" stroke-width="3"/>
+    <text x="80" y="242" font-size="16" fill="white" font-weight="bold" text-anchor="middle">5</text>
+    <text x="110" y="235" font-size="14" font-weight="bold">KG Reasoning</text>
+    <text x="110" y="252" font-size="12" fill="#666">Find similar</text>
+    <text x="110" y="266" font-size="11" fill="#888">organisms</text>
+
+    <path d="M 235 235 L 265 235" stroke="#d32f2f" stroke-width="3" marker-end="url(#arrow-red)"/>
+
+    <circle cx="295" cy="235" r="20" fill="#d32f2f" stroke="white" stroke-width="3"/>
+    <text x="295" y="242" font-size="16" fill="white" font-weight="bold" text-anchor="middle">6</text>
+    <text x="325" y="235" font-size="14" font-weight="bold">MediaFormulation</text>
+    <text x="325" y="252" font-size="12" fill="#666">Combine all</text>
+    <text x="325" y="266" font-size="11" fill="#888">requirements</text>
+
+    <path d="M 475 235 L 505 235" stroke="#d32f2f" stroke-width="3" marker-end="url(#arrow-red)"/>
+
+    <circle cx="535" cy="235" r="20" fill="#d32f2f" stroke="white" stroke-width="3"/>
+    <text x="535" y="242" font-size="16" fill="white" font-weight="bold" text-anchor="middle">7</text>
+    <text x="565" y="235" font-size="14" font-weight="bold">GenMediaConc</text>
+    <text x="565" y="252" font-size="12" fill="#666">Predict</text>
+    <text x="565" y="266" font-size="11" fill="#888">concentrations</text>
+
+    <path d="M 715 235 L 745 235" stroke="#d32f2f" stroke-width="3" marker-end="url(#arrow-red)"/>
+
+    <circle cx="775" cy="235" r="20" fill="#d32f2f" stroke="white" stroke-width="3"/>
+    <text x="775" y="242" font-size="16" fill="white" font-weight="bold" text-anchor="middle">8</text>
+    <text x="805" y="235" font-size="14" font-weight="bold">Output</text>
+    <text x="805" y="252" font-size="12" fill="#666">Complete</text>
+    <text x="805" y="266" font-size="11" fill="#888">recipe + evidence</text>
+  </g>
+
+  <!-- WORKFLOW 2: Concentration Prediction -->
+  <g id="workflow-2">
+    <text x="80" y="320" font-size="20" font-weight="bold" fill="#1976d2">Path 2: Concentration Prediction</text>
+    <rect x="40" y="335" width="1020" height="85" fill="#fff" stroke="#1976d2" stroke-width="3" rx="8"/>
+
+    <circle cx="80" cy="375" r="20" fill="#1976d2" stroke="white" stroke-width="3"/>
+    <text x="80" y="382" font-size="16" fill="white" font-weight="bold" text-anchor="middle">1</text>
+    <text x="110" y="372" font-size="14" font-weight="bold">Input</text>
+    <text x="110" y="389" font-size="12" fill="#666">Ingredient list</text>
+    <text x="110" y="403" font-size="11" fill="#888">(glucose, peptone, yeast extract)</text>
+
+    <path d="M 330 375 L 360 375" stroke="#1976d2" stroke-width="3" marker-end="url(#arrow-blue)"/>
+
+    <circle cx="390" cy="375" r="20" fill="#1976d2" stroke="white" stroke-width="3"/>
+    <text x="390" y="382" font-size="16" fill="white" font-weight="bold" text-anchor="middle">2</text>
+    <text x="420" y="372" font-size="14" font-weight="bold">Cooccurrence</text>
+    <text x="420" y="389" font-size="12" fill="#666">Find typical pairs</text>
+    <text x="420" y="403" font-size="11" fill="#888">TF-IDF scores from MediaDive</text>
+
+    <path d="M 620 375 L 650 375" stroke="#1976d2" stroke-width="3" marker-end="url(#arrow-blue)"/>
+
+    <circle cx="680" cy="375" r="20" fill="#1976d2" stroke="white" stroke-width="3"/>
+    <text x="680" y="382" font-size="16" fill="white" font-weight="bold" text-anchor="middle">3</text>
+    <text x="710" y="372" font-size="14" font-weight="bold">GenMediaConc</text>
+    <text x="710" y="389" font-size="12" fill="#666">Predict amounts</text>
+    <text x="710" y="403" font-size="11" fill="#888">+ confidence intervals</text>
+
+    <path d="M 910 375 L 940 375" stroke="#1976d2" stroke-width="3" marker-end="url(#arrow-blue)"/>
+
+    <circle cx="970" cy="375" r="20" fill="#1976d2" stroke="white" stroke-width="3"/>
+    <text x="970" y="382" font-size="16" fill="white" font-weight="bold" text-anchor="middle">4</text>
+    <text x="970" y="398" font-size="12" fill="#666" text-anchor="middle">Output:</text>
+    <text x="970" y="411" font-size="11" fill="#888" text-anchor="middle">Concentrations</text>
+  </g>
+
+  <!-- WORKFLOW 3: Alternate Ingredient -->
+  <g id="workflow-3">
+    <text x="80" y="460" font-size="20" font-weight="bold" fill="#388e3c">Path 3: Alternate Ingredient</text>
+    <rect x="40" y="475" width="1020" height="85" fill="#fff" stroke="#388e3c" stroke-width="3" rx="8"/>
+
+    <circle cx="80" cy="515" r="20" fill="#388e3c" stroke="white" stroke-width="3"/>
+    <text x="80" y="522" font-size="16" fill="white" font-weight="bold" text-anchor="middle">1</text>
+    <text x="110" y="512" font-size="14" font-weight="bold">Input</text>
+    <text x="110" y="529" font-size="12" fill="#666">Replace glucose</text>
+    <text x="110" y="543" font-size="11" fill="#888">Find C-source alternatives</text>
+
+    <path d="M 300 515 L 330 515" stroke="#388e3c" stroke-width="3" marker-end="url(#arrow-green)"/>
+
+    <circle cx="360" cy="515" r="20" fill="#388e3c" stroke="white" stroke-width="3"/>
+    <text x="360" y="522" font-size="16" fill="white" font-weight="bold" text-anchor="middle">2</text>
+    <text x="390" y="512" font-size="14" font-weight="bold">MetabolicSource</text>
+    <text x="390" y="529" font-size="12" fill="#666">Identify role</text>
+    <text x="390" y="543" font-size="11" fill="#888">(C-source, N-source, etc.)</text>
+
+    <path d="M 590 515 L 620 515" stroke="#388e3c" stroke-width="3" marker-end="url(#arrow-green)"/>
+
+    <circle cx="650" cy="515" r="20" fill="#388e3c" stroke="white" stroke-width="3"/>
+    <text x="650" y="522" font-size="16" fill="white" font-weight="bold" text-anchor="middle">3</text>
+    <text x="680" y="512" font-size="14" font-weight="bold">Analogy + Chemistry</text>
+    <text x="680" y="529" font-size="12" fill="#666">Similar compounds</text>
+    <text x="680" y="543" font-size="11" fill="#888">KG embeddings (FAISS)</text>
+
+    <path d="M 890 515 L 920 515" stroke="#388e3c" stroke-width="3" marker-end="url(#arrow-green)"/>
+
+    <circle cx="950" cy="515" r="20" fill="#388e3c" stroke="white" stroke-width="3"/>
+    <text x="950" y="522" font-size="16" fill="white" font-weight="bold" text-anchor="middle">4</text>
+    <text x="950" y="538" font-size="12" fill="#666" text-anchor="middle">Output:</text>
+    <text x="950" y="551" font-size="11" fill="#888" text-anchor="middle">Alternatives</text>
+  </g>
+
+  <!-- WORKFLOW 4: Add Ingredient (Cofactor) -->
+  <g id="workflow-4">
+    <text x="80" y="600" font-size="20" font-weight="bold" fill="#7b1fa2">Path 4: Add Ingredient (Cofactor)</text>
+    <rect x="40" y="615" width="1020" height="85" fill="#fff" stroke="#7b1fa2" stroke-width="3" rx="8"/>
+
+    <circle cx="80" cy="655" r="20" fill="#7b1fa2" stroke="white" stroke-width="3"/>
+    <text x="80" y="662" font-size="16" fill="white" font-weight="bold" text-anchor="middle">1</text>
+    <text x="110" y="652" font-size="14" font-weight="bold">Input</text>
+    <text x="110" y="669" font-size="12" fill="#666">Organism + Medium</text>
+    <text x="110" y="683" font-size="11" fill="#888">Enhance existing recipe</text>
+
+    <path d="M 310 655 L 340 655" stroke="#7b1fa2" stroke-width="3" marker-end="url(#arrow-purple)"/>
+
+    <circle cx="370" cy="655" r="20" fill="#7b1fa2" stroke="white" stroke-width="3"/>
+    <text x="370" y="662" font-size="16" fill="white" font-weight="bold" text-anchor="middle">2</text>
+    <text x="400" y="652" font-size="14" font-weight="bold">GenomeFunction</text>
+    <text x="400" y="669" font-size="12" fill="#666">Check pathways</text>
+    <text x="400" y="683" font-size="11" fill="#888">Vitamin biosynthesis</text>
+
+    <path d="M 600 655 L 630 655" stroke="#7b1fa2" stroke-width="3" marker-end="url(#arrow-purple)"/>
+
+    <circle cx="660" cy="655" r="20" fill="#7b1fa2" stroke="white" stroke-width="3"/>
+    <text x="660" y="662" font-size="16" fill="white" font-weight="bold" text-anchor="middle">3</text>
+    <text x="690" y="652" font-size="14" font-weight="bold">CofactorMedia</text>
+    <text x="690" y="669" font-size="12" fill="#666">Add missing</text>
+    <text x="690" y="683" font-size="11" fill="#888">vitamins & cofactors</text>
+
+    <path d="M 890 655 L 920 655" stroke="#7b1fa2" stroke-width="3" marker-end="url(#arrow-purple)"/>
+
+    <circle cx="950" cy="655" r="20" fill="#7b1fa2" stroke="white" stroke-width="3"/>
+    <text x="950" y="662" font-size="16" fill="white" font-weight="bold" text-anchor="middle">4</text>
+    <text x="950" y="678" font-size="12" fill="#666" text-anchor="middle">Output:</text>
+    <text x="950" y="691" font-size="11" fill="#888" text-anchor="middle">Enhanced recipe</text>
+  </g>
+
+  <!-- KEY FEATURES -->
+  <g id="key-features">
+    <text x="80" y="740" font-size="22" font-weight="bold" fill="#1a1a1a">Key Framework Features</text>
+    <rect x="40" y="755" width="1020" height="65" fill="#f5f5f5" stroke="#666" stroke-width="2" rx="8"/>
+
+    <g transform="translate(60, 773)">
+      <text font-size="14" font-weight="bold" fill="#1976d2">Multi-Agent Orchestration</text>
+      <text y="18" font-size="12">• 28 specialized agents with specific expertise</text>
+      <text y="34" font-size="12">• Coordinated workflows via orchestration agents</text>
+    </g>
+
+    <g transform="translate(370, 773)">
+      <text font-size="14" font-weight="bold" fill="#f57c00">Evidence-Based</text>
+      <text y="18" font-size="12">• All recommendations backed by citations</text>
+      <text y="34" font-size="12">• Multi-tier confidence scoring (HIGH/MED/LOW)</text>
+    </g>
+
+    <g transform="translate(680, 773)">
+      <text font-size="14" font-weight="bold" fill="#7b1fa2">KG Integration</text>
+      <text y="18" font-size="12">• KG-Microbe: 40K+ organisms, 1800+ media</text>
+      <text y="34" font-size="12">• FAISS embeddings for similarity search</text>
+    </g>
+  </g>
+
+  <!-- ARROW MARKERS -->
+  <defs>
+    <marker id="arrow-red" markerWidth="12" markerHeight="12" refX="10" refY="3" orient="auto">
+      <polygon points="0 0, 12 3, 0 6" fill="#d32f2f"/>
+    </marker>
+    <marker id="arrow-blue" markerWidth="12" markerHeight="12" refX="10" refY="3" orient="auto">
+      <polygon points="0 0, 12 3, 0 6" fill="#1976d2"/>
+    </marker>
+    <marker id="arrow-green" markerWidth="12" markerHeight="12" refX="10" refY="3" orient="auto">
+      <polygon points="0 0, 12 3, 0 6" fill="#388e3c"/>
+    </marker>
+    <marker id="arrow-purple" markerWidth="12" markerHeight="12" refX="10" refY="3" orient="auto">
+      <polygon points="0 0, 12 3, 0 6" fill="#7b1fa2"/>
+    </marker>
+  </defs>
+
+  <!-- Footer -->
+  <text x="550" y="835" font-size="12" text-anchor="middle" fill="#666">
+    MicroGrowAgents | Evidence-Based AI for Microbial Growth Media Design
+  </text>
+</svg>

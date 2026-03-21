@@ -1,6 +1,7 @@
 # Literature Review: Automated Manuscript Generation from Research Code Repositories
 
 **Generated:** 2026-02-06
+**Updated:** 2026-03-06 (added 3 recent papers from 2024-2025)
 **Based on:** RR-WRITE-PROJECT.md, outline.md
 
 ## Background & Foundations
@@ -11,9 +12,13 @@ The foundation of automated manuscript generation lies in reproducible computati
 
 Reproducible computational science requires four pillars: capture of code and environment, declarative workflows, verifiable provenance, and complete reporting [HasLer2024]. Workflow provenance describes the structure, control logic, and execution details, capturing metadata about what was done, when, where, how, and by whom [LLMProvenance2025]. Scientific research has struggled with reproducibility due to low data sharing rates and lack of provenance tracking [JMIR2024, DOI:10.2196/51297].
 
+Machine learning research faces particular reproducibility challenges, with issues including lack of transparency, missing data or code, poor adherence to standards, and sensitivity of ML training conditions rendering many papers not reproducible even in principle [Semmelrock2025, DOI:10.1002/aaai.70002]. These systemic barriers underscore the need for automated documentation systems that integrate provenance tracking and fact verification from the outset of research workflows.
+
 ### Jupyter Notebooks as Publication Format
 
 Jupyter notebooks facilitate bundling executable code with documentation and output in interactive environments, representing a popular mechanism to document and share computational workflows [Kluyver2016]. The "Notebooks Now!" project developed an end-to-end workflow for submission, peer review, and publication of computational notebooks as the primary element of the scientific record [Caprarelli2023, DOI:10.1029/2023EA003458]. However, reproducibility challenges persist as the majority of published notebooks cannot be executed automatically due to inadequate dependency documentation [Pimentel2023, DOI:10.1093/gigascience/giad113].
+
+Recent advances in notebook reproducibility assessment introduce similarity-based metrics as an alternative to deterministic matching [Hossain2025, DOI:10.1145/3736731.3746159]. The Similarity-based Reproducibility Index (SRI) employs type-specific similarity metrics for Python objects to quantitatively assess reproducibility even when outputs are not identical, addressing the challenge that strict equality checks fail for floating-point computations and stochastic algorithms. These advances in reproducibility verification parallel RRWrite's evidence-based validation approach, both recognizing that computational reproducibility requires nuanced comparison strategies rather than binary pass/fail checks.
 
 ## Related Work
 
@@ -75,6 +80,10 @@ AI-assisted screening for systematic reviews achieved 85% accuracy while reducin
 
 LinkML (Linked Data Modeling Language) provides an open framework for data modeling from schema creation to validation and integration. The ISMB 2024 tutorial demonstrated LinkML's capabilities for developing models and validating them with test data [LinkML2024]. LinkML facilitates structured, standardized scientific data, addressing challenges of interoperability, validation, and reuse.
 
+### AI-Assisted Manuscript Revision
+
+The Manubot AI Editor extends the Manubot collaborative writing platform with LLM-based revision capabilities [Pividori2024, DOI:10.1093/jamia/ocae139]. The system generates section-specific prompts using metadata and manuscript structure, producing suggested paragraph revisions for human authors to review. Evaluation through 5 case studies demonstrates that language models can grasp complex academic concepts and enhance text quality, while version control ensures transparency in distinguishing human- and machine-generated text. This approach complements RRWrite's generative workflow by focusing on iterative refinement of existing manuscripts rather than initial draft generation.
+
 ## Research Gaps
 
 **Identified Gaps:**
@@ -100,6 +109,7 @@ RRWrite addresses all four gaps by providing an end-to-end system that: (1) inte
 - [Wilkinson2016, DOI:10.1038/sdata.2016.18]: Original FAIR data principles
 - [Caprarelli2023, DOI:10.1029/2023EA003458]: Notebooks as publication format
 - [Pimentel2023, DOI:10.1093/gigascience/giad113]: Reproducibility challenges in notebooks
+- [Semmelrock2025, DOI:10.1002/aaai.70002]: ML reproducibility barriers
 
 ### Related Work (Methods/Discussion)
 - [Himmelstein2019, DOI:10.1371/journal.pcbi.1007128]: Manubot collaborative writing
@@ -110,9 +120,11 @@ RRWrite addresses all four gaps by providing an end-to-end system that: (1) inte
 ### Recent Advances (Results/Discussion)
 - [CHI2024, DOI:10.1145/3613904.3642134]: AI writing assistance scaffolding
 - [Ros2025, DOI:10.1002/ace.70014]: AI academic writing tools survey
+- [Pividori2024, DOI:10.1093/jamia/ocae139]: Manubot AI-assisted revision
 - [CliVER2024, DOI:10.1093/jamiaopen/ooae021]: Scientific claim verification
 - [Climinator2025, DOI:10.1038/s44168-025-00215-8]: LLM-based fact-checking
 - [Khalil2024, DOI:10.1002/jrsm.1731]: Literature review automation
+- [Hossain2025, DOI:10.1145/3736731.3746159]: Notebook reproducibility assessment
 
 ### Technical Implementation (Methods)
 - [LinkML2024]: Schema validation framework
@@ -125,8 +137,9 @@ RRWrite addresses all four gaps by providing an end-to-end system that: (1) inte
 
 **Introduction:**
 - Cite [Barker2022, Wilkinson2016] when introducing FAIR principles and reproducible research
-- Cite [Caprarelli2023, Pimentel2023] when discussing notebooks as publication format and reproducibility challenges
+- Cite [Caprarelli2023, Pimentel2023, Hossain2025] when discussing notebooks as publication format and reproducibility challenges
 - Cite [Himmelstein2019] when introducing prior manuscript automation approaches
+- Cite [Semmelrock2025] when motivating need for automated documentation due to ML reproducibility crisis
 
 **Methods:**
 - Cite [LinkML2024] when describing schema-based validation
@@ -138,38 +151,41 @@ RRWrite addresses all four gaps by providing an end-to-end system that: (1) inte
 - Cite [Khalil2024] when discussing literature research efficiency
 - Cite [CliVER2024, Climinator2025] when presenting fact verification capabilities
 - Cite [Seo2025] when comparing code↔paper transformation approaches
+- Cite [Pividori2024] when comparing RRWrite's generative approach to revision-focused AI tools
+- Cite [Hossain2025] when discussing reproducibility verification methods
 
 **Discussion:**
-- Cite [CHI2024, Ros2025] when positioning AI writing assistance contribution
+- Cite [CHI2024, Ros2025, Pividori2024] when positioning AI writing assistance contribution
 - Cite [Barker2022] when discussing future FAIR software compliance
 - Cite [JMIR2024] when highlighting provenance tracking importance
+- Cite [Semmelrock2025] when discussing broader reproducibility challenges that motivate RRWrite
 
 ---
 
 ## Total Statistics
 
-- **Papers reviewed:** 22
+- **Papers reviewed:** 25 (22 original + 3 added March 2026)
 - **Foundational papers (pre-2020):** 2
 - **Related work papers (2020-2023):** 5
-- **Recent advances (2024-2026):** 15
-- **Papers with DOIs:** 20 (91%)
-- **ArXiv preprints:** 1
-- **Conference papers:** 3
-- **Journal articles:** 18
+- **Recent advances (2024-2026):** 18
+- **Papers with DOIs:** 23 (92%)
+- **ArXiv preprints:** 2 (also published in peer-reviewed venues)
+- **Conference papers:** 4
+- **Journal articles:** 19
 
 ---
 
 ## Search Strategy Notes
 
 **Coverage achieved:**
-- Reproducible research foundations: 4 papers
-- Manuscript automation tools: 3 papers
-- AI writing assistance: 3 papers
+- Reproducible research foundations: 5 papers (added ML reproducibility barriers)
+- Manuscript automation tools: 4 papers (added Manubot AI Editor)
+- AI writing assistance: 4 papers (includes AI-assisted revision)
 - Fact verification systems: 3 papers
 - Literature review automation: 2 papers
 - Workflow management: 2 papers
 - Schema validation: 2 papers
-- Notebooks and publishing: 3 papers
+- Notebooks and publishing: 4 papers (added SRI reproducibility metric)
 
 **Quality indicators met:**
 - Top-tier venues: Nature (2), PLOS Comp Bio (1), Nucleic Acids Research (1), Bioinformatics (1), CHI (1)

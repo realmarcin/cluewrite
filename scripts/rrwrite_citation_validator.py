@@ -243,22 +243,158 @@ class CitationBusinessValidator:
         return self.warnings
 
 
+# Paperpile Citation Support
+class PaperpileCitationHandler:
+    """Handle Paperpile citation format and mapping to BibTeX keys."""
+
+    @staticmethod
+    def extract_paperpile_citations(text: str) -> List[str]:
+        """
+        Extract Paperpile citation codes from manuscript text.
+
+        Matches pattern: [(text)](https://paperpile.com/c/PROJECT/CODE)
+
+        Args:
+            text: Manuscript text
+
+        Returns:
+            List of Paperpile codes
+        """
+        pattern = r'\[.*?\]\(https://paperpile\.com/c/[^/]+/([^\)]+)\)'
+        codes = re.findall(pattern, text)
+        return codes
+
+    @staticmethod
+    def load_paperpile_mapping(mapping_file: Path) -> Dict[str, str]:
+        """
+        Load Paperpile code → BibTeX key mapping.
+
+        Args:
+            mapping_file: Path to paperpile_mapping.json
+
+        Returns:
+            Dictionary mapping Paperpile codes to BibTeX keys
+        """
+        if not mapping_file.exists():
+            return {}
+
+        try:
+            with open(mapping_file, 'r', encoding='utf-8') as f:
+                return json.load(f)
+        except Exception as e:
+            print(f"Warning: Could not load Paperpile mapping: {e}")
+            return {}
+
+    @staticmethod
+    def map_to_bibtex_keys(
+        paperpile_codes: List[str],
+        mapping: Dict[str, str]
+    ) -> Tuple[List[str], List[str]]:
+        """
+        Convert Paperpile codes to BibTeX keys using mapping.
+
+        Args:
+            paperpile_codes: List of Paperpile codes
+            mapping: Paperpile code → BibTeX key mapping
+
+        Returns:
+            Tuple of (mapped_keys, unmapped_codes)
+        """
+        mapped = []
+        unmapped = []
+
+        for code in paperpile_codes:
+            if code in mapping:
+                mapped.append(mapping[code])
+            else:
+                unmapped.append(code)
+
+        return mapped, unmapped
+
+    @staticmethod
+    def extract_and_map_citations(
+        manuscript_path: Path,
+        mapping_file: Path
+    ) -> Tuple[Set[str], List[str]]:
+        """
+        Extract Paperpile citations and map to BibTeX keys.
+
+        Args:
+            manuscript_path: Path to manuscript
+            mapping_file: Path to paperpile_mapping.json
+
+        Returns:
+            Tuple of (bibtex_keys, unmapped_codes)
+        """
+        if not manuscript_path.exists():
+            return set(), []
+
+        try:
+            with open(manuscript_path, 'r', encoding='utf-8') as f:
+                text = f.read()
+        except Exception as e:
+            print(f"Error reading manuscript: {e}")
+            return set(), []
+
+        # Extract Paperpile codes
+        codes = PaperpileCitationHandler.extract_paperpile_citations(text)
+
+        # Load mapping
+        mapping = PaperpileCitationHandler.load_paperpile_mapping(mapping_file)
+
+        # Map to BibTeX keys
+        mapped, unmapped = PaperpileCitationHandler.map_to_bibtex_keys(
+            codes,
+            mapping
+        )
+
+        return set(mapped), unmapped
+
+
 # Layer 3: Assembly Validation
 class CitationAssemblyValidator:
     """Validate completeness at manuscript compilation."""
 
     @staticmethod
-    def extract_citations_from_text(manuscript_path: Path) -> Set[str]:
-        """Extract all citation keys from manuscript text."""
+    def extract_citations_from_text(
+        manuscript_path: Path,
+        format: str = 'bibtex',
+        paperpile_mapping: Optional[Path] = None
+    ) -> Set[str]:
+        """
+        Extract all citation keys from manuscript text.
+
+        Args:
+            manuscript_path: Path to manuscript file
+            format: Citation format ('bibtex' or 'paperpile')
+            paperpile_mapping: Path to paperpile_mapping.json (required if format='paperpile')
+
+        Returns:
+            Set of citation keys (BibTeX format)
+        """
         if not manuscript_path.exists():
             return set()
 
         try:
             with open(manuscript_path, 'r', encoding='utf-8') as f:
                 content = f.read()
-            # Match [author2024] style citations
-            citations = re.findall(r'\[([a-zA-Z]+\d{4}[a-z]?)\]', content)
-            return set(citations)
+
+            if format == 'paperpile':
+                if not paperpile_mapping:
+                    raise ValueError("paperpile_mapping required when format='paperpile'")
+                # Extract and map Paperpile citations
+                bibtex_keys, unmapped = PaperpileCitationHandler.extract_and_map_citations(
+                    manuscript_path,
+                    paperpile_mapping
+                )
+                if unmapped:
+                    print(f"Warning: {len(unmapped)} Paperpile codes not in mapping: {unmapped[:5]}")
+                return bibtex_keys
+            else:
+                # Match [author2024] style citations (default BibTeX format)
+                citations = re.findall(r'\[([a-zA-Z]+\d{4}[a-z]?)\]', content)
+                return set(citations)
+
         except Exception as e:
             print(f"Error extracting citations: {e}")
             return set()
@@ -280,9 +416,20 @@ class CitationAssemblyValidator:
             return set()
 
     @staticmethod
-    def validate_citation_completeness(manuscript_path: Path, bib_path: Path) -> Tuple[Set[str], Set[str]]:
+    def validate_citation_completeness(
+        manuscript_path: Path,
+        bib_path: Path,
+        format: str = 'bibtex',
+        paperpile_mapping: Optional[Path] = None
+    ) -> Tuple[Set[str], Set[str]]:
         """
         Validate all text citations in bib, all bib entries cited.
+
+        Args:
+            manuscript_path: Path to manuscript file
+            bib_path: Path to .bib file
+            format: Citation format ('bibtex' or 'paperpile')
+            paperpile_mapping: Path to paperpile_mapping.json (required if format='paperpile')
 
         Returns:
             Tuple of (orphaned_text, orphaned_bib)
@@ -290,7 +437,11 @@ class CitationAssemblyValidator:
         Raises:
             CitationMismatchError: If mismatches found
         """
-        text_cites = CitationAssemblyValidator.extract_citations_from_text(manuscript_path)
+        text_cites = CitationAssemblyValidator.extract_citations_from_text(
+            manuscript_path,
+            format=format,
+            paperpile_mapping=paperpile_mapping
+        )
         bib_cites = CitationAssemblyValidator.extract_citations_from_bib(bib_path)
 
         orphaned_text = text_cites - bib_cites
@@ -428,10 +579,22 @@ def validate_all_layers(
     evidence_csv: Path,
     manuscript_path: Optional[Path] = None,
     bib_path: Optional[Path] = None,
-    audit_log_path: Optional[Path] = None
+    audit_log_path: Optional[Path] = None,
+    format: str = 'bibtex',
+    paperpile_mapping: Optional[Path] = None
 ) -> Tuple[bool, List[str]]:
     """
     Run all validation layers.
+
+    Args:
+        citation_keys: List of citation keys to validate
+        section: Section name (e.g., 'introduction', 'methods')
+        evidence_csv: Path to literature_evidence.csv
+        manuscript_path: Optional path to manuscript file
+        bib_path: Optional path to .bib file
+        audit_log_path: Optional path to audit log
+        format: Citation format ('bibtex' or 'paperpile')
+        paperpile_mapping: Path to paperpile_mapping.json (required if format='paperpile')
 
     Returns:
         Tuple of (success, error_messages)
@@ -456,7 +619,10 @@ def validate_all_layers(
     if manuscript_path and bib_path:
         try:
             CitationAssemblyValidator.validate_citation_completeness(
-                manuscript_path, bib_path
+                manuscript_path,
+                bib_path,
+                format=format,
+                paperpile_mapping=paperpile_mapping
             )
         except CitationMismatchError as e:
             errors.append(str(e))
@@ -472,26 +638,98 @@ def validate_all_layers(
 
 
 if __name__ == '__main__':
-    # Example usage
-    import sys
+    import argparse
 
-    if len(sys.argv) < 4:
-        print("Usage: python rrwrite_citation_validator.py <section> <evidence_csv> <citation_key>...")
-        sys.exit(1)
-
-    section = sys.argv[1]
-    evidence_csv = Path(sys.argv[2])
-    citations = sys.argv[3:]
-
-    success, errors = validate_all_layers(
-        citations,
-        section,
-        evidence_csv
+    parser = argparse.ArgumentParser(
+        description='Validate citations in manuscript with multi-layer checks'
+    )
+    parser.add_argument(
+        '--manuscript',
+        type=Path,
+        help='Path to manuscript file'
+    )
+    parser.add_argument(
+        '--evidence',
+        type=Path,
+        required=True,
+        help='Path to literature_evidence.csv'
+    )
+    parser.add_argument(
+        '--bib',
+        type=Path,
+        help='Path to .bib file (for assembly validation)'
+    )
+    parser.add_argument(
+        '--section',
+        type=str,
+        help='Section name for business logic validation'
+    )
+    parser.add_argument(
+        '--citations',
+        nargs='+',
+        help='Citation keys to validate (BibTeX format)'
+    )
+    parser.add_argument(
+        '--format',
+        choices=['bibtex', 'paperpile'],
+        default='bibtex',
+        help='Citation format in manuscript (default: bibtex)'
+    )
+    parser.add_argument(
+        '--paperpile-mapping',
+        type=Path,
+        help='Path to paperpile_mapping.json (required if format=paperpile)'
+    )
+    parser.add_argument(
+        '--audit-log',
+        type=Path,
+        help='Path to audit log file'
     )
 
-    if not success:
-        print("\n".join(errors))
-        sys.exit(1)
+    args = parser.parse_args()
+
+    # Validate required combinations
+    if args.format == 'paperpile' and not args.paperpile_mapping:
+        parser.error("--paperpile-mapping required when --format=paperpile")
+
+    if args.manuscript and args.bib:
+        # Full validation mode: extract citations from manuscript
+        print(f"Validating manuscript: {args.manuscript}")
+        print(f"Citation format: {args.format}")
+
+        success, errors = validate_all_layers(
+            args.citations or [],
+            args.section or 'unknown',
+            args.evidence,
+            manuscript_path=args.manuscript,
+            bib_path=args.bib,
+            audit_log_path=args.audit_log,
+            format=args.format,
+            paperpile_mapping=args.paperpile_mapping
+        )
+
+        if not success:
+            print("\n".join(errors))
+            exit(1)
+        else:
+            print(f"✅ Manuscript citations validated successfully")
+            exit(0)
+
+    elif args.citations:
+        # Citation-specific validation mode
+        success, errors = validate_all_layers(
+            args.citations,
+            args.section or 'unknown',
+            args.evidence,
+            audit_log_path=args.audit_log
+        )
+
+        if not success:
+            print("\n".join(errors))
+            exit(1)
+        else:
+            print(f"✅ All {len(args.citations)} citations validated successfully")
+            exit(0)
+
     else:
-        print(f"✅ All {len(citations)} citations validated successfully")
-        sys.exit(0)
+        parser.error("Either --manuscript and --bib, or --citations must be provided")

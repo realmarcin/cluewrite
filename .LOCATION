@@ -1,0 +1,7 @@
+# Canonical Repository Location
+
+This repository is now consolidated at:
+/Users/marcin/Documents/VIMSS/ontology/repo-research-writer
+
+The previous location at /Users/marcin/Documents/VIMSS/ontology/writing/repo-research-writer is deprecated.
+All skills, scripts, and symlinks now reference the local path.

@@ -1,23 +1,17 @@
 ---
 name: rrwrite-assemble
-description: Assembles all manuscript sections into a complete manuscript with validation, metadata generation, figure handling, and optional .docx conversion
+description: Assembles all manuscript sections into a complete manuscript with validation and metadata generation
 arguments:
   - name: target_dir
     description: Output directory containing manuscript sections
     default: manuscript
-  - name: include_figures
-    description: Copy figures from repository to manuscript/figures directory
-    default: true
-  - name: convert_docx
-    description: Convert assembled manuscript to .docx format for Google Docs import
-    default: true
 allowed-tools:
 context: fork
 ---
 # Manuscript Assembly Protocol
 
 ## Purpose
-Combine all drafted manuscript sections into a complete manuscript file with validation, metadata generation, figure handling, and optional .docx conversion for Google Docs import.
+Combine all drafted manuscript sections into a complete manuscript file with validation, metadata generation, and quality checks.
 
 ## Prerequisites
 **Required files in {target_dir}:**
@@ -73,63 +67,69 @@ Combine all drafted manuscript sections into a complete manuscript file with val
            print(f"Warning: Incomplete sections: {incomplete}")
    ```
 
-### Phase 2: Section Assembly with Figure Handling
+### Phase 2: Section Assembly
 
-1. **Run Enhanced Assembly Script:**
+1. **Combine Sections in Order:**
 
-   The Python script now handles:
-   - Section combination in proper order
-   - Figure detection and copying from repository
-   - Figure reference normalization in markdown
-   - Optional .docx conversion using pandoc
+   **For Nature format:** Abstract → Introduction → Results → Discussion → Methods → Availability
 
    ```bash
-   # Standard assembly (includes figures and .docx conversion by default)
-   python scripts/rrwrite-assemble-manuscript.py --output-dir {target_dir}
+   cd {target_dir}
 
-   # Disable figure copying
-   python scripts/rrwrite-assemble-manuscript.py \
-       --output-dir {target_dir} \
-       --no-include-figures
+   # Clear or create output file
+   > manuscript_full.md
 
-   # Disable .docx conversion
-   python scripts/rrwrite-assemble-manuscript.py \
-       --output-dir {target_dir} \
-       --no-convert-docx
+   # Add header
+   cat >> manuscript_full.md << 'EOF'
+   # MicroGrowAgents Manuscript
 
-   # Markdown only (no figures, no .docx)
-   python scripts/rrwrite-assemble-manuscript.py \
-       --output-dir {target_dir} \
-       --no-include-figures \
-       --no-convert-docx
+   **Target Journal:** Nature
+   **Date:** $(date +%Y-%m-%d)
+
+   ---
+
+   EOF
+
+   # Combine sections
+   echo "# Abstract" >> manuscript_full.md
+   echo "" >> manuscript_full.md
+   cat abstract.md >> manuscript_full.md
+   echo -e "\n\n---\n" >> manuscript_full.md
+
+   echo "# Introduction" >> manuscript_full.md
+   echo "" >> manuscript_full.md
+   cat introduction.md >> manuscript_full.md
+   echo -e "\n\n---\n" >> manuscript_full.md
+
+   echo "# Results" >> manuscript_full.md
+   echo "" >> manuscript_full.md
+   cat results.md >> manuscript_full.md
+   echo -e "\n\n---\n" >> manuscript_full.md
+
+   echo "# Discussion" >> manuscript_full.md
+   echo "" >> manuscript_full.md
+   cat discussion.md >> manuscript_full.md
+   echo -e "\n\n---\n" >> manuscript_full.md
+
+   echo "# Methods" >> manuscript_full.md
+   echo "" >> manuscript_full.md
+   cat methods.md >> manuscript_full.md
+   echo -e "\n\n---\n" >> manuscript_full.md
+
+   if [ -f "availability.md" ]; then
+       echo "# Data and Code Availability" >> manuscript_full.md
+       echo "" >> manuscript_full.md
+       cat availability.md >> manuscript_full.md
+       echo -e "\n\n---\n" >> manuscript_full.md
+   fi
+
+   # Add references section placeholder
+   echo "# References" >> manuscript_full.md
+   echo "" >> manuscript_full.md
+   echo "[References will be generated from literature_citations.bib]" >> manuscript_full.md
+
+   echo "✓ Manuscript assembled: manuscript_full.md"
    ```
-
-2. **Figure Handling Process:**
-
-   When `--include-figures` is used:
-   - Scans repository for figure files (*.png, *.jpg, *.pdf, *.svg, *.eps)
-   - Creates `{target_dir}/figures/` directory
-   - Copies all detected figures to figures/ subdirectory
-   - Normalizes figure references in markdown to use `figures/filename.png`
-   - Preserves figures for .docx conversion
-
-   **Example Figure Reference in Sections:**
-   ```markdown
-   ![Figure 1: Sample visualization](figures/plot.png)
-
-   or with alt text:
-
-   ![Distribution of sample sizes across datasets](figures/distribution.png)
-   ```
-
-3. **.docx Conversion Process:**
-
-   When `--convert-docx` is used:
-   - Converts assembled markdown to Microsoft Word format
-   - Preserves heading styles (H1, H2, etc.)
-   - Embeds figures automatically
-   - Generates `{target_dir}/manuscript_full.docx`
-   - Ready for import into Google Docs with all formatting preserved
 
 ### Phase 3: Metadata Generation
 
@@ -317,28 +317,9 @@ The assembly process generates:
 1. **`{target_dir}/manuscript_full.md`**
    - Complete manuscript with all sections
    - Section headers and separators
-   - Figure references (if --include-figures used)
    - References placeholder
 
-2. **`{target_dir}/manuscript_full.docx`** (if --convert-docx used)
-   - Microsoft Word format
-   - Preserves heading styles
-   - Embedded figures
-   - Ready for Google Docs import
-
-3. **`{target_dir}/EVIDENCE_REPORT.md`** ✨ NEW
-   - Comprehensive evidence summary
-   - Repository statistics with evidence counts
-   - Research topics with evidence files
-   - Literature citation status
-   - Evidence quality assessment
-   - References to all data files
-
-4. **`{target_dir}/figures/`** (if --include-figures used)
-   - All figure files from repository
-   - Referenced by markdown and embedded in .docx
-
-5. **`{target_dir}/manifest.json`**
+2. **`{target_dir}/manifest.json`**
    - Assembly metadata
    - Word counts per section
    - Citation statistics
@@ -363,10 +344,7 @@ After successful assembly, display:
 MANUSCRIPT ASSEMBLY COMPLETE
 ============================================================
 
-Output Files:
-  • Markdown: {target_dir}/manuscript_full.md
-  • Word format: {target_dir}/manuscript_full.docx (if converted)
-  • Figures: {target_dir}/figures/ ([N] files, if included)
+Output: {target_dir}/manuscript_full.md
 
 Statistics:
   • Total words: [X]
@@ -384,15 +362,11 @@ Section Breakdown:
   • Availability: [X] words
 
 Next Steps:
-  1. Review manuscript_full.md (or open manuscript_full.docx)
-  2. Import to Google Docs:
-     - Go to https://docs.google.com
-     - File > Open > Upload
-     - Select manuscript_full.docx
-  3. Run critique:
+  1. Review manuscript_full.md
+  2. Run critique:
      /rrwrite-critique-manuscript --target-dir {target_dir} --file manuscript_full.md
-  4. Address critique feedback
-  5. Trim to target word count if needed
+  3. Address critique feedback
+  4. Trim to target word count if needed
 
 ============================================================
 ```

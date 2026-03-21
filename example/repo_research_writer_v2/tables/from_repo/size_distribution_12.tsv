@@ -1,0 +1,8 @@
+# generated_by: rrwrite-analyze-repo
+# description: File size distribution quartiles by category
+#
+category	percentile_25_kb	percentile_50_kb	percentile_75_kb	min_kb	max_kb
+data	41.81	58.1	170.3	29.67	1051938.45
+figure	58.06	319.58	674.79	29.57	8336.74
+doc	42.38	63.95	322.17	29.52	8274.87
+script	31.92	36.3	41.19	30.16	104.39

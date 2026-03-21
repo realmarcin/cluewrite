@@ -43,3 +43,8 @@ tmp/
 # OS-specific
 Thumbs.db
 desktop.ini
+
+# Google API credentials
+token.json
+# Note: credentials.json is safe to commit (OAuth2 client ID only)
+credentials.json

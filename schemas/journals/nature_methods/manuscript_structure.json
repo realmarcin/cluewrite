@@ -1,0 +1,283 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rrwrite.org/schemas/nature_methods/manuscript_structure.json",
+  "title": "Nature Methods Manuscript Structure",
+  "description": "Structure and constraints for Nature Methods Articles",
+  "type": "object",
+  "journal": {
+    "name": "Nature Methods",
+    "article_type": "Article"
+  },
+  "structure": {
+    "sections": [
+      {
+        "name": "Abstract",
+        "required": true,
+        "word_limit": {
+          "min": 150,
+          "max": 200,
+          "recommended": 175
+        },
+        "heading_level": 1,
+        "description": "Unstructured abstract summarizing methods, applications, and key advantages",
+        "required_elements": [
+          "Problem statement",
+          "Novel methodology",
+          "Key advantage over existing methods",
+          "Demonstration/validation"
+        ],
+        "formatting": {
+          "structured": false,
+          "subsections_allowed": false,
+          "citations_allowed": false
+        }
+      },
+      {
+        "name": "Introduction",
+        "required": true,
+        "word_limit": {
+          "min": 400,
+          "max": 600,
+          "recommended": 500
+        },
+        "heading_level": 1,
+        "description": "Contextualize the problem, review limitations of existing methods, state novel contribution",
+        "required_elements": [
+          "Problem/challenge in current methods",
+          "Brief review of existing approaches",
+          "Clear statement of innovation",
+          "Preview of applications"
+        ],
+        "subsections": []
+      },
+      {
+        "name": "Results",
+        "required": true,
+        "word_limit": {
+          "min": 1500,
+          "max": 2000,
+          "recommended": 1750
+        },
+        "heading_level": 1,
+        "description": "Present method development, validation, and applications",
+        "required_elements": [
+          "Method description (brief; details in Online Methods)",
+          "Validation against benchmarks or ground truth",
+          "Demonstration on real data",
+          "Comparison to existing methods",
+          "Performance metrics"
+        ],
+        "subsections": [
+          {
+            "name": "Method development",
+            "required": false,
+            "description": "Overview of approach (details in Online Methods)"
+          },
+          {
+            "name": "Validation",
+            "required": true,
+            "description": "Benchmarking, accuracy, robustness"
+          },
+          {
+            "name": "Applications",
+            "required": true,
+            "description": "Demonstration on biological datasets"
+          },
+          {
+            "name": "Comparison",
+            "required": true,
+            "description": "Head-to-head with existing methods"
+          }
+        ],
+        "style_notes": "Emphasize performance, applicability, and advantages; avoid excessive biological interpretation"
+      },
+      {
+        "name": "Discussion",
+        "required": true,
+        "word_limit": {
+          "min": 400,
+          "max": 600,
+          "recommended": 500
+        },
+        "heading_level": 1,
+        "description": "Summarize advantages, discuss limitations, outline future applications",
+        "required_elements": [
+          "Key advantages over existing methods",
+          "Limitations and scope",
+          "Broader applicability",
+          "Future directions"
+        ],
+        "subsections": []
+      },
+      {
+        "name": "Online Methods",
+        "required": true,
+        "word_limit": {
+          "min": null,
+          "max": null,
+          "recommended": null
+        },
+        "heading_level": 1,
+        "description": "Complete methodological details; separate from main manuscript",
+        "required_elements": [
+          "Detailed algorithms/protocols",
+          "Software implementation details",
+          "Parameter settings",
+          "Statistical methods",
+          "Data availability statements",
+          "Code availability statements"
+        ],
+        "subsections": [
+          {
+            "name": "Algorithm description",
+            "required": true
+          },
+          {
+            "name": "Implementation",
+            "required": true
+          },
+          {
+            "name": "Datasets",
+            "required": true
+          },
+          {
+            "name": "Statistical analysis",
+            "required": true
+          },
+          {
+            "name": "Data availability",
+            "required": true
+          },
+          {
+            "name": "Code availability",
+            "required": true
+          }
+        ],
+        "formatting": {
+          "separate_file": true,
+          "detailed": true,
+          "reproducibility_emphasis": true
+        }
+      },
+      {
+        "name": "Acknowledgments",
+        "required": false,
+        "word_limit": {
+          "max": 200
+        },
+        "heading_level": 1
+      },
+      {
+        "name": "Author Contributions",
+        "required": true,
+        "heading_level": 1,
+        "description": "CRediT taxonomy or equivalent"
+      },
+      {
+        "name": "Competing Interests",
+        "required": true,
+        "heading_level": 1
+      },
+      {
+        "name": "References",
+        "required": true,
+        "heading_level": 1,
+        "constraints": {
+          "max_references": null,
+          "recommended_main_text": 50,
+          "style": "Nature style (numbered, in order of appearance)"
+        }
+      }
+    ],
+    "global_constraints": {
+      "total_word_count": {
+        "min": 2500,
+        "max": 3500,
+        "recommended": 3000,
+        "excludes": [
+          "Abstract",
+          "Online Methods",
+          "Figure legends",
+          "Table legends",
+          "References",
+          "Acknowledgments",
+          "Author Contributions",
+          "Competing Interests"
+        ],
+        "includes": [
+          "Introduction",
+          "Results",
+          "Discussion"
+        ]
+      },
+      "max_figures": {
+        "main": 6,
+        "supplementary": null
+      },
+      "max_tables": {
+        "main": 6,
+        "supplementary": null
+      },
+      "max_references": null,
+      "display_items_combined": {
+        "max": 8,
+        "note": "Total of figures + tables in main manuscript should not exceed 8"
+      }
+    },
+    "ordering_rules": {
+      "strict_order": true,
+      "required_sequence": [
+        "Abstract",
+        "Introduction",
+        "Results",
+        "Discussion",
+        "Online Methods",
+        "References"
+      ],
+      "allowed_deviations": []
+    },
+    "special_sections": {
+      "online_methods": {
+        "description": "Complete methodological details separate from main text; not counted in word limit",
+        "required": true,
+        "constraints": {
+          "word_limit": null,
+          "subsections_required": [
+            "Data availability",
+            "Code availability"
+          ]
+        }
+      },
+      "reporting_summary": {
+        "description": "Standardized checklist for method reporting",
+        "required": true,
+        "provided_by_journal": true
+      }
+    },
+    "formatting_requirements": {
+      "line_spacing": "double",
+      "font": "12pt",
+      "margins": "1 inch all sides",
+      "figure_legends": "Standalone, detailed",
+      "table_format": "Editable (Word/Excel)",
+      "supplementary_info": {
+        "allowed": true,
+        "file_types": [
+          "PDF",
+          "DOCX",
+          "Excel",
+          "Code (GitHub link preferred)"
+        ],
+        "size_limit_mb": 10
+      }
+    }
+  },
+  "metadata": {
+    "schema_version": "1.0",
+    "generated_at": "2026-03-06T16:25:00.000000",
+    "source_type": "manual",
+    "source_url": "https://www.nature.com/nmeth/for-authors/preparing-your-submission",
+    "validated": true,
+    "notes": "Nature Methods emphasizes methodological rigor and broad applicability; Online Methods section is critical"
+  }
+}

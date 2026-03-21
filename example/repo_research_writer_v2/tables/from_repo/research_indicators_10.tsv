@@ -1,0 +1,12 @@
+# generated_by: rrwrite-analyze-repo
+# description: Detected research topics with evidence
+#
+topic	confidence	evidence_count	example_files
+Visualization	high	1786	table1_performance_comparison.csv, figure_manifest_schema.json, generate_figure1.py
+Data Analysis	high	83	repository_statistics.tsv, repository_statistics.tsv, repository_statistics.tsv
+Bioinformatics	high	80	manuscript_structure.json, metadata.json, submission_requirements.json
+Machine Learning	high	44	[Content_Types].xml, app.xml, core.xml
+Pipeline	high	31	microgrow_agents_workflows.svg, microgrow_agents_workflows_edit.png, microgrow_agents_workflows_edit.svg
+Testing	high	25	test_evidence_import.py, test_revision_integration.py, test_revision_parser.py
+Database	high	18	state.json, diff_report_schema.json, edit_recommendations_schema.json
+Api	high	14	rrwrite-api-pubmed.py, rrwrite-api-semanticscholar.py, predicted_vs_actual_Random_Forest.pdf

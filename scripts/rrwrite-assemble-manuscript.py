@@ -23,8 +23,65 @@ Usage:
 """
 
 import argparse
+import re
+import json
 from pathlib import Path
 from datetime import datetime
+
+
+def detect_paperpile_citations(text: str) -> bool:
+    """Check if text contains Paperpile citations."""
+    pattern = r'\[.*?\]\(https://paperpile\.com/c/[^/]+/[^\)]+\)'
+    return bool(re.search(pattern, text))
+
+
+def convert_paperpile_to_bibtex(
+    text: str,
+    mapping_file: Path
+) -> str:
+    """
+    Convert Paperpile citation links to BibTeX keys.
+
+    Transforms: [(Author et al. YEAR)](https://paperpile.com/c/PROJECT/CODE)
+    To: [authorYEAR]
+
+    Args:
+        text: Text with Paperpile citations
+        mapping_file: Path to paperpile_mapping.json
+
+    Returns:
+        Text with BibTeX citations
+    """
+    if not mapping_file.exists():
+        print(f"Warning: Paperpile mapping file not found: {mapping_file}")
+        return text
+
+    # Load mapping
+    try:
+        with open(mapping_file, 'r') as f:
+            mapping = json.load(f)
+    except Exception as e:
+        print(f"Warning: Could not load Paperpile mapping: {e}")
+        return text
+
+    # Pattern: [(display text)](https://paperpile.com/c/PROJECT/CODE)
+    pattern = r'\[(.*?)\]\(https://paperpile\.com/c/[^/]+/([^\)]+)\)'
+
+    def replace_citation(match):
+        display_text = match.group(1)
+        paperpile_code = match.group(2)
+
+        # Look up BibTeX key
+        if paperpile_code in mapping:
+            bibtex_key = mapping[paperpile_code]
+            return f'[{bibtex_key}]'
+        else:
+            # Keep original if not in mapping
+            print(f"Warning: Paperpile code '{paperpile_code}' not in mapping, keeping original")
+            return match.group(0)
+
+    return re.sub(pattern, replace_citation, text)
+
 
 def assemble_manuscript(manuscript_dir="manuscript", output_file=None):
     """Assemble sections into full manuscript."""
@@ -88,6 +145,31 @@ def assemble_manuscript(manuscript_dir="manuscript", output_file=None):
         print(f"  ✓ {section}")
     print()
 
+    # Check for Paperpile citations and mapping
+    paperpile_mapping_file = manuscript_dir / "paperpile_mapping.json"
+    has_paperpile = False
+    convert_citations = False
+
+    # Detect Paperpile citations in sections
+    for section in found_sections:
+        section_path = section_paths[section]
+        with open(section_path, 'r') as f:
+            content = f.read()
+            if detect_paperpile_citations(content):
+                has_paperpile = True
+                break
+
+    if has_paperpile:
+        print("📋 Detected Paperpile citations in manuscript")
+        if paperpile_mapping_file.exists():
+            print(f"  ✓ Found mapping file: {paperpile_mapping_file.name}")
+            print("  Converting Paperpile → BibTeX format...")
+            convert_citations = True
+        else:
+            print(f"  ⚠️  Warning: No mapping file found at {paperpile_mapping_file}")
+            print("  Keeping Paperpile citations as-is")
+            print("  To convert citations, create paperpile_mapping.json first")
+
     # Assemble sections
     with open(output_file, 'w') as outfile:
         # Write header
@@ -103,6 +185,10 @@ def assemble_manuscript(manuscript_dir="manuscript", output_file=None):
             # Add section header if not already in file
             with open(section_path, 'r') as infile:
                 content = infile.read().strip()
+
+                # Convert Paperpile citations if needed
+                if convert_citations:
+                    content = convert_paperpile_to_bibtex(content, paperpile_mapping_file)
 
                 # Check if content already starts with a title
                 if not content.startswith('# '):
@@ -154,6 +240,27 @@ def assemble_manuscript(manuscript_dir="manuscript", output_file=None):
                 "--wrap=preserve",
                 "--metadata", "title=Manuscript"
             ]
+
+            # Add bibliography processing if .bib file exists
+            bib_file = manuscript_dir / "literature_citations.bib"
+            if bib_file.exists():
+                pandoc_cmd.extend([
+                    "--bibliography", str(bib_file),
+                    "--citeproc"
+                ])
+                # Add CSL style if available
+                csl_file = manuscript_dir / "citation-style.csl"
+                if not csl_file.exists():
+                    # Try common CSL files in templates
+                    templates_dir = Path(__file__).parent.parent / "templates"
+                    for csl_name in ["nature.csl", "apa.csl", "chicago.csl"]:
+                        csl_path = templates_dir / csl_name
+                        if csl_path.exists():
+                            csl_file = csl_path
+                            break
+                if csl_file.exists():
+                    pandoc_cmd.extend(["--csl", str(csl_file)])
+                print(f"  📚 Bibliography processing enabled: {bib_file.name}")
 
             # Add reference doc if available (for consistent styling)
             reference_doc = Path(__file__).parent.parent / "templates/reference.docx"

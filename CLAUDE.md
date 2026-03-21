@@ -96,6 +96,200 @@ Revision stops when:
 - Improvement rate < 5%
 - Max iterations reached (default: 2)
 
+### Document Comparison & Version Tracking
+
+**NEW!** Track changes between manuscript versions with structured diff reports:
+
+- **DiffReportGenerator** (`rrwrite_diff_generator.py`) - Compares versions and tracks changes
+- **IssueResolver** (`rrwrite_issue_resolver.py`) - Maps critique issues to resolutions
+- **CLI**: `rrwrite-generate-diff-report.py` - Generate JSON + Markdown comparison reports
+
+**Key outputs:**
+- `diff_report_v1_to_v2.json` - Machine-readable comparison
+- `diff_report_v1_to_v2.md` - Human-readable summary
+- Tracks: section changes, citations added/removed, issues resolved, quality metrics
+
+**Usage:**
+```bash
+# Compare revision iterations
+python scripts/rrwrite-generate-diff-report.py \
+    --manuscript-dir manuscript/project_v1 \
+    --version-old 1 --version-new 2 --type revision
+```
+
+### Edit Recommendation System
+
+**NEW!** Transform critique and external feedback into structured, actionable edit recommendations:
+
+- **EditRecommendation** (`rrwrite_edit_recommendation.py`) - Structured edit with priority/metadata
+- **EditRecommendationGenerator** (`rrwrite_edit_recommendation_generator.py`) - Converts issues → edits
+- **ExternalFeedbackParser** (`rrwrite_external_feedback_parser.py`) - Parses Word/PDF/email feedback
+- **CLI**: `rrwrite-generate-edit-recommendations.py` - Generate recommendations
+- **Validation**: `rrwrite-validate-edit-recommendations.py` - Validate recommendations
+
+**Priority System:**
+- **Critical**: Blocks publication (reproducibility, major evidence gaps)
+- **Important**: Significantly improves manuscript (major issues, formatting)
+- **Optional**: Minor improvements
+
+**Edit Types:**
+- add_content, remove_content, revise_content, restructure
+- citation_fix, figure_update, table_update, move_content
+
+**Usage:**
+```bash
+# From critique
+python scripts/rrwrite-generate-edit-recommendations.py \
+    --manuscript-dir manuscript/project_v1 --version 1
+
+# From Word comments
+python scripts/rrwrite-generate-edit-recommendations.py \
+    --manuscript-dir manuscript/project_v1 \
+    --word-comments reviewer_feedback.docx
+
+# Combine sources
+python scripts/rrwrite-generate-edit-recommendations.py \
+    --manuscript-dir manuscript/project_v1 \
+    --version 1 --word-comments feedback.docx
+```
+
+**Outputs:**
+- `edit_recommendations_v1.json` - Structured recommendations
+- `edit_recommendations_v1.md` - Human-readable summary
+
+### Holistic Edit Application
+
+**NEW!** Apply edit recommendations cohesively across entire manuscript with dependency analysis:
+
+- **HolisticEditOrchestrator** (`rrwrite_holistic_editor.py`) - Main coordinator
+- **DependencyGraph** - Topological sort for edit order
+- **ApplicationPlan** - Conflict detection and resolution
+- **Specialized Applicators** (`rrwrite_edit_applicators.py`):
+  - SectionEditApplicator - Text edits (add/remove/revise)
+  - CrossSectionApplicator - Move content between sections
+  - FigureEditApplicator - Update captions and references
+  - TableEditApplicator - Update titles and content
+  - ConsistencyApplicator - Standardize terminology, numbering
+- **ConsistencyChecker** (`rrwrite_consistency_checker.py`) - Detect inconsistencies
+- **CLI**: `rrwrite-apply-edits.py` - Apply edits holistically
+- **CLI**: `rrwrite-check-consistency.py` - Check consistency
+
+**Architecture:**
+```
+Edit Ingestion → Dependency Analysis → Conflict Detection →
+Transaction Begin → Apply Edits → Validate → Commit/Rollback
+```
+
+**Usage:**
+```bash
+# Preview edits (dry run)
+python scripts/rrwrite-apply-edits.py \
+    --manuscript-dir manuscript/project_v1 \
+    --recommendations edit_recommendations_v1.json \
+    --dry-run
+
+# Apply critical edits only
+python scripts/rrwrite-apply-edits.py \
+    --manuscript-dir manuscript/project_v1 \
+    --recommendations edit_recommendations_v1.json \
+    --priority critical
+
+# Apply all edits with backup (default)
+python scripts/rrwrite-apply-edits.py \
+    --manuscript-dir manuscript/project_v1 \
+    --recommendations edit_recommendations_v1.json
+
+# Check consistency
+python scripts/rrwrite-check-consistency.py \
+    --manuscript-dir manuscript/project_v1
+```
+
+**Safety Features:**
+- Automatic dependency resolution (topological sort)
+- Conflict detection (priority-based resolution)
+- Transaction-based application (backup/rollback)
+- Fuzzy matching for content location (85% threshold)
+
+**Outputs:**
+- Updated section files
+- Updated figure/table manifests
+- `edit_application_report_v1.md` - Application results
+- `consistency_report_v1.md` - Consistency issues
+
+### Citation Gap Analysis for Google Docs
+
+**NEW!** Identify missing citations in Google Docs manuscripts with semantic similarity analysis:
+
+- **Download Tool** (`rrwrite-download-gdoc.py`) - Export Google Doc as DOCX
+- **Citation Extractor** (`rrwrite-extract-gdoc-citations.py`) - Parse Paperpile/bracketed/numbered citations
+- **Gap Analyzer** (`rrwrite-citation-gap-analyzer.py`) - 4-layer gap analysis with TF-IDF
+- **Report Generator** (`rrwrite-generate-gap-report.py`) - Actionable Markdown + JSON reports
+- **Workflow Orchestrator** (`rrwrite-gdoc-citation-gap-workflow.py`) - End-to-end automation
+
+**4-Layer Analysis:**
+1. **Exact Matching** - DOI/title comparison
+2. **Semantic Overlap** - TF-IDF cosine similarity (threshold: 70%)
+3. **Citation Type Categorization** - tool, method, review, benchmark, dataset
+4. **Citation Network Analysis** - Impact-based prioritization
+
+**Multi-Tier Literature Search:**
+- **Tier 1:** Direct method match (foundational, highly-cited >50)
+- **Tier 2:** Overlapping approaches (recent, specialized)
+- **Tier 3:** Related infrastructure (FAIR, provenance, reproducibility)
+
+**Usage:**
+```bash
+# Quick start (end-to-end workflow)
+python scripts/rrwrite-gdoc-citation-gap-workflow.py \
+    --document-id 1ABC...XYZ \
+    --output-dir manuscript/citation_gaps \
+    --search-tiers 1,2,3 \
+    --credentials credentials.json
+
+# Step-by-step workflow
+python scripts/rrwrite-download-gdoc.py \
+    --document-id 1ABC...XYZ \
+    --output manuscript.docx \
+    --credentials credentials.json
+
+python scripts/rrwrite-extract-gdoc-citations.py \
+    --docx manuscript.docx \
+    --output extracted_citations.json \
+    --stats
+
+python scripts/rrwrite-citation-gap-analyzer.py \
+    --manuscript-citations extracted_citations.json \
+    --search-results tier1_results.json tier2_results.json \
+    --output gap_analysis.json \
+    --similarity-threshold 0.70
+
+python scripts/rrwrite-generate-gap-report.py \
+    --gap-analysis gap_analysis.json \
+    --output-dir manuscript/citation_gaps
+```
+
+**Prioritization:**
+- **Critical** (score ≥7): Must-cite papers (>100 citations, >70% overlap)
+- **Important** (score ≥4): Should-cite papers (strengthen manuscript)
+- **Optional** (score <4): Emerging work or niche topics
+
+**Output:**
+- `citation_gap_report.md` - Human-readable actionable recommendations
+- `citation_gap_report.json` - Machine-readable structured data
+- Section-specific citation suggestions with context
+
+**Runtime:** 5-15 minutes (first run), 30-60 seconds (cached)
+
+**Prerequisites:**
+- Google Docs API + Drive API enabled
+- OAuth2 credentials or Service Account
+- python-docx, scikit-learn (optional but recommended)
+
+**See:**
+- `CITATION_GAP_QUICK_START.md` - 5-minute quick start guide
+- `docs/CITATION_GAP_ANALYSIS.md` - Comprehensive documentation
+- `docs/GDOC_API_SETUP.md` - Google API setup guide
+
 ## Common Commands
 
 ### Full Automated Workflow
@@ -162,6 +356,29 @@ python scripts/rrwrite-generate-evidence-report.py --manuscript-dir manuscript/p
 
 # Automated revision
 python scripts/rrwrite-revise-manuscript.py --manuscript-dir manuscript/project_v1 --max-iterations 3
+
+# Generate diff report (compare versions)
+python scripts/rrwrite-generate-diff-report.py \
+    --manuscript-dir manuscript/project_v1 \
+    --version-old 1 --version-new 2 --type revision
+
+# Generate edit recommendations
+python scripts/rrwrite-generate-edit-recommendations.py \
+    --manuscript-dir manuscript/project_v1 --version 1
+
+# Validate edit recommendations
+python scripts/rrwrite-validate-edit-recommendations.py \
+    --recommendations manuscript/project_v1/edit_recommendations_v1.json
+
+# Apply edits holistically
+python scripts/rrwrite-apply-edits.py \
+    --manuscript-dir manuscript/project_v1 \
+    --recommendations edit_recommendations_v1.json \
+    --priority important
+
+# Check manuscript consistency
+python scripts/rrwrite-check-consistency.py \
+    --manuscript-dir manuscript/project_v1
 
 # Check workflow status
 python scripts/rrwrite-status.py --output-dir manuscript/project_v1

@@ -260,6 +260,11 @@ class RevisionOrchestrator:
         # Print final summary
         self._print_summary()
 
+        # Generate .docx with embedded comments for remaining issues
+        if not self.dry_run:
+            print("\nGenerating .docx with embedded critique comments...")
+            self._embed_critique_comments()
+
     def _run_assembly(self):
         """Re-assemble manuscript after revisions."""
         assembly_script = Path(__file__).parent / "rrwrite-assemble-manuscript.py"
@@ -267,8 +272,7 @@ class RevisionOrchestrator:
         cmd = [
             sys.executable,
             str(assembly_script),
-            "--manuscript-dir", str(self.manuscript_dir),
-            "--no-critique"  # Don't re-run critique, we'll do it separately
+            "--manuscript-dir", str(self.manuscript_dir)
         ]
 
         result = subprocess.run(cmd, capture_output=True, text=True)
@@ -371,6 +375,31 @@ class RevisionOrchestrator:
                 print(f"\n⚠ {summary['issues_final']['major']} major issues remaining")
 
         print(f"{'='*60}\n")
+
+    def _embed_critique_comments(self):
+        """Embed critique comments into .docx file."""
+        embed_script = Path(__file__).parent / 'rrwrite-embed-critique-comments.py'
+
+        if not embed_script.exists():
+            print("  Comment embedding script not found")
+            return
+
+        # Use current version (after revisions)
+        cmd = [
+            sys.executable,
+            str(embed_script),
+            '--manuscript-dir', str(self.manuscript_dir),
+            '--version', str(self.current_version),
+            '--unresolved-only'  # Only show remaining issues
+        ]
+
+        try:
+            result = subprocess.run(cmd, capture_output=True, text=True, check=True)
+            print(result.stdout.strip())
+        except subprocess.CalledProcessError as e:
+            print(f"  Comment embedding failed: {e.stderr}")
+        except Exception as e:
+            print(f"  Error embedding comments: {e}")
 
 
 def main():

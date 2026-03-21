@@ -220,11 +220,85 @@ def merge_results(
     }
 
 
+def search_openalex(
+    query: str,
+    max_results: int = 20,
+    script_path: Path = None
+) -> List[Dict]:
+    """Search OpenAlex via Python script"""
+    if script_path is None:
+        script_path = Path(__file__).parent / "rrwrite-api-openalex.py"
+
+    cmd = [
+        "python3",
+        str(script_path),
+        query,
+        "--max-results", str(max_results)
+    ]
+
+    try:
+        result = subprocess.run(
+            cmd,
+            capture_output=True,
+            text=True,
+            timeout=60
+        )
+
+        if result.returncode != 0:
+            print(f"OpenAlex error: {result.stderr}", file=sys.stderr)
+            return []
+
+        data = json.loads(result.stdout)
+        return data.get("papers", [])
+
+    except Exception as e:
+        print(f"OpenAlex failed: {e}", file=sys.stderr)
+        return []
+
+
+def search_europepmc(
+    query: str,
+    max_results: int = 20,
+    script_path: Path = None
+) -> List[Dict]:
+    """Search Europe PMC via Python script"""
+    if script_path is None:
+        script_path = Path(__file__).parent / "rrwrite-api-europepmc.py"
+
+    cmd = [
+        "python3",
+        str(script_path),
+        query,
+        "--max-results", str(max_results)
+    ]
+
+    try:
+        result = subprocess.run(
+            cmd,
+            capture_output=True,
+            text=True,
+            timeout=60
+        )
+
+        if result.returncode != 0:
+            print(f"Europe PMC error: {result.stderr}", file=sys.stderr)
+            return []
+
+        data = json.loads(result.stdout)
+        return data.get("papers", [])
+
+    except Exception as e:
+        print(f"Europe PMC failed: {e}", file=sys.stderr)
+        return []
+
+
 def search_literature(
     query: str,
     max_results: int = 20,
     use_pubmed: bool = True,
     use_semantic_scholar: bool = True,
+    use_openalex: bool = True,
+    use_europepmc: bool = True,
     cache_dir: Path = None
 ) -> Dict[str, Any]:
     """
@@ -235,6 +309,8 @@ def search_literature(
         max_results: Maximum results per source
         use_pubmed: Include PubMed search
         use_semantic_scholar: Include Semantic Scholar search
+        use_openalex: Include OpenAlex search
+        use_europepmc: Include Europe PMC search
         cache_dir: Directory for request cache
 
     Returns:
@@ -244,46 +320,72 @@ def search_literature(
     if cache_dir:
         setup_cache(cache_dir)
 
-    results = {
-        "query": query,
-        "semantic_scholar": [],
-        "pubmed": []
-    }
+    all_results = []
 
     # Search Semantic Scholar
     if use_semantic_scholar:
         print(f"\n=== Searching Semantic Scholar ===", file=sys.stderr)
         semantic_results = search_semantic_scholar(query, max_results)
-        results["semantic_scholar"] = semantic_results
+        all_results.extend(semantic_results)
         print(f"Found {len(semantic_results)} papers", file=sys.stderr)
 
     # Search PubMed
     if use_pubmed:
         print(f"\n=== Searching PubMed ===", file=sys.stderr)
         pubmed_results = search_pubmed(query, max_results)
-        results["pubmed"] = pubmed_results
+        all_results.extend(pubmed_results)
         print(f"Found {len(pubmed_results)} papers", file=sys.stderr)
 
-    # Merge results
-    print(f"\n=== Merging Results ===", file=sys.stderr)
-    merged = merge_results(
-        results["semantic_scholar"],
-        results["pubmed"]
-    )
+    # Search OpenAlex
+    if use_openalex:
+        print(f"\n=== Searching OpenAlex ===", file=sys.stderr)
+        openalex_results = search_openalex(query, max_results)
+        all_results.extend(openalex_results)
+        print(f"Found {len(openalex_results)} papers", file=sys.stderr)
 
-    print(f"Total unique papers: {merged['counts']['total_unique']}", file=sys.stderr)
+    # Search Europe PMC
+    if use_europepmc:
+        print(f"\n=== Searching Europe PMC ===", file=sys.stderr)
+        europepmc_results = search_europepmc(query, max_results)
+        all_results.extend(europepmc_results)
+        print(f"Found {len(europepmc_results)} papers", file=sys.stderr)
+
+    # Merge and deduplicate
+    print(f"\n=== Merging Results ===", file=sys.stderr)
+    unique_papers = deduplicate_papers(all_results)
+
+    # Sort by citations and year
+    def sort_key(paper):
+        citations = paper.get("citations", 0) or paper.get("citationCount", 0)
+        year = paper.get("year", 0)
+        if isinstance(year, str):
+            try:
+                year = int(year)
+            except (ValueError, TypeError):
+                year = 0
+        return (-citations, -year)
+
+    unique_papers.sort(key=sort_key)
+
+    print(f"Total unique papers: {len(unique_papers)}", file=sys.stderr)
 
     return {
         "query": query,
-        "papers": merged["papers"],
-        "counts": merged["counts"]
+        "papers": unique_papers,
+        "counts": {
+            "total_unique": len(unique_papers),
+            "semantic_scholar": len(semantic_results) if use_semantic_scholar else 0,
+            "pubmed": len(pubmed_results) if use_pubmed else 0,
+            "openalex": len(openalex_results) if use_openalex else 0,
+            "europepmc": len(europepmc_results) if use_europepmc else 0
+        }
     }
 
 
 def main():
     """Command-line interface."""
     parser = argparse.ArgumentParser(
-        description="Search academic literature using Semantic Scholar + PubMed APIs"
+        description="Search academic literature using 4 APIs: Semantic Scholar, PubMed, OpenAlex, Europe PMC"
     )
     parser.add_argument("query", help="Search query")
     parser.add_argument(
@@ -301,6 +403,16 @@ def main():
         "--no-semantic-scholar",
         action="store_true",
         help="Disable Semantic Scholar search"
+    )
+    parser.add_argument(
+        "--no-openalex",
+        action="store_true",
+        help="Disable OpenAlex search"
+    )
+    parser.add_argument(
+        "--no-europepmc",
+        action="store_true",
+        help="Disable Europe PMC search"
     )
     parser.add_argument(
         "--cache-dir",
@@ -327,6 +439,8 @@ def main():
         max_results=args.max_results,
         use_pubmed=not args.no_pubmed,
         use_semantic_scholar=not args.no_semantic_scholar,
+        use_openalex=not args.no_openalex,
+        use_europepmc=not args.no_europepmc,
         cache_dir=args.cache_dir
     )
 
@@ -334,6 +448,8 @@ def main():
     results["search_config"] = {
         "semantic_scholar_enabled": not args.no_semantic_scholar,
         "pubmed_enabled": not args.no_pubmed,
+        "openalex_enabled": not args.no_openalex,
+        "europepmc_enabled": not args.no_europepmc,
         "max_results_per_source": args.max_results
     }
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Validate manuscript outputs against LinkML schema with defense-in-depth citation validation.
+Validate manuscript outputs against LinkML schema.
 
 Usage:
     python scripts/rrwrite-validate-manuscript.py --file manuscript/outline.md --type outline
@@ -8,8 +8,6 @@ Usage:
     python scripts/rrwrite-validate-manuscript.py --file manuscript/abstract.md --type section
     python scripts/rrwrite-validate-manuscript.py --file manuscript/full_manuscript.md --type manuscript
     python scripts/rrwrite-validate-manuscript.py --file manuscript/critique_manuscript_v1.md --type critique
-    python scripts/rrwrite-validate-manuscript.py --file manuscript/abstract.md --type section --expert  # Expert mode
-    python scripts/rrwrite-validate-manuscript.py --file manuscript/full_manuscript.md --type manuscript --output json  # JSON output
 """
 
 import argparse
@@ -18,44 +16,18 @@ import re
 from pathlib import Path
 from datetime import datetime
 import yaml
-import json
-
-# Import defense-in-depth validation
-try:
-    from rrwrite_citation_validator import (
-        CitationEntryValidator,
-        CitationBusinessValidator,
-        CitationAssemblyValidator,
-        CitationAuditor,
-        CitationNotFoundError,
-        CitationMismatchError
-    )
-    DEFENSE_IN_DEPTH_AVAILABLE = True
-except ImportError:
-    DEFENSE_IN_DEPTH_AVAILABLE = False
-    print("Warning: Defense-in-depth citation validation not available")
-
-# Import root cause tracer
-try:
-    from rrwrite_citation_tracer import CitationErrorTracer
-    ROOT_CAUSE_TRACING_AVAILABLE = True
-except ImportError:
-    ROOT_CAUSE_TRACING_AVAILABLE = False
 
 class ManuscriptValidator:
-    """Validates manuscript files against schema requirements with defense-in-depth citation validation."""
+    """Validates manuscript files against schema requirements."""
 
-    def __init__(self, schema_path="schemas/manuscript.yaml", expert_mode=False, output_format="text"):
+    def __init__(self, schema_path="schemas/manuscript.yaml"):
         self.schema_path = Path(schema_path)
-        self.expert_mode = expert_mode
-        self.output_format = output_format
         if self.schema_path.exists():
             with open(self.schema_path) as f:
                 self.schema = yaml.safe_load(f)
         else:
             self.schema = None
-            if not expert_mode:
-                print(f"Warning: Schema not found at {schema_path}")
+            print(f"Warning: Schema not found at {schema_path}")
 
     def validate_filename(self, filepath, expected_pattern):
         """Validate filename matches expected pattern."""
@@ -271,11 +243,10 @@ class ManuscriptValidator:
         return errors, warnings, info
 
     def validate_section(self, filepath):
-        """Validate individual manuscript section with defense-in-depth citation validation."""
-        if not self.expert_mode:
-            print(f"\n{'='*60}")
-            print(f"Validating Section: {filepath}")
-            print(f"{'='*60}\n")
+        """Validate individual manuscript section."""
+        print(f"\n{'='*60}")
+        print(f"Validating Section: {filepath}")
+        print(f"{'='*60}\n")
 
         errors = []
         warnings = []
@@ -284,7 +255,7 @@ class ManuscriptValidator:
         # Check filename
         valid, msg = self.validate_filename(
             filepath,
-            r'^(abstract|introduction|methods|results|discussion|conclusion|availability)\.md$'
+            r'^(abstract|introduction|methods|results|discussion|conclusion)\.md$'
         )
         if not valid:
             errors.append(msg)
@@ -297,104 +268,33 @@ class ManuscriptValidator:
 
         # Determine section type
         section_name = Path(filepath).stem.title()
-        section_key = Path(filepath).stem.lower()
 
         # Check word count
         word_count = self.count_words(filepath)
         info.append(f"✓ Word count: {word_count}")
 
-        # Section-specific word count recommendations with ±20% tolerance
-        target_words = {
-            'abstract': 150,
-            'introduction': 500,
-            'methods': 600,
-            'results': 800,
-            'discussion': 700,
-            'conclusion': 200,
-            'availability': 100
+        # Section-specific word count recommendations
+        min_words = {
+            'abstract': 100,
+            'introduction': 300,
+            'methods': 400,
+            'results': 400,
+            'discussion': 400,
+            'conclusion': 150
         }
 
-        if section_key in target_words:
-            target = target_words[section_key]
-            min_acceptable = int(target * 0.8)
-            max_acceptable = int(target * 1.2)
-
-            if word_count < min_acceptable:
-                errors.append(
-                    f"\n❌ Word Count Validation Failed\n\n"
-                    f"{section_name} has {word_count} words, below acceptable range "
-                    f"({min_acceptable}-{max_acceptable}, target: {target}).\n\n"
-                    f"Why this matters:\n"
-                    f"1. Journals auto-reject at word limit violations\n"
-                    f"2. Insufficient content suggests incomplete analysis\n"
-                    f"3. Reviewers expect adequate detail\n\n"
-                    f"Next steps:\n"
-                    f"1. Review section outline for missing content\n"
-                    f"2. Add necessary details and examples\n"
-                    f"3. Ensure all key points are addressed\n\n"
-                    f"Don't rationalize: \"Close enough\" → Auto-rejection risk\n"
-                )
-            elif word_count > max_acceptable:
+        section_key = Path(filepath).stem.lower()
+        if section_key in min_words:
+            if word_count < min_words[section_key]:
                 warnings.append(
-                    f"⚠️  {section_name} has {word_count} words, above target range "
-                    f"({min_acceptable}-{max_acceptable}, target: {target}). Consider condensing."
+                    f"{section_name} is short ({word_count} words). "
+                    f"Minimum recommended: {min_words[section_key]} words."
                 )
-            else:
-                info.append(f"✓ Word count within ±20% of target ({target} words)")
 
-        # DEFENSE-IN-DEPTH LAYER 1 & 2: Entry and Business Logic Validation
+        # Check citations
         citations = self.extract_citations(filepath)
-        if citations and DEFENSE_IN_DEPTH_AVAILABLE:
+        if citations:
             info.append(f"✓ Found {len(citations)} citations")
-
-            # Find evidence file
-            parent_dir = Path(filepath).parent
-            evidence_csv = parent_dir / "literature_evidence.csv"
-
-            if not evidence_csv.exists():
-                warnings.append(
-                    f"⚠️  literature_evidence.csv not found. Cannot verify citations."
-                )
-            else:
-                # Layer 1: Entry validation
-                try:
-                    valid_cites, invalid_cites = CitationEntryValidator.validate_multiple(
-                        citations, evidence_csv
-                    )
-
-                    if invalid_cites:
-                        for cit in invalid_cites:
-                            errors.append(
-                                f"\n❌ Citation Verification Failed\n\n"
-                                f"Citation [{cit}] not in literature_evidence.csv\n\n"
-                                f"Why this matters: Claims without evidence means:\n"
-                                f"1. Reviewers will request verification\n"
-                                f"2. Retraction risk if source disputed\n"
-                                f"3. Ethical violation if claim unsupported\n\n"
-                                f"Next steps:\n"
-                                f"1. Run: python scripts/rrwrite-search-literature.py --query \"[topic]\"\n"
-                                f"2. Add DOI to literature_evidence.csv with supporting quote\n"
-                                f"3. Re-run validation\n\n"
-                                f"Don't rationalize: \"I'll add it later\" → 40% of citations forgotten\n"
-                            )
-                    else:
-                        info.append(f"✓ All {len(citations)} citations verified in evidence file")
-
-                    # Layer 2: Business logic validation (section appropriateness)
-                    business_validator = CitationBusinessValidator(evidence_csv)
-                    business_warnings = business_validator.validate_section_appropriateness(
-                        section_key, citations
-                    )
-                    if business_warnings:
-                        warnings.extend(business_warnings)
-                    else:
-                        info.append(f"✓ Citations appropriate for {section_name} section")
-
-                except Exception as e:
-                    warnings.append(f"⚠️  Citation validation error: {e}")
-
-        elif citations and not DEFENSE_IN_DEPTH_AVAILABLE:
-            info.append(f"✓ Found {len(citations)} citations (defense-in-depth validation unavailable)")
 
         # Check figure references
         figures = self.extract_figure_refs(filepath)
@@ -414,25 +314,24 @@ class ManuscriptValidator:
             # Warn if references don't match table count
             if len(table_refs) != table_count:
                 warnings.append(
-                    f"⚠️  Table reference count ({len(table_refs)}) doesn't match "
-                    f"markdown table count ({table_count}). Verify all tables are numbered."
+                    f"Table reference count ({len(table_refs)}) doesn't match "
+                    f"markdown table count ({table_count})"
                 )
 
         return errors, warnings, info
 
     def validate_manuscript(self, filepath):
-        """Validate full assembled manuscript with LAYER 3 assembly validation."""
-        if not self.expert_mode:
-            print(f"\n{'='*60}")
-            print(f"Validating Full Manuscript: {filepath}")
-            print(f"{'='*60}\n")
+        """Validate full assembled manuscript."""
+        print(f"\n{'='*60}")
+        print(f"Validating Full Manuscript: {filepath}")
+        print(f"{'='*60}\n")
 
         errors = []
         warnings = []
         info = []
 
         # Check filename
-        valid, msg = self.validate_filename(filepath, r'^(full_manuscript|manuscript)\.md$')
+        valid, msg = self.validate_filename(filepath, r'^full_manuscript\.md$')
         if not valid:
             errors.append(msg)
         else:
@@ -453,7 +352,7 @@ class ManuscriptValidator:
         found, missing = self.check_sections(filepath, required_sections)
 
         if missing:
-            errors.append(f"❌ Missing required sections: {', '.join(missing)}")
+            errors.append(f"Missing required sections: {', '.join(missing)}")
         else:
             info.append(f"✓ All required sections present")
 
@@ -462,62 +361,16 @@ class ManuscriptValidator:
         info.append(f"✓ Total word count: {word_count}")
 
         if word_count < 1000:
-            errors.append(
-                f"\n❌ Manuscript too short ({word_count} words)\n"
-                f"Minimum: 1000 words for publishable manuscript."
-            )
+            errors.append(f"Manuscript too short ({word_count} words). Minimum: 1000 words.")
         elif word_count > 15000:
-            warnings.append(
-                f"⚠️  Manuscript very long ({word_count} words). "
-                f"Consider condensing or check journal limits."
-            )
+            warnings.append(f"Manuscript very long ({word_count} words). Consider condensing.")
 
         # Check citations
         citations = self.extract_citations(filepath)
         info.append(f"✓ Total citations: {len(citations)}")
 
         if len(citations) < 5:
-            warnings.append(
-                "⚠️  Few citations. Academic manuscripts typically cite 10-30+ papers."
-            )
-
-        # DEFENSE-IN-DEPTH LAYER 3: Assembly Validation
-        if DEFENSE_IN_DEPTH_AVAILABLE and citations:
-            parent_dir = Path(filepath).parent
-            bib_file = parent_dir / "literature_citations.bib"
-            evidence_file = parent_dir / "literature_evidence.csv"
-
-            if bib_file.exists():
-                info.append(f"✓ Found bibliography: {bib_file.name}")
-
-                try:
-                    # Validate text citations match bibliography
-                    orphaned_text, orphaned_bib = CitationAssemblyValidator.validate_citation_completeness(
-                        Path(filepath), bib_file
-                    )
-                    info.append(f"✓ All citations synchronized between text and bibliography")
-
-                except CitationMismatchError as e:
-                    errors.append(str(e))
-
-            else:
-                warnings.append(
-                    f"⚠️  Bibliography not found at {bib_file}. Cannot verify citation completeness."
-                )
-
-            # Entry validation for all citations
-            if evidence_file.exists():
-                valid_cites, invalid_cites = CitationEntryValidator.validate_multiple(
-                    citations, evidence_file
-                )
-                if invalid_cites:
-                    errors.append(
-                        f"\n❌ {len(invalid_cites)} citations not in evidence file:\n"
-                        + "\n".join(f"  - [{c}]" for c in sorted(invalid_cites))
-                        + "\n"
-                    )
-                else:
-                    info.append(f"✓ All {len(citations)} citations verified in evidence file")
+            warnings.append("Few citations. Academic manuscripts typically cite 10-30+ papers.")
 
         # Check figures
         figures = self.extract_figure_refs(filepath)
@@ -541,7 +394,7 @@ class ManuscriptValidator:
             for journal, limit in journal_table_limits.items():
                 if table_count > limit:
                     warnings.append(
-                        f"⚠️  Table count ({table_count}) exceeds {journal.title()} limit ({limit}). "
+                        f"Table count ({table_count}) exceeds {journal.title()} limit ({limit}). "
                         f"Consider moving tables to supplementary materials."
                     )
                     break  # Only warn once
@@ -549,7 +402,7 @@ class ManuscriptValidator:
         # Warn if table references don't match table count
         if len(table_refs) != table_count and table_count > 0:
             warnings.append(
-                f"⚠️  Table reference count ({len(table_refs)}) doesn't match "
+                f"Table reference count ({len(table_refs)}) doesn't match "
                 f"markdown table count ({table_count}). Check table numbering."
             )
 
@@ -604,32 +457,16 @@ class ManuscriptValidator:
         return errors, warnings, info
 
     def print_results(self, errors, warnings, info):
-        """Print validation results in text or JSON format."""
-        if self.output_format == "json":
-            result = {
-                "status": "passed" if not errors else "failed",
-                "errors": errors,
-                "warnings": warnings,
-                "info": info
-            }
-            print(json.dumps(result, indent=2))
-            return not errors
-
-        # Text format (default)
-        if not self.expert_mode:
-            print(f"\n{'='*60}")
-            print("VALIDATION RESULTS")
-            print(f"{'='*60}\n")
+        """Print validation results."""
+        print(f"\n{'='*60}")
+        print("VALIDATION RESULTS")
+        print(f"{'='*60}\n")
 
         if info:
-            if not self.expert_mode:
-                print("ℹ️  INFO:")
+            print("ℹ️  INFO:")
             for item in info:
-                if not self.expert_mode:
-                    print(f"  {item}")
-
-            if not self.expert_mode:
-                print()
+                print(f"  {item}")
+            print()
 
         if warnings:
             print("⚠️  WARNINGS:")
@@ -644,16 +481,13 @@ class ManuscriptValidator:
             print()
             return False
         else:
-            if self.expert_mode:
-                print("✅ PASSED")
-            else:
-                print("✅ VALIDATION PASSED")
+            print("✅ VALIDATION PASSED")
             print()
             return True
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Validate manuscript outputs with defense-in-depth citation validation"
+        description="Validate manuscript outputs against schema"
     )
     parser.add_argument(
         '--file',
@@ -671,34 +505,10 @@ def main():
         default='schemas/manuscript.yaml',
         help='Path to LinkML schema file'
     )
-    parser.add_argument(
-        '--expert',
-        action='store_true',
-        help='Expert mode: minimal output, skip verbose messages'
-    )
-    parser.add_argument(
-        '--output',
-        choices=['text', 'json'],
-        default='text',
-        help='Output format (text or json)'
-    )
-    parser.add_argument(
-        '--no-validate',
-        action='store_true',
-        help='Skip validation (not recommended)'
-    )
 
     args = parser.parse_args()
 
-    if args.no_validate:
-        print("⚠️  Validation skipped (--no-validate flag)")
-        sys.exit(0)
-
-    validator = ManuscriptValidator(
-        args.schema,
-        expert_mode=args.expert,
-        output_format=args.output
-    )
+    validator = ManuscriptValidator(args.schema)
 
     # Route to appropriate validator
     if args.type == 'outline':

@@ -1,0 +1,311 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rrwrite.org/schemas/edit_recommendations.json",
+  "title": "EditRecommendations",
+  "description": "Schema for structured edit recommendations generated from critique or external feedback",
+  "type": "object",
+  "required": ["metadata", "recommendations"],
+  "properties": {
+    "metadata": {
+      "type": "object",
+      "required": ["version", "generated_at", "sources"],
+      "properties": {
+        "version": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Manuscript version these recommendations apply to"
+        },
+        "generated_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When recommendations were generated"
+        },
+        "sources": {
+          "type": "array",
+          "description": "Sources of feedback",
+          "items": {
+            "type": "object",
+            "required": ["type", "path"],
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": [
+                  "critique_content",
+                  "critique_format",
+                  "word_comments",
+                  "pdf_annotations",
+                  "email_feedback",
+                  "manual"
+                ],
+                "description": "Type of feedback source"
+              },
+              "path": {
+                "type": "string",
+                "description": "Path to source file"
+              },
+              "date": {
+                "type": "string",
+                "format": "date",
+                "description": "Date of feedback"
+              }
+            }
+          }
+        },
+        "manuscript_dir": {
+          "type": "string",
+          "description": "Path to manuscript directory"
+        },
+        "total_recommendations": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "by_priority": {
+          "type": "object",
+          "properties": {
+            "critical": {"type": "integer", "minimum": 0},
+            "important": {"type": "integer", "minimum": 0},
+            "optional": {"type": "integer", "minimum": 0}
+          }
+        }
+      }
+    },
+    "recommendations": {
+      "type": "array",
+      "description": "List of edit recommendations",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "source",
+          "category",
+          "priority",
+          "edit_type",
+          "section",
+          "issue_description",
+          "recommended_action"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^edit_[0-9]+$",
+            "description": "Unique identifier (edit_001, edit_002, ...)"
+          },
+          "source": {
+            "type": "string",
+            "enum": [
+              "critique_content",
+              "critique_format",
+              "word_comments",
+              "pdf_annotations",
+              "email_feedback",
+              "manual"
+            ],
+            "description": "Source of this recommendation"
+          },
+          "source_issue_id": {
+            "type": "string",
+            "description": "Original issue ID from critique (if applicable)"
+          },
+          "category": {
+            "type": "string",
+            "enum": [
+              "content_accuracy",
+              "evidence_support",
+              "citation_quality",
+              "clarity",
+              "structure",
+              "formatting",
+              "word_count",
+              "reproducibility",
+              "figure_table",
+              "journal_compliance",
+              "other"
+            ],
+            "description": "Issue category"
+          },
+          "priority": {
+            "type": "string",
+            "enum": ["critical", "important", "optional"],
+            "description": "Priority level for this edit"
+          },
+          "edit_type": {
+            "type": "string",
+            "enum": [
+              "add_content",
+              "remove_content",
+              "revise_content",
+              "restructure",
+              "citation_fix",
+              "figure_update",
+              "table_update",
+              "formatting",
+              "move_content"
+            ],
+            "description": "Type of edit action"
+          },
+          "section": {
+            "type": "string",
+            "enum": [
+              "abstract",
+              "introduction",
+              "methods",
+              "results",
+              "discussion",
+              "availability",
+              "author_summary",
+              "multiple",
+              "global"
+            ],
+            "description": "Target section (or 'multiple'/'global' for cross-section edits)"
+          },
+          "target_sections": {
+            "type": "array",
+            "description": "List of sections affected (for multi-section edits)",
+            "items": {
+              "type": "string"
+            }
+          },
+          "issue_description": {
+            "type": "string",
+            "description": "Clear description of the problem"
+          },
+          "recommended_action": {
+            "type": "string",
+            "description": "Specific action to take"
+          },
+          "target_location": {
+            "type": "object",
+            "description": "Where in the manuscript to apply this edit",
+            "properties": {
+              "section": {
+                "type": "string"
+              },
+              "paragraph_index": {
+                "type": "integer",
+                "minimum": 0,
+                "description": "Paragraph number (0-indexed)"
+              },
+              "line_number": {
+                "type": "integer",
+                "minimum": 1,
+                "description": "Line number in section file"
+              },
+              "context_before": {
+                "type": "string",
+                "description": "Text before target location for fuzzy matching"
+              },
+              "context_after": {
+                "type": "string",
+                "description": "Text after target location for fuzzy matching"
+              }
+            }
+          },
+          "replacement_text": {
+            "type": "string",
+            "description": "Suggested replacement text (for revise_content edits)"
+          },
+          "evidence_citations": {
+            "type": "array",
+            "description": "Citations to support this edit",
+            "items": {
+              "type": "string",
+              "description": "Citation key from literature_citations.bib"
+            }
+          },
+          "reference_examples": {
+            "type": "array",
+            "description": "Example text from literature showing best practice",
+            "items": {
+              "type": "object",
+              "properties": {
+                "citation_key": {"type": "string"},
+                "text": {"type": "string"}
+              }
+            }
+          },
+          "impact": {
+            "type": "string",
+            "description": "Expected impact if edit is applied"
+          },
+          "dependencies": {
+            "type": "array",
+            "description": "Other edit IDs this edit depends on",
+            "items": {
+              "type": "string",
+              "pattern": "^edit_[0-9]+$"
+            }
+          },
+          "conflicts_with": {
+            "type": "array",
+            "description": "Other edit IDs that conflict with this one",
+            "items": {
+              "type": "string",
+              "pattern": "^edit_[0-9]+$"
+            }
+          },
+          "status": {
+            "type": "string",
+            "enum": ["pending", "applied", "skipped", "failed", "conflict"],
+            "default": "pending",
+            "description": "Application status"
+          },
+          "applied_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "When this edit was applied (if status=applied)"
+          },
+          "failure_reason": {
+            "type": "string",
+            "description": "Reason for failure (if status=failed)"
+          },
+          "notes": {
+            "type": "string",
+            "description": "Additional notes or context"
+          }
+        }
+      }
+    },
+    "summary": {
+      "type": "object",
+      "description": "Summary statistics",
+      "properties": {
+        "total": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "by_priority": {
+          "type": "object",
+          "properties": {
+            "critical": {"type": "integer", "minimum": 0},
+            "important": {"type": "integer", "minimum": 0},
+            "optional": {"type": "integer", "minimum": 0}
+          }
+        },
+        "by_edit_type": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "by_section": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "by_status": {
+          "type": "object",
+          "properties": {
+            "pending": {"type": "integer", "minimum": 0},
+            "applied": {"type": "integer", "minimum": 0},
+            "skipped": {"type": "integer", "minimum": 0},
+            "failed": {"type": "integer", "minimum": 0},
+            "conflict": {"type": "integer", "minimum": 0}
+          }
+        }
+      }
+    }
+  }
+}

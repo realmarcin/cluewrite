@@ -1,0 +1,29 @@
+{
+  "journal_name": "Nature Communications",
+  "journal_key": "nature_communications",
+  "publisher": "Nature Publishing Group",
+  "issn": "2041-1723",
+  "impact_factor": 16.6,
+  "impact_factor_year": 2023,
+  "website": "https://www.nature.com/ncomms/",
+  "author_guidelines_url": "https://www.nature.com/ncomms/submit",
+  "scope": "Multidisciplinary open-access journal publishing high-quality research across all areas of biological, physical, chemical and Earth sciences",
+  "article_types": {
+    "articles": {
+      "description": "Full-length research papers",
+      "typical_length": "~5000 words (main text excluding Methods)",
+      "emphasis": "Significant advances with broad interest"
+    }
+  },
+  "open_access": {
+    "mandatory": true,
+    "apc": 5380,
+    "currency": "USD"
+  },
+  "source_type": "manual",
+  "source_path": "https://www.nature.com/ncomms/submit/get-published",
+  "generated_at": "2026-03-07T09:05:00.000000",
+  "validated": true,
+  "last_updated": "2026-03-07",
+  "notes": "Nature Communications accepts interdisciplinary work; broader scope than specialist Nature journals"
+}

@@ -1,0 +1,11 @@
+# generated_by: rrwrite-analyze-repo
+# description: Detected research topics with evidence
+#
+topic	confidence	evidence_count	example_files
+Testing	high	42	run_tests.py, compare_specific_reviews.py, __init__.py
+Machine Learning	high	12	list_openrouter_models.py, run_all_models.sh, run_pipeline_with_models.py
+Api	high	11	__init__.py, arxiv_client.py, deepseek_client.py
+Bioinformatics	high	6	generate_ijsem_review_all_combinations.py, generate_ijsem_review_all_combinations_with_json.py, generate_ijsem_review_sets.py
+Database	high	5	prompt_json_schema.py, prompt_schema.py, prompt_schema_handler.py
+Visualization	medium	3	barplot_comparison.py, visualize_ijsem_results.py, visualize_results.py
+Pipeline	medium	3	run_pipeline_with_json.py, run_pipeline_with_models.py, pipeline_runner.py

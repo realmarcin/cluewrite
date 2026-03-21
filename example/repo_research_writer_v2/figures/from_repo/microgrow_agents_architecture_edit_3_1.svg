@@ -1,0 +1,1218 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   viewBox="0 0 1100 850"
+   font-family="Arial, sans-serif"
+   version="1.1"
+   id="svg306"
+   sodipodi:docname="microgrow_agents_architecture_edit.svg"
+   inkscape:version="1.2.2 (b0a8486, 2022-12-01)"
+   inkscape:export-filename="microgrow_agents_architecture_edit.png"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview308"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="1.1327273"
+     inkscape:cx="366.8138"
+     inkscape:cy="429.49438"
+     inkscape:window-width="2038"
+     inkscape:window-height="1189"
+     inkscape:window-x="0"
+     inkscape:window-y="41"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg306" />
+  <!-- 8.5" x 11" landscape at 100 DPI = 1100 x 850 pixels -->
+  <!-- Title -->
+  <text
+     x="550"
+     y="35"
+     font-size="28"
+     font-weight="bold"
+     text-anchor="middle"
+     fill="#1a1a1a"
+     id="text9">
+    MicroGrowAgents: Multi-Agent AI Framework
+  </text>
+  <text
+     x="550"
+     y="60"
+     font-size="16"
+     text-anchor="middle"
+     fill="#666"
+     id="text11">
+    Automated Design of Microbial Growth Media
+  </text>
+  <!-- Legend -->
+  <g
+     transform="translate(30, 80)"
+     id="g37">
+    <rect
+       x="0"
+       y="0"
+       width="40"
+       height="25"
+       fill="#e3f2fd"
+       stroke="#1976d2"
+       stroke-width="2"
+       id="rect13" />
+    <text
+       x="45"
+       y="18"
+       font-size="14"
+       id="text15">Data Source</text>
+    <rect
+       x="170"
+       y="0"
+       width="40"
+       height="25"
+       fill="#fff3e0"
+       stroke="#f57c00"
+       stroke-width="2"
+       id="rect17" />
+    <text
+       x="215"
+       y="18"
+       font-size="14"
+       id="text19">Core Agent</text>
+    <rect
+       x="330"
+       y="0"
+       width="40"
+       height="25"
+       fill="#f3e5f5"
+       stroke="#7b1fa2"
+       stroke-width="2"
+       id="rect21" />
+    <text
+       x="375"
+       y="18"
+       font-size="14"
+       id="text23">Specialist</text>
+    <rect
+       x="490"
+       y="0"
+       width="40"
+       height="25"
+       fill="#e8f5e9"
+       stroke="#388e3c"
+       stroke-width="2"
+       id="rect25" />
+    <text
+       x="535"
+       y="18"
+       font-size="14"
+       id="text27">Service</text>
+    <rect
+       x="640"
+       y="0"
+       width="40"
+       height="25"
+       fill="#fff9c4"
+       stroke="#f9a825"
+       stroke-width="2"
+       id="rect29" />
+    <text
+       x="685"
+       y="18"
+       font-size="14"
+       id="text31">Skill</text>
+    <rect
+       x="750"
+       y="0"
+       width="40"
+       height="25"
+       fill="#ffebee"
+       stroke="#c62828"
+       stroke-width="2"
+       id="rect33" />
+    <text
+       x="795"
+       y="18"
+       font-size="14"
+       id="text35">Output</text>
+  </g>
+  <!-- DATA SOURCES -->
+  <g
+     id="data-layer">
+    <text
+       x="60"
+       y="140"
+       font-size="18"
+       font-weight="bold"
+       fill="#1976d2"
+       id="text39">Data Sources</text>
+    <rect
+       x="30"
+       y="155"
+       width="180"
+       height="75"
+       fill="#e3f2fd"
+       stroke="#1976d2"
+       stroke-width="2"
+       rx="5"
+       id="rect41" />
+    <text
+       x="120"
+       y="180"
+       font-size="16"
+       font-weight="bold"
+       text-anchor="middle"
+       id="text43">KG-Microbe</text>
+    <text
+       x="120"
+       y="200"
+       font-size="12"
+       text-anchor="middle"
+       id="text45">Knowledge Graph</text>
+    <text
+       x="120"
+       y="217"
+       font-size="11"
+       text-anchor="middle"
+       fill="#555"
+       id="text47">40K+ organisms</text>
+    <rect
+       x="230"
+       y="155"
+       width="180"
+       height="75"
+       fill="#e3f2fd"
+       stroke="#1976d2"
+       stroke-width="2"
+       rx="5"
+       id="rect49" />
+    <text
+       x="320"
+       y="180"
+       font-size="16px"
+       font-weight="bold"
+       text-anchor="middle"
+       id="text51">CultureMech </text>
+    <text
+       x="320"
+       y="200"
+       font-size="12"
+       text-anchor="middle"
+       id="text53">Media Database</text>
+    <text
+       x="320"
+       y="217"
+       font-size="11px"
+       text-anchor="middle"
+       fill="#555555"
+       id="text55">10000+ formulations</text>
+    <rect
+       x="430"
+       y="155"
+       width="180"
+       height="75"
+       fill="#e3f2fd"
+       stroke="#1976d2"
+       stroke-width="2"
+       rx="5"
+       id="rect57" />
+    <text
+       x="520"
+       y="180"
+       font-size="16"
+       font-weight="bold"
+       text-anchor="middle"
+       id="text59">External Tools</text>
+    <text
+       x="520"
+       y="200"
+       font-size="12"
+       text-anchor="middle"
+       id="text61">Bakta, Gapmind</text>
+    <text
+       x="520"
+       y="217"
+       font-size="11"
+       text-anchor="middle"
+       fill="#555"
+       id="text63">GEMSembler, BLAST</text>
+  </g>
+  <!-- CORE AGENTS -->
+  <g
+     id="core-layer">
+    <text
+       x="60"
+       y="270"
+       font-size="18"
+       font-weight="bold"
+       fill="#f57c00"
+       id="text66">Core Agents</text>
+    <rect
+       x="30"
+       y="285"
+       width="160"
+       height="95"
+       fill="#fff3e0"
+       stroke="#f57c00"
+       stroke-width="2"
+       rx="5"
+       id="rect68" />
+    <text
+       x="110"
+       y="310"
+       font-size="15"
+       font-weight="bold"
+       text-anchor="middle"
+       id="text70">SQL Agent</text>
+    <text
+       x="110"
+       y="330"
+       font-size="11"
+       text-anchor="middle"
+       id="text72">Query KG-Microbe</text>
+    <text
+       x="110"
+       y="347"
+       font-size="10"
+       text-anchor="middle"
+       fill="#555"
+       id="text74">• Organism data</text>
+    <text
+       x="110"
+       y="361"
+       font-size="10"
+       text-anchor="middle"
+       fill="#555"
+       id="text76">• Media compositions</text>
+    <text
+       x="110"
+       y="375"
+       font-size="10"
+       text-anchor="middle"
+       fill="#555"
+       id="text78">• Hierarchical search</text>
+    <rect
+       x="210"
+       y="285"
+       width="160"
+       height="95"
+       fill="#fff3e0"
+       stroke="#f57c00"
+       stroke-width="2"
+       rx="5"
+       id="rect80" />
+    <text
+       x="290"
+       y="310"
+       font-size="15"
+       font-weight="bold"
+       text-anchor="middle"
+       id="text82">Genome Function</text>
+    <text
+       x="290"
+       y="330"
+       font-size="11"
+       text-anchor="middle"
+       id="text84">Analyze genome</text>
+    <text
+       x="290"
+       y="347"
+       font-size="10"
+       text-anchor="middle"
+       fill="#555"
+       id="text86">• Metabolic pathways</text>
+    <text
+       x="290"
+       y="361"
+       font-size="10"
+       text-anchor="middle"
+       fill="#555"
+       id="text88">• Auxotrophies</text>
+    <text
+       x="290"
+       y="375"
+       font-size="10"
+       text-anchor="middle"
+       fill="#555"
+       id="text90">• Transport systems</text>
+    <rect
+       x="390"
+       y="285"
+       width="160"
+       height="95"
+       fill="#fff3e0"
+       stroke="#f57c00"
+       stroke-width="2"
+       rx="5"
+       id="rect92" />
+    <text
+       x="470"
+       y="310"
+       font-size="15"
+       font-weight="bold"
+       text-anchor="middle"
+       id="text94">KG Reasoning</text>
+    <text
+       x="470"
+       y="330"
+       font-size="11"
+       text-anchor="middle"
+       id="text96">Graph traversal</text>
+    <text
+       x="470"
+       y="347"
+       font-size="10"
+       text-anchor="middle"
+       fill="#555"
+       id="text98">• Related organisms</text>
+    <text
+       x="470"
+       y="361"
+       font-size="10"
+       text-anchor="middle"
+       fill="#555"
+       id="text100">• Media patterns</text>
+    <text
+       x="470"
+       y="375"
+       font-size="10"
+       text-anchor="middle"
+       fill="#555"
+       id="text102">• Phylogeny matching</text>
+  </g>
+  <!-- SPECIALIST AGENTS -->
+  <g
+     id="specialist-layer">
+    <text
+       x="60"
+       y="410"
+       font-size="18"
+       font-weight="bold"
+       fill="#7b1fa2"
+       id="text105">Specialist Agents</text>
+    <rect
+       x="30"
+       y="425"
+       width="135"
+       height="90"
+       fill="#f3e5f5"
+       stroke="#7b1fa2"
+       stroke-width="2"
+       rx="5"
+       id="rect107" />
+    <text
+       x="97.5"
+       y="448"
+       font-size="14"
+       font-weight="bold"
+       text-anchor="middle"
+       id="text109">Gapmind</text>
+    <text
+       x="97.5"
+       y="465"
+       font-size="10"
+       text-anchor="middle"
+       id="text111">Pathway gaps</text>
+    <text
+       x="97.5"
+       y="480"
+       font-size="9"
+       text-anchor="middle"
+       fill="#555"
+       id="text113">from genome</text>
+    <text
+       x="97.5"
+       y="493"
+       font-size="9"
+       text-anchor="middle"
+       fill="#555"
+       id="text115">annotations</text>
+    <text
+       x="97.5"
+       y="506"
+       font-size="9"
+       text-anchor="middle"
+       fill="#555"
+       id="text117">+ literature</text>
+    <rect
+       x="180"
+       y="425"
+       width="135"
+       height="90"
+       fill="#f3e5f5"
+       stroke="#7b1fa2"
+       stroke-width="2"
+       rx="5"
+       id="rect119" />
+    <text
+       x="247.5"
+       y="448"
+       font-size="14"
+       font-weight="bold"
+       text-anchor="middle"
+       id="text121">GEMSembler</text>
+    <text
+       x="247.5"
+       y="465"
+       font-size="10"
+       text-anchor="middle"
+       id="text123">Model building</text>
+    <text
+       x="247.5"
+       y="480"
+       font-size="9"
+       text-anchor="middle"
+       fill="#555"
+       id="text125">FBA simulation</text>
+    <text
+       x="247.5"
+       y="493"
+       font-size="9"
+       text-anchor="middle"
+       fill="#555"
+       id="text127">Growth predict</text>
+    <text
+       x="247.5"
+       y="506"
+       font-size="9"
+       text-anchor="middle"
+       fill="#555"
+       id="text129">Auxotrophy test</text>
+    <rect
+       x="330"
+       y="425"
+       width="135"
+       height="90"
+       fill="#f3e5f5"
+       stroke="#7b1fa2"
+       stroke-width="2"
+       rx="5"
+       id="rect131" />
+    <text
+       x="397.5"
+       y="448"
+       font-size="14"
+       font-weight="bold"
+       text-anchor="middle"
+       id="text133">Transporter</text>
+    <text
+       x="397.5"
+       y="465"
+       font-size="10"
+       text-anchor="middle"
+       id="text135">Uptake systems</text>
+    <text
+       x="397.5"
+       y="480"
+       font-size="9"
+       text-anchor="middle"
+       fill="#555"
+       id="text137">TonB receptors</text>
+    <text
+       x="397.5"
+       y="493"
+       font-size="9"
+       text-anchor="middle"
+       fill="#555"
+       id="text139">ABC transporters</text>
+    <text
+       x="397.5"
+       y="506"
+       font-size="9"
+       text-anchor="middle"
+       fill="#555"
+       id="text141">Match to media</text>
+    <rect
+       x="480"
+       y="425"
+       width="135"
+       height="90"
+       fill="#f3e5f5"
+       stroke="#7b1fa2"
+       stroke-width="2"
+       rx="5"
+       id="rect143" />
+    <text
+       x="547.5"
+       y="448"
+       font-size="14"
+       font-weight="bold"
+       text-anchor="middle"
+       id="text145">Cooccurrence</text>
+    <text
+       x="547.5"
+       y="465"
+       font-size="10"
+       text-anchor="middle"
+       id="text147">Pattern mining</text>
+    <text
+       x="547.5"
+       y="480"
+       font-size="9"
+       text-anchor="middle"
+       fill="#555"
+       id="text149">Ingredient pairs</text>
+    <text
+       x="547.5"
+       y="493"
+       font-size="9"
+       text-anchor="middle"
+       fill="#555"
+       id="text151">TF-IDF analysis</text>
+    <text
+       x="547.5"
+       y="506"
+       font-size="9"
+       text-anchor="middle"
+       fill="#555"
+       id="text153">MediaDive stats</text>
+    <rect
+       x="630"
+       y="425"
+       width="135"
+       height="90"
+       fill="#f3e5f5"
+       stroke="#7b1fa2"
+       stroke-width="2"
+       rx="5"
+       id="rect155" />
+    <text
+       x="697.5"
+       y="448"
+       font-size="14"
+       font-weight="bold"
+       text-anchor="middle"
+       id="text157">Analogy</text>
+    <text
+       x="697.5"
+       y="465"
+       font-size="10"
+       text-anchor="middle"
+       id="text159">Similarity search</text>
+    <text
+       x="697.5"
+       y="480"
+       font-size="9"
+       text-anchor="middle"
+       fill="#555"
+       id="text161">KG Embeddings</text>
+    <text
+       x="697.5"
+       y="493"
+       font-size="9"
+       text-anchor="middle"
+       fill="#555"
+       id="text163">FAISS index</text>
+    <text
+       x="697.5"
+       y="506"
+       font-size="9"
+       text-anchor="middle"
+       fill="#555"
+       id="text165">Phylo matching</text>
+  </g>
+  <!-- ORCHESTRATION -->
+  <g
+     id="orchestration-layer">
+    <text
+       x="60"
+       y="545"
+       font-size="18"
+       font-weight="bold"
+       fill="#f57c00"
+       id="text168">Orchestration Agents</text>
+    <rect
+       x="30"
+       y="560"
+       width="200"
+       height="105"
+       fill="#fff3e0"
+       stroke="#f57c00"
+       stroke-width="3"
+       rx="5"
+       id="rect170" />
+    <text
+       x="130"
+       y="585"
+       font-size="16"
+       font-weight="bold"
+       text-anchor="middle"
+       id="text172">Media Formulation</text>
+    <text
+       x="130"
+       y="605"
+       font-size="11"
+       text-anchor="middle"
+       id="text174">Coordinates:</text>
+    <text
+       x="130"
+       y="622"
+       font-size="10"
+       text-anchor="middle"
+       fill="#555"
+       id="text176">SQL + GenomeFunction</text>
+    <text
+       x="130"
+       y="636"
+       font-size="10"
+       text-anchor="middle"
+       fill="#555"
+       id="text178">+ Gapmind + KG</text>
+    <text
+       x="130"
+       y="650"
+       font-size="10"
+       text-anchor="middle"
+       fill="#555"
+       id="text180">→ GenMediaConc</text>
+    <rect
+       x="250"
+       y="560"
+       width="200"
+       height="105"
+       fill="#fff3e0"
+       stroke="#f57c00"
+       stroke-width="3"
+       rx="5"
+       id="rect182" />
+    <text
+       x="350"
+       y="585"
+       font-size="16"
+       font-weight="bold"
+       text-anchor="middle"
+       id="text184">GenMediaConc</text>
+    <text
+       x="350"
+       y="605"
+       font-size="11"
+       text-anchor="middle"
+       id="text186">Predicts amounts:</text>
+    <text
+       x="350"
+       y="622"
+       font-size="10"
+       text-anchor="middle"
+       fill="#555"
+       id="text188">MediaDive patterns</text>
+    <text
+       x="350"
+       y="636"
+       font-size="10"
+       text-anchor="middle"
+       fill="#555"
+       id="text190">+ Cooccurrence</text>
+    <text
+       x="350"
+       y="650"
+       font-size="10"
+       text-anchor="middle"
+       fill="#555"
+       id="text192">+ Validation</text>
+    <rect
+       x="470"
+       y="560"
+       width="200"
+       height="105"
+       fill="#fff3e0"
+       stroke="#f57c00"
+       stroke-width="3"
+       rx="5"
+       id="rect194" />
+    <text
+       x="570"
+       y="585"
+       font-size="16"
+       font-weight="bold"
+       text-anchor="middle"
+       id="text196">Alternate Ingredient</text>
+    <text
+       x="570"
+       y="605"
+       font-size="11"
+       text-anchor="middle"
+       id="text198">Find substitutes:</text>
+    <text
+       x="570"
+       y="622"
+       font-size="10"
+       text-anchor="middle"
+       fill="#555"
+       id="text200">Chemistry similarity</text>
+    <text
+       x="570"
+       y="636"
+       font-size="10"
+       text-anchor="middle"
+       fill="#555"
+       id="text202">+ Analogy (embeddings)</text>
+    <text
+       x="570"
+       y="650"
+       font-size="10"
+       text-anchor="middle"
+       fill="#555"
+       id="text204">+ Role validation</text>
+  </g>
+  <!-- SERVICES -->
+  <g
+     id="services-layer">
+    <text
+       x="800"
+       y="285"
+       font-size="18"
+       font-weight="bold"
+       fill="#388e3c"
+       id="text207">Services</text>
+    <rect
+       x="730"
+       y="300"
+       width="170"
+       height="70"
+       fill="#e8f5e9"
+       stroke="#388e3c"
+       stroke-width="2"
+       rx="5"
+       id="rect209" />
+    <text
+       x="815"
+       y="325"
+       font-size="14"
+       font-weight="bold"
+       text-anchor="middle"
+       id="text211">Evidence Retrieval</text>
+    <text
+       x="815"
+       y="343"
+       font-size="11"
+       text-anchor="middle"
+       id="text213">DOI → PDF → Text</text>
+    <text
+       x="815"
+       y="358"
+       font-size="10"
+       text-anchor="middle"
+       fill="#555"
+       id="text215">Citations + extraction</text>
+    <rect
+       x="730"
+       y="385"
+       width="170"
+       height="70"
+       fill="#e8f5e9"
+       stroke="#388e3c"
+       stroke-width="2"
+       rx="5"
+       id="rect217" />
+    <text
+       x="815"
+       y="410"
+       font-size="14"
+       font-weight="bold"
+       text-anchor="middle"
+       id="text219">Confidence Scoring</text>
+    <text
+       x="815"
+       y="428"
+       font-size="11"
+       text-anchor="middle"
+       id="text221">Evidence quality</text>
+    <text
+       x="815"
+       y="443"
+       font-size="10"
+       text-anchor="middle"
+       fill="#555"
+       id="text223">Multi-tier validation</text>
+    <rect
+       x="730"
+       y="470"
+       width="170"
+       height="70"
+       fill="#e8f5e9"
+       stroke="#388e3c"
+       stroke-width="2"
+       rx="5"
+       id="rect225" />
+    <text
+       x="815"
+       y="495"
+       font-size="14"
+       font-weight="bold"
+       text-anchor="middle"
+       id="text227">Cache Service</text>
+    <text
+       x="815"
+       y="513"
+       font-size="11"
+       text-anchor="middle"
+       id="text229">Embedding index</text>
+    <text
+       x="815"
+       y="528"
+       font-size="10"
+       text-anchor="middle"
+       fill="#555"
+       id="text231">FAISS fast search</text>
+  </g>
+  <!-- OUTPUTS -->
+  <g
+     id="outputs-layer">
+    <text
+       x="60"
+       y="700"
+       font-size="18"
+       font-weight="bold"
+       fill="#c62828"
+       id="text234">Outputs</text>
+    <rect
+       x="30"
+       y="715"
+       width="180"
+       height="80"
+       fill="#ffebee"
+       stroke="#c62828"
+       stroke-width="2"
+       rx="5"
+       id="rect236" />
+    <text
+       x="120"
+       y="740"
+       font-size="15"
+       font-weight="bold"
+       text-anchor="middle"
+       id="text238">Media Recipe</text>
+    <text
+       x="120"
+       y="760"
+       font-size="11"
+       text-anchor="middle"
+       id="text240">Ingredients + Amounts</text>
+    <text
+       x="120"
+       y="775"
+       font-size="10"
+       text-anchor="middle"
+       fill="#555"
+       id="text242">JSON, TSV, Markdown</text>
+    <text
+       x="120"
+       y="788"
+       font-size="10"
+       text-anchor="middle"
+       fill="#555"
+       id="text244">With evidence</text>
+    <rect
+       x="230"
+       y="715"
+       width="180"
+       height="80"
+       fill="#ffebee"
+       stroke="#c62828"
+       stroke-width="2"
+       rx="5"
+       id="rect246" />
+    <text
+       x="320"
+       y="740"
+       font-size="15"
+       font-weight="bold"
+       text-anchor="middle"
+       id="text248">Concentrations</text>
+    <text
+       x="320"
+       y="760"
+       font-size="11"
+       text-anchor="middle"
+       id="text250">Predicted ranges</text>
+    <text
+       x="320"
+       y="775"
+       font-size="10"
+       text-anchor="middle"
+       fill="#555"
+       id="text252">Confidence intervals</text>
+    <text
+       x="320"
+       y="788"
+       font-size="10"
+       text-anchor="middle"
+       fill="#555"
+       id="text254">Stock solutions</text>
+    <rect
+       x="430"
+       y="715"
+       width="180"
+       height="80"
+       fill="#ffebee"
+       stroke="#c62828"
+       stroke-width="2"
+       rx="5"
+       id="rect256" />
+    <text
+       x="520"
+       y="740"
+       font-size="15"
+       font-weight="bold"
+       text-anchor="middle"
+       id="text258">Plate Design</text>
+    <text
+       x="520"
+       y="760"
+       font-size="11"
+       text-anchor="middle"
+       id="text260">96/384-well layout</text>
+    <text
+       x="520"
+       y="775"
+       font-size="10"
+       text-anchor="middle"
+       fill="#555"
+       id="text262">Hamilton protocol</text>
+    <text
+       x="520"
+       y="788"
+       font-size="10"
+       text-anchor="middle"
+       fill="#555"
+       id="text264">MaxPro DOE</text>
+  </g>
+  <!-- DATA FLOW ARROWS -->
+  <defs
+     id="defs270">
+    <marker
+       id="arrow"
+       markerWidth="10"
+       markerHeight="10"
+       refX="9"
+       refY="3"
+       orient="auto">
+      <polygon
+         points="0 0, 10 3, 0 6"
+         fill="#666"
+         id="polygon267" />
+    </marker>
+    <marker
+       id="arrow-3"
+       markerWidth="10"
+       markerHeight="10"
+       refX="9"
+       refY="3"
+       orient="auto">
+      <polygon
+         points="10,3 0,6 0,0 "
+         fill="#666666"
+         id="polygon267-5" />
+    </marker>
+    <marker
+       id="arrow-9"
+       markerWidth="10"
+       markerHeight="10"
+       refX="9"
+       refY="3"
+       orient="auto">
+      <polygon
+         points="10,3 0,6 0,0 "
+         fill="#666666"
+         id="polygon267-1" />
+    </marker>
+    <marker
+       id="arrow-4"
+       markerWidth="10"
+       markerHeight="10"
+       refX="9"
+       refY="3"
+       orient="auto">
+      <polygon
+         points="10,3 0,6 0,0 "
+         fill="#666666"
+         id="polygon267-18" />
+    </marker>
+    <marker
+       id="arrow-35"
+       markerWidth="10"
+       markerHeight="10"
+       refX="9"
+       refY="3"
+       orient="auto">
+      <polygon
+         points="10,3 0,6 0,0 "
+         fill="#666666"
+         id="polygon267-2" />
+    </marker>
+    <marker
+       id="arrow-1"
+       markerWidth="10"
+       markerHeight="10"
+       refX="9"
+       refY="3"
+       orient="auto">
+      <polygon
+         points="10,3 0,6 0,0 "
+         fill="#666666"
+         id="polygon267-52" />
+    </marker>
+  </defs>
+  <!-- Connections -->
+  <path
+     d="M 120 230 L 110 285"
+     stroke="#666"
+     stroke-width="2.5"
+     fill="none"
+     marker-end="url(#arrow)"
+     id="path272" />
+  <path
+     d="M 320 230 L 350 285"
+     stroke="#666"
+     stroke-width="2.5"
+     fill="none"
+     marker-end="url(#arrow)"
+     id="path274" />
+  <path
+     d="m 546.33791,514.67664 31.93704,45.49025"
+     stroke="#666666"
+     stroke-width="2.34587"
+     fill="none"
+     marker-end="url(#arrow-35)"
+     id="path274-2"
+     style="marker-end:url(#arrow-35)" />
+  <path
+     d="M 520 230 L 247 425"
+     stroke="#666"
+     stroke-width="2.5"
+     fill="none"
+     marker-end="url(#arrow)"
+     id="path276" />
+  <path
+     d="M 501.75913,229.0866 155.837,422.007"
+     stroke="#666666"
+     stroke-width="2.79911"
+     fill="none"
+     marker-end="url(#arrow-1)"
+     id="path276-1"
+     style="marker-end:url(#arrow-1)" />
+  <path
+     d="M 110 380 L 97 425"
+     stroke="#666"
+     stroke-width="2"
+     fill="none"
+     marker-end="url(#arrow)"
+     id="path278" />
+  <path
+     d="M 290 380 L 247 425"
+     stroke="#666"
+     stroke-width="2"
+     fill="none"
+     marker-end="url(#arrow)"
+     id="path280" />
+  <path
+     d="M 470 380 L 697 425"
+     stroke="#666"
+     stroke-width="2"
+     fill="none"
+     marker-end="url(#arrow)"
+     id="path282" />
+  <path
+     d="m 257.11336,516.26741 265.01012,39.74018"
+     stroke="#666666"
+     stroke-width="2.03075"
+     fill="none"
+     marker-end="url(#arrow-4)"
+     id="path282-8"
+     style="marker-end:url(#arrow-4)" />
+  <path
+     d="M 97 515 L 90 560"
+     stroke="#666"
+     stroke-width="2"
+     fill="none"
+     marker-end="url(#arrow)"
+     id="path284" />
+  <path
+     d="M 247 515 L 350 560"
+     stroke="#666"
+     stroke-width="2"
+     fill="none"
+     marker-end="url(#arrow)"
+     id="path286" />
+  <path
+     d="m 352.0966,665.48097 151.8017,48.89361"
+     stroke="#666666"
+     stroke-width="2.53087"
+     fill="none"
+     marker-end="url(#arrow-3)"
+     id="path286-4"
+     style="marker-end:url(#arrow-3)" />
+  <path
+     d="M 547 515 L 370 560"
+     stroke="#666"
+     stroke-width="2"
+     fill="none"
+     marker-end="url(#arrow)"
+     id="path288" />
+  <path
+     d="M 697 515 L 590 560"
+     stroke="#666"
+     stroke-width="2"
+     fill="none"
+     marker-end="url(#arrow)"
+     id="path290" />
+  <path
+     d="M 130 665 L 120 715"
+     stroke="#666"
+     stroke-width="2.5"
+     fill="none"
+     marker-end="url(#arrow)"
+     id="path292" />
+  <path
+     d="M 350 665 L 320 715"
+     stroke="#666"
+     stroke-width="2.5"
+     fill="none"
+     marker-end="url(#arrow)"
+     id="path294" />
+  <path
+     d="M 570 665 L 520 715"
+     stroke="#666"
+     stroke-width="2.5"
+     fill="none"
+     marker-end="url(#arrow)"
+     id="path296" />
+  <!-- Services support lines (dashed) -->
+  <path
+     d="M 730 335 L 670 610"
+     stroke="#388e3c"
+     stroke-width="2"
+     stroke-dasharray="5,5"
+     fill="none"
+     id="path298" />
+  <path
+     d="M 730 420 L 670 612"
+     stroke="#388e3c"
+     stroke-width="2"
+     stroke-dasharray="5,5"
+     fill="none"
+     id="path300" />
+  <path
+     d="M 730 505 L 765 515"
+     stroke="#388e3c"
+     stroke-width="2"
+     stroke-dasharray="5,5"
+     fill="none"
+     id="path302" />
+  <!-- Footer -->
+  <text
+     x="550"
+     y="835"
+     font-size="12"
+     text-anchor="middle"
+     fill="#666"
+     id="text304">
+    MicroGrowAgents Framework | 28 Agents | Evidence-Based Media Design
+  </text>
+</svg>

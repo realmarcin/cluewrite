@@ -3,3 +3,4 @@ pandas>=2.0.0
 openpyxl>=3.0.0  # For Excel file support
 pyyaml>=6.0.0    # For schema validation
 linkml>=1.7.0    # For LinkML schema support (optional)
+scikit-learn>=1.0.0  # For TF-IDF semantic similarity in citation gap analysis

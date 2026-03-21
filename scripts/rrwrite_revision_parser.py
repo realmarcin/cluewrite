@@ -152,6 +152,8 @@ class CritiqueParser:
     def _extract_section(self, content: str, heading: str) -> Optional[str]:
         """Extract content between a heading and the next heading.
 
+        Robustly handles quoted/embedded headers in issue descriptions.
+
         Args:
             content: Full file content
             heading: Section heading (e.g., "## Major Issues")
@@ -159,13 +161,60 @@ class CritiqueParser:
         Returns:
             Section content or None
         """
-        # Find section start
-        pattern = re.escape(heading) + r'\s*\n(.*?)(?=\n##|\Z)'
-        match = re.search(pattern, content, re.DOTALL)
+        # Find all top-level section headers
+        # Strategy: Real section headers are preceded by blank lines (or file start)
+        # and are NOT inside quoted text blocks or numbered list items
+        header_pattern = r'^##\s+(.+?)$'
+        headers = []
 
-        if match:
-            return match.group(1).strip()
-        return None
+        for match in re.finditer(header_pattern, content, re.MULTILINE):
+            start_pos = match.start()
+            end_pos = match.end()
+            header_text = match.group(0).strip()
+
+            # Check context before header - is it preceded by blank line?
+            before_context = content[max(0, start_pos-200):start_pos]
+            lines_before = before_context.split('\n')
+
+            # Real section headers typically have:
+            # 1. Blank line immediately before, OR start of file
+            # 2. NOT inside a numbered list item
+
+            # Strategy: Check if there's a numbered item start in the last 100 chars
+            # AND if the next line after the header is NOT a numbered item
+            # If both are true, this header is embedded in an issue description
+            recent_context = content[max(0, start_pos-100):start_pos]
+            item_start = re.search(r'\n\d+\.\s+\*\*[^:]+:\*\*', recent_context)
+
+            if item_start:
+                # Check what comes after this header
+                # Real section headers are followed by blank line + numbered item
+                # Embedded headers are followed by more text, then **Impact:** or **Action:**
+                after_header = content[end_pos:min(len(content), end_pos+100)].lstrip()
+
+                # If the next line is a numbered item, this is a real section header
+                if not re.match(r'^\d+\.\s+\*\*', after_header):
+                    # Not followed by an item, likely embedded in description - skip it
+                    continue
+
+            headers.append((header_text, start_pos, end_pos))
+
+        # Find the requested heading
+        target_idx = None
+        for idx, (header_text, start_pos, end_pos) in enumerate(headers):
+            if header_text == heading:
+                target_idx = idx
+                break
+
+        if target_idx is None:
+            return None
+
+        # Extract content from end of this header to start of next header (or end of file)
+        content_start = headers[target_idx][2]
+        content_end = headers[target_idx + 1][1] if target_idx + 1 < len(headers) else len(content)
+
+        section_content = content[content_start:content_end].strip()
+        return section_content if section_content else None
 
     def _parse_issue_list(self, section_content: str, severity: str, source_file: str) -> List[Issue]:
         """Parse a numbered list of issues.
@@ -193,9 +242,19 @@ class CritiqueParser:
             category = match.group(1).strip()
             item_content = match.group(2).strip()
 
-            # Extract description (first line or paragraph before "Impact:")
-            description_match = re.match(r'([^\n]+?)(?:\n|$)', item_content)
-            description = description_match.group(1).strip() if description_match else item_content
+            # Extract description (everything before "Impact:" or "Action:")
+            # Handle multi-line descriptions that may contain markdown
+            impact_pos = item_content.find('- **Impact:**')
+            action_pos = item_content.find('- **Action:**')
+
+            if impact_pos > 0:
+                description = item_content[:impact_pos].strip()
+            elif action_pos > 0:
+                description = item_content[:action_pos].strip()
+            else:
+                # Fallback: first line only
+                description_match = re.match(r'([^\n]+?)(?:\n|$)', item_content)
+                description = description_match.group(1).strip() if description_match else item_content
 
             # Extract action
             action_match = re.search(r'-\s+\*\*Action:\*\*\s+(.+?)(?:\n|$)', item_content)
@@ -220,8 +279,9 @@ class CritiqueParser:
         Strategy:
         1. Category mapping (Reproducibility -> methods)
         2. Word Count category -> parse description for section name
-        3. Context search in manuscript
-        4. Fallback to "manuscript_full"
+        3. Action text parsing (e.g., "Add ... in Introduction")
+        4. Context search in manuscript
+        5. Fallback to "manuscript_full"
 
         Args:
             issue: Issue object
@@ -242,7 +302,12 @@ class CritiqueParser:
             if section:
                 return section
 
-        # Strategy 3: Context search in manuscript
+        # Strategy 3: Parse action text for section mentions
+        section = self._extract_section_from_action(issue.action)
+        if section:
+            return section
+
+        # Strategy 4: Context search in manuscript
         if manuscript_content:
             section = self._search_context_for_section(issue.description, manuscript_content)
             if section:
@@ -269,6 +334,28 @@ class CritiqueParser:
                 return section
         return None
 
+    def _extract_section_from_action(self, action: str) -> Optional[str]:
+        """Extract section name from action text.
+
+        Examples:
+        - "Add ... in Introduction" -> "introduction"
+        - "Revise Methods section" -> "methods"
+
+        Args:
+            action: Action text
+
+        Returns:
+            Section name or None
+        """
+        action_lower = action.lower()
+
+        for section in self.SECTION_KEYWORDS.keys():
+            # Check for "in Section" or "Section section" patterns
+            if f" in {section}" in action_lower or f"{section} section" in action_lower:
+                return section
+
+        return None
+
     def _search_context_for_section(self, description: str, manuscript_content: str) -> Optional[str]:
         """Search manuscript for issue description and infer section from context.
 
@@ -287,8 +374,20 @@ class CritiqueParser:
             # Use first 30 chars of description
             snippet = description[:30]
 
+        # Handle truncated snippets (ending with "...")
+        if snippet.endswith("..."):
+            # Search for beginning of snippet (first 40-60 chars before ...)
+            snippet = snippet[:-3].strip()
+            # Take first significant chunk (before any punctuation if possible)
+            snippet_parts = re.split(r'[.!?,;]', snippet)
+            if snippet_parts:
+                snippet = snippet_parts[0].strip()
+                # Ensure we have at least 20 chars for meaningful search
+                if len(snippet) < 20 and len(snippet_parts) > 1:
+                    snippet = snippet_parts[0] + snippet_parts[1]
+
         # Search for snippet in manuscript
-        if snippet in manuscript_content:
+        if len(snippet) >= 15 and snippet in manuscript_content:
             # Find position and look backwards for nearest section header
             pos = manuscript_content.find(snippet)
             before_content = manuscript_content[:pos]
@@ -314,10 +413,12 @@ class CritiqueParser:
         Returns:
             Updated list with section field populated
         """
-        # Load manuscript content
-        manuscript_file = self.manuscript_dir / "manuscript_full.md"
-        manuscript_content = None
+        # Load manuscript content (try both naming conventions)
+        manuscript_file = self.manuscript_dir / "full_manuscript.md"
+        if not manuscript_file.exists():
+            manuscript_file = self.manuscript_dir / "manuscript_full.md"
 
+        manuscript_content = None
         if manuscript_file.exists():
             with open(manuscript_file, 'r') as f:
                 manuscript_content = f.read()

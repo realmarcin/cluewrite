@@ -1,0 +1,1809 @@
+{
+  "version": "1.0",
+  "created_at": "2026-03-06T00:26:31.097071",
+  "total_tables": 150,
+  "tables_from_repo": 150,
+  "tables_generated": 0,
+  "tables": [
+    {
+      "id": "table_repo_001",
+      "path": "tables/from_repo/literature_evidence_21.csv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "example/literature_evidence.csv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Literature evidence",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_002",
+      "path": "tables/from_repo/literature_evidence_22.csv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "manuscript/MicroGrowAgents_v7/literature_evidence.csv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Literature evidence",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_003",
+      "path": "tables/from_repo/literature_evidence_23.csv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "manuscript/microgrowagents_v1/literature_evidence.csv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Literature evidence",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_004",
+      "path": "tables/from_repo/literature_evidence_24.csv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "manuscript/MicroGrowAgents_v6/literature_evidence.csv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Literature evidence",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_005",
+      "path": "tables/from_repo/literature_evidence_1_2.csv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "manuscript/MicroGrowAgents_v6/literature_evidence_1.csv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Literature evidence 1",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_006",
+      "path": "tables/from_repo/literature_evidence_2_2.csv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "manuscript/MicroGrowAgents_v6/literature_evidence_2.csv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Literature evidence 2",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_007",
+      "path": "tables/from_repo/literature_evidence_3_2.csv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "manuscript/MicroGrowAgents_v6/literature_evidence_3.csv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Literature evidence 3",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_008",
+      "path": "tables/from_repo/literature_evidence_7_1.csv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "manuscript/MicroGrowAgents_v6/literature_evidence_7.csv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Literature evidence 7",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_009",
+      "path": "tables/from_repo/literature_evidence_6_1.csv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "manuscript/MicroGrowAgents_v6/literature_evidence_6.csv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Literature evidence 6",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_010",
+      "path": "tables/from_repo/literature_evidence_4_1.csv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "manuscript/MicroGrowAgents_v6/literature_evidence_4.csv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Literature evidence 4",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_011",
+      "path": "tables/from_repo/literature_evidence_5_1.csv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "manuscript/MicroGrowAgents_v6/literature_evidence_5.csv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Literature evidence 5",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_012",
+      "path": "tables/from_repo/literature_evidence_10_1.csv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "manuscript/MicroGrowAgents_v6/literature_evidence_10.csv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Literature evidence 10",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_013",
+      "path": "tables/from_repo/literature_evidence_8_1.csv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "manuscript/MicroGrowAgents_v6/literature_evidence_8.csv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Literature evidence 8",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_014",
+      "path": "tables/from_repo/literature_evidence_9_1.csv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "manuscript/MicroGrowAgents_v6/literature_evidence_9.csv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Literature evidence 9",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_015",
+      "path": "tables/from_repo/literature_evidence_25.csv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "manuscript/MicroGrowLink_v1/literature_evidence.csv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Literature evidence",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_016",
+      "path": "tables/from_repo/literature_evidence_26.csv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "manuscript/roastchip_v4/literature_evidence.csv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Literature evidence",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_017",
+      "path": "tables/from_repo/literature_evidence_27.csv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "manuscript/roastchip_v3/literature_evidence.csv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Literature evidence",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_018",
+      "path": "tables/from_repo/literature_evidence_28.csv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "manuscript/microgrowagents_v3/literature_evidence.csv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Literature evidence",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_019",
+      "path": "tables/from_repo/literature_evidence_29.csv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "manuscript/MicroGrowAgents_v4/literature_evidence.csv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Literature evidence",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_020",
+      "path": "tables/from_repo/literature_evidence_imported_2.csv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "manuscript/MicroGrowAgents_v4/literature_evidence_imported.csv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Literature evidence imported",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_021",
+      "path": "tables/from_repo/literature_evidence_new_2.csv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "manuscript/MicroGrowAgents_v4/literature_evidence_new.csv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Literature evidence new",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_022",
+      "path": "tables/from_repo/literature_evidence_30.csv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "manuscript/roastchip_v2/literature_evidence.csv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Literature evidence",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_023",
+      "path": "tables/from_repo/literature_evidence_31.csv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "manuscript/microgrowagents_v2/literature_evidence.csv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Literature evidence",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_024",
+      "path": "tables/from_repo/literature_evidence_validation_1.csv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "manuscript/microgrowagents_v2/literature_evidence_validation.csv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Literature evidence validation",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_025",
+      "path": "tables/from_repo/literature_evidence_imported_3.csv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "manuscript/microgrowagents_v2/literature_evidence_imported.csv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Literature evidence imported",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_026",
+      "path": "tables/from_repo/literature_evidence_new_3.csv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "manuscript/microgrowagents_v2/literature_evidence_new.csv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Literature evidence new",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_027",
+      "path": "tables/from_repo/literature_evidence_32.csv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "manuscript/MicroGrowAgents_v6/sections/literature_evidence.csv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Literature evidence",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_028",
+      "path": "tables/from_repo/table1_performance_comparison_1.csv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "manuscript/MicroGrowLink_v1/figures/table1_performance_comparison.csv",
+      "recommended_sections": [
+        "discussion"
+      ],
+      "default_caption": "Performance comparison",
+      "generating_script": "manuscript/MicroGrowLink_v1/figures/generate_table1.py"
+    },
+    {
+      "id": "table_repo_029",
+      "path": "tables/from_repo/literature_evidence_33.csv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "example/rrwrite_v1/literature_evidence.csv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Literature evidence",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_030",
+      "path": "tables/from_repo/literature_evidence_34.csv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "example/repo_research_writer_v2/literature_evidence.csv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Literature evidence",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_031",
+      "path": "tables/from_repo/benchmark_results_1.csv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "example/data/benchmark_results.csv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Benchmark results",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_032",
+      "path": "tables/from_repo/benchmark_results_2.csv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "example/repo_research_writer_v2/tables/from_repo/benchmark_results.csv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Benchmark results",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_033",
+      "path": "tables/from_repo/literature_evidence_14_1.csv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "example/repo_research_writer_v2/tables/from_repo/literature_evidence_14.csv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Literature evidence 14",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_034",
+      "path": "tables/from_repo/literature_evidence_35.csv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "example/repo_research_writer_v2/tables/from_repo/literature_evidence.csv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Literature evidence",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_035",
+      "path": "tables/from_repo/literature_evidence_1_3.csv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "example/repo_research_writer_v2/tables/from_repo/literature_evidence_1.csv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Literature evidence 1",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_036",
+      "path": "tables/from_repo/table1_performance_comparison_2.csv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "example/repo_research_writer_v2/tables/from_repo/table1_performance_comparison.csv",
+      "recommended_sections": [
+        "discussion"
+      ],
+      "default_caption": "Performance comparison",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_037",
+      "path": "tables/from_repo/literature_evidence_15_1.csv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "example/repo_research_writer_v2/tables/from_repo/literature_evidence_15.csv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Literature evidence 15",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_038",
+      "path": "tables/from_repo/literature_evidence_17_1.csv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "example/repo_research_writer_v2/tables/from_repo/literature_evidence_17.csv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Literature evidence 17",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_039",
+      "path": "tables/from_repo/literature_evidence_new_1_1.csv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "example/repo_research_writer_v2/tables/from_repo/literature_evidence_new_1.csv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Literature evidence new 1",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_040",
+      "path": "tables/from_repo/literature_evidence_2_3.csv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "example/repo_research_writer_v2/tables/from_repo/literature_evidence_2.csv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Literature evidence 2",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_041",
+      "path": "tables/from_repo/literature_evidence_3_3.csv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "example/repo_research_writer_v2/tables/from_repo/literature_evidence_3.csv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Literature evidence 3",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_042",
+      "path": "tables/from_repo/literature_evidence_16_1.csv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "example/repo_research_writer_v2/tables/from_repo/literature_evidence_16.csv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Literature evidence 16",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_043",
+      "path": "tables/from_repo/literature_evidence_12_1.csv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "example/repo_research_writer_v2/tables/from_repo/literature_evidence_12.csv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Literature evidence 12",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_044",
+      "path": "tables/from_repo/literature_evidence_imported_1_1.csv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "example/repo_research_writer_v2/tables/from_repo/literature_evidence_imported_1.csv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Literature evidence imported 1",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_045",
+      "path": "tables/from_repo/literature_evidence_7_2.csv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "example/repo_research_writer_v2/tables/from_repo/literature_evidence_7.csv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Literature evidence 7",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_046",
+      "path": "tables/from_repo/literature_evidence_6_2.csv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "example/repo_research_writer_v2/tables/from_repo/literature_evidence_6.csv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Literature evidence 6",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_047",
+      "path": "tables/from_repo/literature_evidence_13_1.csv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "example/repo_research_writer_v2/tables/from_repo/literature_evidence_13.csv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Literature evidence 13",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_048",
+      "path": "tables/from_repo/literature_evidence_validation_2.csv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "example/repo_research_writer_v2/tables/from_repo/literature_evidence_validation.csv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Literature evidence validation",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_049",
+      "path": "tables/from_repo/literature_evidence_11_1.csv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "example/repo_research_writer_v2/tables/from_repo/literature_evidence_11.csv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Literature evidence 11",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_050",
+      "path": "tables/from_repo/literature_evidence_4_2.csv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "example/repo_research_writer_v2/tables/from_repo/literature_evidence_4.csv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Literature evidence 4",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_051",
+      "path": "tables/from_repo/literature_evidence_5_2.csv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "example/repo_research_writer_v2/tables/from_repo/literature_evidence_5.csv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Literature evidence 5",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_052",
+      "path": "tables/from_repo/literature_evidence_10_2.csv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "example/repo_research_writer_v2/tables/from_repo/literature_evidence_10.csv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Literature evidence 10",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_053",
+      "path": "tables/from_repo/literature_evidence_8_2.csv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "example/repo_research_writer_v2/tables/from_repo/literature_evidence_8.csv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Literature evidence 8",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_054",
+      "path": "tables/from_repo/literature_evidence_9_2.csv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "example/repo_research_writer_v2/tables/from_repo/literature_evidence_9.csv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Literature evidence 9",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_055",
+      "path": "tables/from_repo/literature_evidence_20_1.csv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "example/repo_research_writer_v2/tables/from_repo/literature_evidence_20.csv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Literature evidence 20",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_056",
+      "path": "tables/from_repo/literature_evidence_2_1_1.csv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "example/repo_research_writer_v2/tables/from_repo/literature_evidence_2_1.csv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Literature evidence 2 1",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_057",
+      "path": "tables/from_repo/literature_evidence_18_1.csv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "example/repo_research_writer_v2/tables/from_repo/literature_evidence_18.csv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Literature evidence 18",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_058",
+      "path": "tables/from_repo/literature_evidence_19_1.csv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "example/repo_research_writer_v2/tables/from_repo/literature_evidence_19.csv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Literature evidence 19",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_059",
+      "path": "tables/from_repo/literature_evidence_3_1_1.csv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "example/repo_research_writer_v2/tables/from_repo/literature_evidence_3_1.csv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Literature evidence 3 1",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_060",
+      "path": "tables/from_repo/literature_evidence_1_1_1.csv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "example/repo_research_writer_v2/tables/from_repo/literature_evidence_1_1.csv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Literature evidence 1 1",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_061",
+      "path": "tables/from_repo/literature_evidence_imported_4.csv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "example/repo_research_writer_v2/tables/from_repo/literature_evidence_imported.csv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Literature evidence imported",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_062",
+      "path": "tables/from_repo/literature_evidence_new_4.csv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "example/repo_research_writer_v2/tables/from_repo/literature_evidence_new.csv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Literature evidence new",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_063",
+      "path": "tables/from_repo/research_indicators_11.tsv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "manuscript/data_tables/research_indicators.tsv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Research indicators",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_064",
+      "path": "tables/from_repo/file_inventory_11.tsv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "manuscript/data_tables/file_inventory.tsv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "File inventory",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_065",
+      "path": "tables/from_repo/size_distribution_11.tsv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "manuscript/data_tables/size_distribution.tsv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Size distribution",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_066",
+      "path": "tables/from_repo/repository_statistics_11.tsv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "manuscript/data_tables/repository_statistics.tsv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Repository statistics",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_067",
+      "path": "tables/from_repo/research_indicators_12.tsv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "manuscript/MicroGrowAgents_v7/data_tables/research_indicators.tsv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Research indicators",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_068",
+      "path": "tables/from_repo/file_inventory_12.tsv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "manuscript/MicroGrowAgents_v7/data_tables/file_inventory.tsv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "File inventory",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_069",
+      "path": "tables/from_repo/size_distribution_12.tsv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "manuscript/MicroGrowAgents_v7/data_tables/size_distribution.tsv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Size distribution",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_070",
+      "path": "tables/from_repo/repository_statistics_12.tsv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "manuscript/MicroGrowAgents_v7/data_tables/repository_statistics.tsv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Repository statistics",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_071",
+      "path": "tables/from_repo/research_indicators_13.tsv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "manuscript/MicroGrowAgents_v6/data_tables/research_indicators.tsv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Research indicators",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_072",
+      "path": "tables/from_repo/file_inventory_13.tsv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "manuscript/MicroGrowAgents_v6/data_tables/file_inventory.tsv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "File inventory",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_073",
+      "path": "tables/from_repo/size_distribution_13.tsv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "manuscript/MicroGrowAgents_v6/data_tables/size_distribution.tsv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Size distribution",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_074",
+      "path": "tables/from_repo/repository_statistics_13.tsv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "manuscript/MicroGrowAgents_v6/data_tables/repository_statistics.tsv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Repository statistics",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_075",
+      "path": "tables/from_repo/research_indicators_14.tsv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "manuscript/MicroGrowLink_v1/data_tables/research_indicators.tsv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Research indicators",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_076",
+      "path": "tables/from_repo/file_inventory_14.tsv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "manuscript/MicroGrowLink_v1/data_tables/file_inventory.tsv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "File inventory",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_077",
+      "path": "tables/from_repo/size_distribution_14.tsv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "manuscript/MicroGrowLink_v1/data_tables/size_distribution.tsv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Size distribution",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_078",
+      "path": "tables/from_repo/repository_statistics_14.tsv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "manuscript/MicroGrowLink_v1/data_tables/repository_statistics.tsv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Repository statistics",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_079",
+      "path": "tables/from_repo/research_indicators_15.tsv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "manuscript/roastchip_v4/data_tables/research_indicators.tsv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Research indicators",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_080",
+      "path": "tables/from_repo/file_inventory_15.tsv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "manuscript/roastchip_v4/data_tables/file_inventory.tsv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "File inventory",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_081",
+      "path": "tables/from_repo/size_distribution_15.tsv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "manuscript/roastchip_v4/data_tables/size_distribution.tsv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Size distribution",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_082",
+      "path": "tables/from_repo/repository_statistics_15.tsv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "manuscript/roastchip_v4/data_tables/repository_statistics.tsv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Repository statistics",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_083",
+      "path": "tables/from_repo/research_indicators_16.tsv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "manuscript/roastchip_v3/data_tables/research_indicators.tsv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Research indicators",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_084",
+      "path": "tables/from_repo/file_inventory_16.tsv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "manuscript/roastchip_v3/data_tables/file_inventory.tsv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "File inventory",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_085",
+      "path": "tables/from_repo/size_distribution_16.tsv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "manuscript/roastchip_v3/data_tables/size_distribution.tsv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Size distribution",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_086",
+      "path": "tables/from_repo/repository_statistics_16.tsv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "manuscript/roastchip_v3/data_tables/repository_statistics.tsv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Repository statistics",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_087",
+      "path": "tables/from_repo/research_indicators_17.tsv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "manuscript/microgrowagents_v3/data_tables/research_indicators.tsv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Research indicators",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_088",
+      "path": "tables/from_repo/file_inventory_17.tsv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "manuscript/microgrowagents_v3/data_tables/file_inventory.tsv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "File inventory",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_089",
+      "path": "tables/from_repo/size_distribution_17.tsv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "manuscript/microgrowagents_v3/data_tables/size_distribution.tsv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Size distribution",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_090",
+      "path": "tables/from_repo/repository_statistics_17.tsv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "manuscript/microgrowagents_v3/data_tables/repository_statistics.tsv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Repository statistics",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_091",
+      "path": "tables/from_repo/research_indicators_18.tsv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "manuscript/MicroGrowAgents_v4/data_tables/research_indicators.tsv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Research indicators",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_092",
+      "path": "tables/from_repo/file_inventory_18.tsv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "manuscript/MicroGrowAgents_v4/data_tables/file_inventory.tsv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "File inventory",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_093",
+      "path": "tables/from_repo/size_distribution_18.tsv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "manuscript/MicroGrowAgents_v4/data_tables/size_distribution.tsv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Size distribution",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_094",
+      "path": "tables/from_repo/repository_statistics_18.tsv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "manuscript/MicroGrowAgents_v4/data_tables/repository_statistics.tsv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Repository statistics",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_095",
+      "path": "tables/from_repo/research_indicators_19.tsv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "manuscript/roastchip_v2/data_tables/research_indicators.tsv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Research indicators",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_096",
+      "path": "tables/from_repo/file_inventory_19.tsv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "manuscript/roastchip_v2/data_tables/file_inventory.tsv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "File inventory",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_097",
+      "path": "tables/from_repo/size_distribution_19.tsv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "manuscript/roastchip_v2/data_tables/size_distribution.tsv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Size distribution",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_098",
+      "path": "tables/from_repo/repository_statistics_19.tsv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "manuscript/roastchip_v2/data_tables/repository_statistics.tsv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Repository statistics",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_099",
+      "path": "tables/from_repo/research_indicators_20.tsv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "example/rrwrite_v1/data_tables/research_indicators.tsv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Research indicators",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_100",
+      "path": "tables/from_repo/file_inventory_20.tsv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "example/rrwrite_v1/data_tables/file_inventory.tsv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "File inventory",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_101",
+      "path": "tables/from_repo/size_distribution_20.tsv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "example/rrwrite_v1/data_tables/size_distribution.tsv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Size distribution",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_102",
+      "path": "tables/from_repo/repository_statistics_20.tsv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "example/rrwrite_v1/data_tables/repository_statistics.tsv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Repository statistics",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_103",
+      "path": "tables/from_repo/research_indicators_21.tsv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "example/repo_research_writer_v2/data_tables/research_indicators.tsv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Research indicators",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_104",
+      "path": "tables/from_repo/file_inventory_21.tsv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "example/repo_research_writer_v2/data_tables/file_inventory.tsv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "File inventory",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_105",
+      "path": "tables/from_repo/size_distribution_21.tsv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "example/repo_research_writer_v2/data_tables/size_distribution.tsv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Size distribution",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_106",
+      "path": "tables/from_repo/repository_statistics_21.tsv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "example/repo_research_writer_v2/data_tables/repository_statistics.tsv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Repository statistics",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_107",
+      "path": "tables/from_repo/research_indicators_10_1.tsv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "example/repo_research_writer_v2/tables/from_repo/research_indicators_10.tsv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Research indicators 10",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_108",
+      "path": "tables/from_repo/repository_statistics_1_1.tsv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "example/repo_research_writer_v2/tables/from_repo/repository_statistics_1.tsv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Repository statistics 1",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_109",
+      "path": "tables/from_repo/repository_statistics_2_1.tsv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "example/repo_research_writer_v2/tables/from_repo/repository_statistics_2.tsv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Repository statistics 2",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_110",
+      "path": "tables/from_repo/research_indicators_22.tsv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "example/repo_research_writer_v2/tables/from_repo/research_indicators.tsv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Research indicators",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_111",
+      "path": "tables/from_repo/repository_statistics_3_1.tsv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "example/repo_research_writer_v2/tables/from_repo/repository_statistics_3.tsv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Repository statistics 3",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_112",
+      "path": "tables/from_repo/file_inventory_10_1.tsv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "example/repo_research_writer_v2/tables/from_repo/file_inventory_10.tsv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "File inventory 10",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_113",
+      "path": "tables/from_repo/repository_statistics_7_1.tsv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "example/repo_research_writer_v2/tables/from_repo/repository_statistics_7.tsv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Repository statistics 7",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_114",
+      "path": "tables/from_repo/repository_statistics_6_1.tsv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "example/repo_research_writer_v2/tables/from_repo/repository_statistics_6.tsv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Repository statistics 6",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_115",
+      "path": "tables/from_repo/research_indicators_9_1.tsv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "example/repo_research_writer_v2/tables/from_repo/research_indicators_9.tsv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Research indicators 9",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_116",
+      "path": "tables/from_repo/repository_statistics_4_1.tsv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "example/repo_research_writer_v2/tables/from_repo/repository_statistics_4.tsv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Repository statistics 4",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_117",
+      "path": "tables/from_repo/size_distribution_8_1.tsv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "example/repo_research_writer_v2/tables/from_repo/size_distribution_8.tsv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Size distribution 8",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_118",
+      "path": "tables/from_repo/size_distribution_9_1.tsv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "example/repo_research_writer_v2/tables/from_repo/size_distribution_9.tsv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Size distribution 9",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_119",
+      "path": "tables/from_repo/repository_statistics_5_1.tsv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "example/repo_research_writer_v2/tables/from_repo/repository_statistics_5.tsv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Repository statistics 5",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_120",
+      "path": "tables/from_repo/research_indicators_8_1.tsv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "example/repo_research_writer_v2/tables/from_repo/research_indicators_8.tsv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Research indicators 8",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_121",
+      "path": "tables/from_repo/file_inventory_8_1.tsv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "example/repo_research_writer_v2/tables/from_repo/file_inventory_8.tsv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "File inventory 8",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_122",
+      "path": "tables/from_repo/file_inventory_9_1.tsv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "example/repo_research_writer_v2/tables/from_repo/file_inventory_9.tsv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "File inventory 9",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_123",
+      "path": "tables/from_repo/file_inventory_22.tsv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "example/repo_research_writer_v2/tables/from_repo/file_inventory.tsv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "File inventory",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_124",
+      "path": "tables/from_repo/file_inventory_7_1.tsv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "example/repo_research_writer_v2/tables/from_repo/file_inventory_7.tsv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "File inventory 7",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_125",
+      "path": "tables/from_repo/file_inventory_6_1.tsv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "example/repo_research_writer_v2/tables/from_repo/file_inventory_6.tsv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "File inventory 6",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_126",
+      "path": "tables/from_repo/size_distribution_22.tsv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "example/repo_research_writer_v2/tables/from_repo/size_distribution.tsv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Size distribution",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_127",
+      "path": "tables/from_repo/file_inventory_4_1.tsv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "example/repo_research_writer_v2/tables/from_repo/file_inventory_4.tsv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "File inventory 4",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_128",
+      "path": "tables/from_repo/file_inventory_5_1.tsv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "example/repo_research_writer_v2/tables/from_repo/file_inventory_5.tsv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "File inventory 5",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_129",
+      "path": "tables/from_repo/file_inventory_1_1.tsv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "example/repo_research_writer_v2/tables/from_repo/file_inventory_1.tsv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "File inventory 1",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_130",
+      "path": "tables/from_repo/file_inventory_2_1.tsv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "example/repo_research_writer_v2/tables/from_repo/file_inventory_2.tsv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "File inventory 2",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_131",
+      "path": "tables/from_repo/file_inventory_3_1.tsv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "example/repo_research_writer_v2/tables/from_repo/file_inventory_3.tsv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "File inventory 3",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_132",
+      "path": "tables/from_repo/repository_statistics_22.tsv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "example/repo_research_writer_v2/tables/from_repo/repository_statistics.tsv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Repository statistics",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_133",
+      "path": "tables/from_repo/research_indicators_5_1.tsv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "example/repo_research_writer_v2/tables/from_repo/research_indicators_5.tsv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Research indicators 5",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_134",
+      "path": "tables/from_repo/repository_statistics_8_1.tsv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "example/repo_research_writer_v2/tables/from_repo/repository_statistics_8.tsv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Repository statistics 8",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_135",
+      "path": "tables/from_repo/size_distribution_4_1.tsv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "example/repo_research_writer_v2/tables/from_repo/size_distribution_4.tsv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Size distribution 4",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_136",
+      "path": "tables/from_repo/size_distribution_5_1.tsv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "example/repo_research_writer_v2/tables/from_repo/size_distribution_5.tsv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Size distribution 5",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_137",
+      "path": "tables/from_repo/repository_statistics_9_1.tsv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "example/repo_research_writer_v2/tables/from_repo/repository_statistics_9.tsv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Repository statistics 9",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_138",
+      "path": "tables/from_repo/size_distribution_10_1.tsv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "example/repo_research_writer_v2/tables/from_repo/size_distribution_10.tsv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Size distribution 10",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_139",
+      "path": "tables/from_repo/research_indicators_4_1.tsv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "example/repo_research_writer_v2/tables/from_repo/research_indicators_4.tsv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Research indicators 4",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_140",
+      "path": "tables/from_repo/research_indicators_6_1.tsv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "example/repo_research_writer_v2/tables/from_repo/research_indicators_6.tsv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Research indicators 6",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_141",
+      "path": "tables/from_repo/size_distribution_7_1.tsv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "example/repo_research_writer_v2/tables/from_repo/size_distribution_7.tsv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Size distribution 7",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_142",
+      "path": "tables/from_repo/size_distribution_6_1.tsv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "example/repo_research_writer_v2/tables/from_repo/size_distribution_6.tsv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Size distribution 6",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_143",
+      "path": "tables/from_repo/research_indicators_7_1.tsv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "example/repo_research_writer_v2/tables/from_repo/research_indicators_7.tsv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Research indicators 7",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_144",
+      "path": "tables/from_repo/research_indicators_3_1.tsv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "example/repo_research_writer_v2/tables/from_repo/research_indicators_3.tsv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Research indicators 3",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_145",
+      "path": "tables/from_repo/size_distribution_2_1.tsv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "example/repo_research_writer_v2/tables/from_repo/size_distribution_2.tsv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Size distribution 2",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_146",
+      "path": "tables/from_repo/size_distribution_3_1.tsv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "example/repo_research_writer_v2/tables/from_repo/size_distribution_3.tsv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Size distribution 3",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_147",
+      "path": "tables/from_repo/research_indicators_2_1.tsv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "example/repo_research_writer_v2/tables/from_repo/research_indicators_2.tsv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Research indicators 2",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_148",
+      "path": "tables/from_repo/size_distribution_1_1.tsv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "example/repo_research_writer_v2/tables/from_repo/size_distribution_1.tsv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Size distribution 1",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_149",
+      "path": "tables/from_repo/research_indicators_1_1.tsv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "example/repo_research_writer_v2/tables/from_repo/research_indicators_1.tsv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Research indicators 1",
+      "generating_script": null
+    },
+    {
+      "id": "table_repo_150",
+      "path": "tables/from_repo/repository_statistics_10_1.tsv",
+      "source": "from_repo",
+      "priority": 1,
+      "original_path": "example/repo_research_writer_v2/tables/from_repo/repository_statistics_10.tsv",
+      "recommended_sections": [
+        "results"
+      ],
+      "default_caption": "Repository statistics 10",
+      "generating_script": null
+    }
+  ]
+}

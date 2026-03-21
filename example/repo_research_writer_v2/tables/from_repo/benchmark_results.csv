@@ -1,0 +1,13 @@
+model_name,tm_score,gdt_ts,rmsd,dataset,protein_id
+ProteinNet-Transformer,0.87,0.82,2.3,CASP14,T1024
+AlphaFold2,0.78,0.73,3.1,CASP14,T1024
+RoseTTAFold,0.74,0.69,3.8,CASP14,T1024
+ProteinNet-Transformer,0.91,0.88,1.8,CASP14,T1025
+AlphaFold2,0.85,0.81,2.4,CASP14,T1025
+RoseTTAFold,0.79,0.75,3.2,CASP14,T1025
+ProteinNet-Transformer,0.83,0.79,2.7,CASP14,T1026
+AlphaFold2,0.76,0.71,3.5,CASP14,T1026
+RoseTTAFold,0.72,0.68,4.1,CASP14,T1026
+ProteinNet-Transformer,0.89,0.85,2.1,CASP14,T1027
+AlphaFold2,0.81,0.77,2.9,CASP14,T1027
+RoseTTAFold,0.77,0.73,3.6,CASP14,T1027

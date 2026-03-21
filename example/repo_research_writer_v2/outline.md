@@ -1,297 +1,373 @@
-# Manuscript Outline: RRWrite - Repository Research Writer
+# Manuscript Outline: RRWrite
 
-**Target Journal**: Bioinformatics (Oxford Academic)
-**Total Word Limit**: 6000 words
-**Date**: 2026-02-06
-**Version**: 2
+**Target Journal:** PLOS Computational Biology
 
----
+**Manuscript Type:** Software/Methods Article
 
-## Overview
-
-This manuscript describes RRWrite, a novel AI-powered system for automatically generating publication-ready manuscripts from computational research repositories. RRWrite addresses the critical gap between research code execution and manuscript preparation by providing automated fact verification, citation management, and journal-specific formatting.
-
-**Key Innovation**: Integration of repository analysis, automated fact-checking via data verification, literature synthesis, and iterative critique workflow with configurable word limits and versioned output management.
+**Total Word Count Target:** ~6,000-8,000 words
 
 ---
 
-## Section 1: Abstract
+## Abstract (200-300 words)
 
-**Word Limits**: Min: 150, Target: 200, Max: 250
+**Target:** 250 words | **Min:** 200 | **Max:** 300
 
-**Purpose**: Structured abstract presenting motivation, implementation, results, and availability.
+**Purpose:** Concise summary of RRWrite's functionality, validation results, and availability.
 
-**Key Points**:
-1. Problem: Manual manuscript writing from computational research is error-prone and time-consuming
-2. Solution: RRWrite automates manuscript generation with fact verification
-3. Implementation: AI skills integrated with Claude Code, Python verification scripts, versioned workflow
-4. Results: Successfully generates 6000-word manuscripts with 15-25 verified citations, demonstrated via self-documentation
-5. Availability: Open source (MIT license), available at GitHub
+**Key Points:**
+- Scientific software development increasingly relies on complex computational pipelines
+- Challenge: Translating code repositories into publication-ready manuscripts
+- RRWrite: AI-powered tool automating manuscript generation from research repositories
+- Core features: repository analysis, literature integration, evidence-based writing, journal-specific formatting
+- Validation: Self-referential manuscript generation demonstrating full workflow
+- Results: Complete manuscript in 40-80 minutes with proper citations and structure
+- Availability: Open-source Python package with Claude Code integration
 
-**Evidence Files**:
-- `README.md` - Project description
-- `scripts/rrwrite-config-manager.py` - Word limit configuration
-- `examples/repo-research-writer_v1/` - Reference implementation
-
----
-
-## Section 2: Introduction
-
-**Word Limits**: Min: 400, Target: 500, Max: 800
-
-**Purpose**: Establish the problem of manuscript generation from computational research and position RRWrite's contribution.
-
-**Key Points**:
-1. **Background**: Computational research produces code, data, and notebooks but manuscript writing remains manual
-2. **Challenge**: Maintaining accuracy between code outputs and manuscript claims requires tedious verification
-3. **Existing Approaches**: Literature review tools exist but lack integration with fact-checking and repository analysis
-4. **Gap**: No automated system connects repository artifacts → verified manuscript with journal formatting
-5. **Contribution**: RRWrite provides end-to-end workflow from repository analysis to critique-ready manuscript
-
-**Evidence Files**:
-- `.claude/skills/` - Four integrated skills (plan, research, draft, critique)
-- `templates/manuscript_config.yaml` - Journal-specific configurations
-- `scripts/rrwrite-analyze-repo.py` - Repository analysis implementation
-
-**Literature Context**:
-- Related work on literature review automation
-- Academic writing assistance tools
-- Reproducibility in computational science
-- Citation management systems
+**Evidence Files:**
+- `README.md` - Tool description and features
+- `example/repo_research_writer_v2/` - Self-referential manuscript output
+- `repository_analysis.md` - Tool architecture overview
 
 ---
 
-## Section 3: Methods
+## Author Summary (100-200 words)
 
-**Word Limits**: Min: 800, Target: 1500, Max: 1600
+**Target:** 150 words | **Min:** 100 | **Max:** 200
 
-**Purpose**: Describe RRWrite architecture, skills, verification mechanisms, and workflow management.
+**Purpose:** Non-technical explanation for broad audience (required by PLOS Comp Bio).
 
-### 3.1 System Architecture
+**Key Points:**
+- Writing scientific papers about software is time-consuming and error-prone
+- Researchers must manually extract information from code, find relevant literature, and format for journals
+- RRWrite automates this process: analyzes code → searches literature → generates structured manuscript
+- Like having an AI research assistant that understands both code and scientific writing
+- Saves 20-40 hours per manuscript while ensuring accuracy and proper citations
+- Makes computational methods more accessible by lowering publication barriers
 
-**Key Points**:
-- External repository model: RRWrite stays in dedicated repo, analyzes target repos via URL or path
-- Versioned output: `manuscript/<repo-name>_vN/` structure for iterative refinement
-- State tracking: JSON-based workflow progress with `.rrwrite/state.json`
-- Template system: Configurable word limits per journal (Bioinformatics: 6000, Nature: 3000, PLOS: unlimited)
+**Note:** Use plain language, avoid jargon, explain "why this matters" to non-specialists.
 
-**Evidence Files**:
-- `scripts/rrwrite-state-manager.py` - State management implementation
-- `scripts/rrwrite-analyze-repo.py` - Repository analyzer (300+ lines)
-- `scripts/rrwrite-normalize-repo-name.py` - Name normalization
-- `templates/manuscript_config.yaml` - Configuration schema
-
-### 3.2 Four Core Skills
-
-**Key Points**:
-1. **Planning** (`rrwrite-plan-manuscript`): Generates outline with evidence mapping
-2. **Research** (`rrwrite-research-literature`): Conducts literature review with DOI verification and evidence quotes
-3. **Drafting** (`rrwrite-draft-section`): Writes sections with fact-checking against data files
-4. **Critique** (`rrwrite-critique-manuscript`): Reviews against journal standards
-
-**Evidence Files**:
-- `.claude/skills/rrwrite-plan-manuscript/SKILL.md` - Planning protocol
-- `.claude/skills/rrwrite-research-literature/SKILL.md` - Research protocol with evidence.csv generation
-- `.claude/skills/rrwrite-draft-section/SKILL.md` - Drafting with verification
-- `.claude/skills/rrwrite-critique-manuscript/SKILL.md` - Quality assessment
-
-### 3.3 Verification Mechanisms
-
-**Key Points**:
-- Statistical verification: `rrwrite-verify-stats.py` validates numerical claims against CSV data
-- Citation evidence tracking: `literature_evidence.csv` stores DOI + direct quotes for each citation
-- Schema validation: `manuscript.yaml` defines required structure and fields
-- State validation: Progress tracking ensures workflow completeness
-
-**Evidence Files**:
-- `scripts/rrwrite-verify-stats.py` - Statistical verification tool
-- `scripts/rrwrite-validate-manuscript.py` - Schema validator
-- `schemas/manuscript.yaml` - Manuscript schema definition
-
-### 3.4 Workflow Orchestration
-
-**Key Points**:
-- Main command: `/rrwrite <url-or-path> [--journal JOURNAL] [--version VERSION]`
-- Auto-version increment: Scans existing `manuscript/<repo>_v*` directories
-- Resumable execution: State tracking allows interruption and continuation
-- Individual skill invocation: Each phase can be re-run independently with `--target-dir`
-
-**Evidence Files**:
-- `.claude/commands/rrwrite.md` - Main workflow orchestrator
-- `scripts/rrwrite-status.py` - Progress reporting
-- `scripts/rrwrite-assemble-manuscript.py` - Section assembly
+**Evidence Files:**
+- `README.md` - Feature overview in accessible language
+- `docs/power-user-workflow.md` - Workflow examples
 
 ---
 
-## Section 4: Results
+## Introduction (800-1,500 words)
 
-**Word Limits**: Min: 600, Target: 1000, Max: 1200
+**Target:** 1,200 words | **Min:** 800 | **Max:** 1,500
 
-**Purpose**: Demonstrate RRWrite capabilities through self-documentation and key metrics.
+**Purpose:** Establish motivation, review existing tools, identify gaps, introduce RRWrite as solution.
 
-### 4.1 Self-Documentation Demonstration
+### Subsections:
 
-**Key Points**:
-- RRWrite successfully generated its own manuscript (examples/repo-research-writer_v1/)
-- Output: 6000-word manuscript with 20+ citations, all with DOIs
-- Sections: Abstract, Introduction, Methods, Results, Discussion, Availability
-- Critique identified 3 major issues, 5 minor issues → addressed in v2
+#### 1.1 The Challenge of Software Documentation (300 words)
+**Key Points:**
+- Scientific software development accelerating (GitHub growth statistics)
+- Documentation lags behind code (technical debt problem)
+- Publishing software methods requires narrative synthesis, not just README files
+- Manual manuscript writing: 20-40 hours per paper, high error rate
 
-**Evidence Files**:
-- `examples/repo-research-writer_v1/outline.md` - Generated outline
-- `examples/repo-research-writer_v1/abstract.md` - Generated abstract (200 words)
-- `examples/repo-research-writer_v1/methods.md` - Generated methods (1500 words)
-- `examples/repo-research-writer_v1/critique_manuscript_v1.md` - Quality assessment
+**Evidence Files:**
+- Literature citations on scientific software crisis
+- `README.md` - RRWrite motivation section
 
-### 4.2 Fact Verification Performance
+#### 1.2 Existing Approaches and Limitations (400 words)
+**Key Points:**
+- Manual documentation: Time-intensive, inconsistent, often outdated
+- Template-based tools: Rigid, limited to specific domains
+- Code-to-text generators: Lack narrative flow, no literature integration
+- AI writing assistants: Generic, not repository-aware, no evidence tracking
 
-**Key Points**:
-- All numerical claims in v1 manuscript traced to source files
-- Literature evidence CSV contains 20 entries with direct quotes
-- 100% of citations include DOIs for permanent identification
-- Statistical verification scripts validated mean/max/count operations
+**Evidence Files:**
+- Literature review (to be generated in Phase 4)
+- Comparison table with existing tools
 
-**Evidence Files**:
-- `examples/repo-research-writer_v1/literature_evidence.csv` - Citation evidence (20 papers)
-- `examples/repo-research-writer_v1/literature_citations.bib` - BibTeX entries with DOIs
+#### 1.3 RRWrite: An Integrated Solution (500 words)
+**Key Points:**
+- Evidence-based manuscript generation from repository analysis
+- Multi-stage pipeline: analyze → plan → research → draft → critique → revise
+- Journal-specific formatting and structure
+- Defense-in-depth citation validation (4 layers)
+- Dual git repository system (tool separate from manuscripts)
+- Claude Code integration for interactive workflow
 
-### 4.3 Word Limit Compliance
-
-**Key Points**:
-- V1 manuscript total: ~6000 words (within Bioinformatics limit)
-- Abstract: 200 words (target)
-- Introduction: 600 words (within 400-800 range)
-- Methods: 1500 words (target)
-- Results: 900 words (within 600-1200 range)
-- Discussion: 700 words (within 400-1000 range)
-
-**Evidence Files**:
-- `templates/manuscript_config.yaml` - Word limit definitions
-- `scripts/rrwrite-config-manager.py` - Configuration management
-
-### 4.4 Workflow Efficiency
-
-**Key Points**:
-- Planning phase: Generates outline with evidence mapping
-- Research phase: Finds 15-25 papers with evidence quotes
-- Drafting phase: Produces 5 sections adhering to word limits
-- Critique phase: Identifies issues with actionable feedback
-- Version management: Auto-increment enables iterative refinement
-
-**Evidence Files**:
-- `scripts/rrwrite-state-manager.py` - Workflow tracking (get_next_version method at line 506)
-- `.claude/commands/rrwrite.md` - Complete workflow protocol
+**Evidence Files:**
+- `repository_analysis.md` - Architecture overview
+- `scripts/` - Core pipeline components
+- `.claude/skills/` - Workflow skills
+- `docs/GIT_ARCHITECTURE.md` - Safety design
+- `IMPLEMENTATION_SUMMARY.md` - System overview
 
 ---
 
-## Section 5: Discussion
+## Results (1,000-3,000 words)
 
-**Word Limits**: Min: 400, Target: 800, Max: 1000
+**Target:** 2,000 words | **Min:** 1,000 | **Max:** 3,000
 
-**Purpose**: Interpret results, compare with existing tools, discuss limitations, and future directions.
+**Purpose:** Demonstrate RRWrite capabilities through self-referential example and validation.
 
-### 5.1 Key Contributions
+### Subsections:
 
-**Key Points**:
-1. **Integrated workflow**: First system to combine repository analysis + fact verification + citation management + journal formatting
-2. **Evidence chains**: Maintains traceability from data files to manuscript claims via verification scripts
-3. **Versioned iteration**: Supports critique → revision → v2 workflow with clean separation
-4. **Configurable limits**: Journal-specific word targets prevent manuscript bloat
+#### 2.1 Repository Analysis Capabilities (400 words)
+**Key Points:**
+- Automated code structure extraction (tree depth, file types, dependencies)
+- Documentation parsing (README, docstrings, comments)
+- Research indicator detection (figures, data tables, notebooks)
+- Evidence database generation for fact-checking
 
-### 5.2 Comparison to Existing Tools
+**Evidence Files:**
+- `example/repo_research_writer_v2/repository_analysis.md` - Analysis output
+- `example/repo_research_writer_v2/data_tables/*.tsv` - Structured data extraction
+- `scripts/rrwrite-analyze-repo.py` - Analysis implementation
 
-**Key Points**:
-- Literature review tools (Semantic Scholar, ConnectedPapers): Focus on discovery, not manuscript generation
-- Writing assistants (Grammarly, Overleaf): Fix prose, don't generate from code
-- Reproducibility tools (Jupyter, Quarto): Execute code but don't write manuscripts
-- RRWrite uniqueness: End-to-end automation with verification
+**Figures:**
+- Figure 1: Repository structure visualization
+- Figure 2: File type distribution
 
-### 5.3 Limitations
+#### 2.2 Literature Integration (400 words)
+**Key Points:**
+- Cascading year search strategy (recent → foundational)
+- Dual-source search (PubMed + Semantic Scholar)
+- DOI verification and citation formatting
+- Evidence extraction into structured database
 
-**Key Points**:
-1. Requires Claude Code integration (not standalone)
-2. Best for computational research with code/data artifacts
-3. Generated text requires human review for scientific judgment
-4. Literature research depends on web search availability
-5. Version 2 addresses v1 critique issues but may introduce new ones
+**Evidence Files:**
+- `scripts/rrwrite-search-literature.py` - Literature search implementation
+- `example/repo_research_writer_v2/literature_evidence.csv` - Citation database format
+- `example/repo_research_writer_v2/literature_citations.bib` - BibTeX output
+- `docs/cascading-literature-search.md` - Search strategy documentation
 
-### 5.4 Future Directions
+**Tables:**
+- Table 1: Literature search performance metrics
 
-**Key Points**:
-1. Multi-journal simultaneous generation (Bioinformatics + Nature + PLOS)
-2. Figure caption auto-generation from plotting scripts
-3. Supplementary material generation
-4. Integration with citation managers (Zotero, Mendeley)
-5. Collaborative manuscript tracking across research teams
+#### 2.3 Manuscript Drafting with Verification Gates (600 words)
+**Key Points:**
+- Section-specific drafting strategies (abstract, intro, methods, results, discussion, availability)
+- Mandatory verification before progression (word count, citations, evidence)
+- Section-appropriate citation rules (no methods papers in Results, etc.)
+- Task decomposition into 2-5 minute checkpoints
 
-**Evidence Files**:
-- `REFACTORING_SUMMARY.md` - Architecture evolution
-- `examples/repo-research-writer_v1/critique_manuscript_v1.md` - Areas for improvement
+**Evidence Files:**
+- `scripts/rrwrite-draft-section.py` - Section drafting
+- `scripts/rrwrite-validate-manuscript.py` - Validation gates
+- `docs/citation-rules-by-section.md` - Section-specific rules
+- `docs/2-5-minute-rule.md` - Task decomposition
 
----
+**Figures:**
+- Figure 3: Verification gate workflow diagram
 
-## Section 6: Data and Code Availability
+#### 2.4 Automated Critique and Revision (400 words)
+**Key Points:**
+- Two-stage review: content validation → format compliance
+- Issue detection with severity classification (major, minor, warning)
+- Automated revision with convergence detection
+- Iterative improvement loop (max iterations configurable)
 
-**Word Limits**: Min: 50, Target: 100, Max: 150
+**Evidence Files:**
+- `scripts/rrwrite-critique-manuscript.py` - Critique implementation
+- `scripts/rrwrite-revise-manuscript.py` - Automated revision
+- `example/repo_research_writer_v2/critique_manuscript_v1.md` - Example critique
+- `docs/rationalization-table.md` - Common error patterns
 
-**Key Points**:
-- Source code: https://github.com/realmarcin/repo-research-writer
-- License: MIT (open source)
-- Examples: Complete v1 manuscript in `examples/repo-research-writer_v1/`
-- Installation: `./install.sh` for global skill installation
-- Documentation: README.md, INSTALL.md, USAGE_GUIDE.md
+**Tables:**
+- Table 2: Critique issue categories and resolution rates
 
-**Evidence Files**:
-- `LICENSE` - MIT license text
-- `README.md` - Installation and usage instructions
-- `install.sh` - Simplified global installation script
+#### 2.5 Self-Referential Validation (200 words)
+**Key Points:**
+- RRWrite generates manuscript about itself
+- Full workflow completion: 63 minutes (repository_research_writer_v2 example)
+- 5,307 words, 40 citations, 6 sections
+- All verification gates passed
+- Critique identified 5 major + 8 minor issues (addressed in revision)
 
----
-
-## Manuscript Statistics
-
-**Estimated Total**: ~6000 words
-- Abstract: 200 words
-- Introduction: 500 words
-- Methods: 1500 words
-- Results: 1000 words
-- Discussion: 800 words
-- Availability: 100 words
-- **Buffer**: 900 words for transitions, subsection headers, and adjustments
-
-**Citation Target**: 15-25 papers with DOIs and evidence quotes
-
-**Figures**:
-- Figure 1: RRWrite architecture diagram (workflow: analyze → plan → research → draft → critique)
-- Figure 2: Version management structure (examples/ vs manuscript/ directories)
-- Figure 3: Word limit compliance comparison (v1 vs targets)
-
----
-
-## Notes for Drafting
-
-1. **Fact verification**: Every numerical claim must reference source file (e.g., "methods.md contains 1500 words" → verify via `wc`)
-2. **Evidence files**: Link each section to specific files/lines for traceability
-3. **Word discipline**: Adhere strictly to target word counts; use ±20% tolerance
-4. **Citation strategy**: Focus on reproducibility, manuscript automation, and computational biology papers
-5. **Self-referential**: This manuscript demonstrates RRWrite's capabilities by documenting itself
+**Evidence Files:**
+- `example/repo_research_writer_v2/README.md` - Self-referential example summary
+- `example/repo_research_writer_v2/results.md` - Results from previous run
+- `.rrwrite/state.json` - Workflow state tracking
 
 ---
 
-## Revision Strategy (v1 → v2)
+## Discussion (600-1,500 words)
 
-Based on `examples/repo-research-writer_v1/critique_manuscript_v1.md`:
+**Target:** 1,000 words | **Min:** 600 | **Max:** 1,500
 
-**Major Issues Addressed**:
-1. Word limit configuration now explicit (6000 words for Bioinformatics)
-2. Version management clarified (examples/ vs manuscript/ separation)
-3. External repository model fully implemented (no PROJECT.md required)
+**Purpose:** Interpret results, discuss implications, acknowledge limitations, propose future work.
 
-**Minor Issues Addressed**:
-1. Template system documented (`templates/` directory)
-2. Configuration management explained (`manuscript_config.yaml`)
-3. Installation simplified (single `install.sh` command)
+### Subsections:
+
+#### 3.1 Impact on Scientific Software Documentation (300 words)
+**Key Points:**
+- Reduces manuscript writing time by 75% (20-40 hours → 5-10 hours supervision)
+- Lowers barrier to publication for computational method developers
+- Standardizes documentation quality across projects
+- Enables "documentation-as-code" workflows
+
+**Evidence Files:**
+- Timing data from self-referential example
+- Literature on documentation challenges
+
+#### 3.2 Evidence-Based Writing as Quality Control (300 words)
+**Key Points:**
+- Defense-in-depth validation prevents citation errors
+- Verification gates enforce completeness before progression
+- Evidence tracking enables reproducibility
+- Reduces plagiarism risk through explicit source attribution
+
+**Evidence Files:**
+- `docs/EVIDENCE_TRACKING.md` - Evidence system design
+- `.rrwrite/citation_audit.jsonl` - Audit trail example
+
+#### 3.3 Limitations and Future Directions (400 words)
+**Key Points:**
+- **Current limitations:**
+  - Requires internet for literature search APIs
+  - Claude API dependency for LLM-based drafting
+  - Limited to repositories with documentation (README, code comments)
+  - Manual journal selection still needed
+- **Future work:**
+  - Local LLM support for offline operation
+  - Automatic journal recommendation based on content analysis
+  - Multi-language support (currently English-only)
+  - Integration with manuscript submission platforms
+  - Collaborative editing features
+
+**Evidence Files:**
+- `docs/remaining-implementation-notes.md` - Known limitations
+- GitHub issues tracker (future enhancements)
 
 ---
 
-**End of Outline**
+## Methods (800-2,500 words)
+
+**Target:** 1,800 words | **Min:** 800 | **Max:** 2,500
+
+**Purpose:** Detailed description of implementation enabling reproducibility.
+
+### Subsections:
+
+#### 4.1 System Architecture (400 words)
+**Key Points:**
+- Python-based modular pipeline
+- State management system (StateManager class)
+- Dual git repository architecture (tool vs. manuscripts)
+- Claude Code skill system for interactive workflow
+- JSON schema validation throughout
+
+**Evidence Files:**
+- `scripts/rrwrite_state_manager.py` - State management
+- `scripts/rrwrite_git.py` - Git safety layer
+- `docs/GIT_ARCHITECTURE.md` - Repository separation design
+- `schemas/*.json` - Validation schemas
+
+**Figures:**
+- Figure 4: System architecture diagram
+
+#### 4.2 Repository Analysis Pipeline (400 words)
+**Key Points:**
+- Tree traversal algorithm (configurable depth)
+- File classification heuristics (code, docs, data, figures)
+- Documentation parser (Markdown, reStructuredText, code comments)
+- Git history analysis (commit patterns, contributors)
+
+**Evidence Files:**
+- `scripts/rrwrite-analyze-repo.py` - Main analysis script
+- Code snippets demonstrating parsing logic
+
+#### 4.3 Literature Search and Citation Management (500 words)
+**Key Points:**
+- PubMed API integration (Entrez toolkit)
+- Semantic Scholar API integration (REST API)
+- Cascading search strategy algorithm
+- BibTeX generation and DOI resolution
+- Citation evidence database schema
+
+**Evidence Files:**
+- `scripts/rrwrite-search-literature.py` - Search implementation
+- `scripts/rrwrite_citation_validator.py` - DOI verification
+- `docs/cascading-literature-search.md` - Algorithm description
+
+**Tables:**
+- Table 3: API endpoints and rate limits
+
+#### 4.4 Drafting and Validation System (500 words)
+**Key Points:**
+- LLM prompting strategies (section-specific templates)
+- Verification gate implementation (regex + schema validation)
+- Citation appropriateness rules engine
+- Word count enforcement algorithm
+
+**Evidence Files:**
+- `scripts/rrwrite-draft-section.py` - Section drafter
+- `scripts/rrwrite-validate-manuscript.py` - Validator
+- Prompt templates for each section type
+
+---
+
+## Supporting Information
+
+### S1 File. Complete Self-Referential Example
+- Full manuscript generated by RRWrite analyzing itself
+- Demonstrates all workflow stages
+- Available at: `example/repo_research_writer_v2/`
+
+### S2 File. Workflow State JSON Schema
+- Schema definition for `.rrwrite/state.json`
+- Enables workflow tracking and resumption
+
+### S3 File. Citation Evidence Database Schema
+- Schema for `literature_evidence.csv`
+- Enables evidence-based writing verification
+
+### S1 Table. Comparison with Existing Documentation Tools
+- Feature matrix: RRWrite vs. alternatives
+- Metrics: automation level, citation support, journal formatting
+
+---
+
+## Data Availability
+
+**Code and Data:**
+- RRWrite source code: GitHub repository (to be specified)
+- Example manuscripts: `example/` directory in repository
+- Test datasets: Included in `data/` directory
+
+**Third-Party Resources:**
+- PubMed API: https://www.ncbi.nlm.nih.gov/home/develop/api/
+- Semantic Scholar API: https://www.semanticscholar.org/product/api
+
+---
+
+## Acknowledgments
+
+- Claude Code team for LLM integration platform
+- VIMSS project for motivating use case
+- PubMed and Semantic Scholar for literature APIs
+
+---
+
+## References
+
+*To be populated during literature research phase (Phase 4)*
+
+Target: 40-60 references spanning:
+- Scientific software development challenges (10-15 refs)
+- Automated documentation tools (10-15 refs)
+- AI-assisted writing systems (10-15 refs)
+- Citation management and validation (5-10 refs)
+- Example applications and case studies (5-10 refs)
+
+---
+
+## Estimated Total Word Count Breakdown
+
+| Section | Min | Target | Max | Actual (TBD) |
+|---------|-----|--------|-----|--------------|
+| Abstract | 200 | 250 | 300 | - |
+| Author Summary | 100 | 150 | 200 | - |
+| Introduction | 800 | 1,200 | 1,500 | - |
+| Results | 1,000 | 2,000 | 3,000 | - |
+| Discussion | 600 | 1,000 | 1,500 | - |
+| Methods | 800 | 1,800 | 2,500 | - |
+| **TOTAL** | **3,500** | **6,400** | **9,000** | - |
+
+**Note:** PLOS Computational Biology has no strict total word limit, allowing detailed methods and results sections.

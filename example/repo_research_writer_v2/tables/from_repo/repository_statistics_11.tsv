@@ -1,0 +1,8 @@
+# generated_by: rrwrite-analyze-repo
+# description: Summary metrics by file category
+#
+category	file_count	total_size_mb	avg_size_kb	test_files	doc_files
+script	80	0.59	7.53	37	0
+doc	50	33.39	683.91	4	5
+figure	31	32.63	1077.76	0	0
+config	2	0.0	0.5	0	0

@@ -1,0 +1,389 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rrwrite.org/schemas/diff_report.json",
+  "title": "DiffReport",
+  "description": "Schema for manuscript version comparison reports",
+  "type": "object",
+  "required": [
+    "metadata",
+    "summary",
+    "sections",
+    "citations",
+    "issues"
+  ],
+  "properties": {
+    "metadata": {
+      "type": "object",
+      "required": ["version_old", "version_new", "comparison_type", "timestamp"],
+      "properties": {
+        "version_old": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Previous version number"
+        },
+        "version_new": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Current version number"
+        },
+        "comparison_type": {
+          "type": "string",
+          "enum": ["revision", "version", "manual"],
+          "description": "Type of comparison (intra-directory revision vs cross-directory version)"
+        },
+        "timestamp": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When comparison was generated"
+        },
+        "manuscript_dir": {
+          "type": "string",
+          "description": "Path to manuscript directory"
+        },
+        "git_commit_old": {
+          "type": "string",
+          "description": "Git commit hash for old version (if available)"
+        },
+        "git_commit_new": {
+          "type": "string",
+          "description": "Git commit hash for new version (if available)"
+        }
+      }
+    },
+    "summary": {
+      "type": "object",
+      "required": [
+        "total_changes",
+        "sections_modified",
+        "citations_added",
+        "citations_removed",
+        "word_count_delta"
+      ],
+      "properties": {
+        "total_changes": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Total number of changes detected"
+        },
+        "sections_modified": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Number of sections with changes"
+        },
+        "citations_added": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Number of citations added"
+        },
+        "citations_removed": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Number of citations removed"
+        },
+        "word_count_delta": {
+          "type": "integer",
+          "description": "Net change in word count (can be negative)"
+        },
+        "issues_resolved": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Number of critique issues resolved"
+        },
+        "issues_remaining": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Number of critique issues still unresolved"
+        }
+      }
+    },
+    "sections": {
+      "type": "array",
+      "description": "Per-section comparison results",
+      "items": {
+        "type": "object",
+        "required": ["section_name", "status", "changes"],
+        "properties": {
+          "section_name": {
+            "type": "string",
+            "enum": [
+              "abstract",
+              "introduction",
+              "methods",
+              "results",
+              "discussion",
+              "availability",
+              "author_summary"
+            ],
+            "description": "Name of the section"
+          },
+          "status": {
+            "type": "string",
+            "enum": ["unchanged", "modified", "added", "removed"],
+            "description": "Change status"
+          },
+          "changes": {
+            "type": "object",
+            "properties": {
+              "additions": {
+                "type": "integer",
+                "minimum": 0,
+                "description": "Lines/paragraphs added"
+              },
+              "deletions": {
+                "type": "integer",
+                "minimum": 0,
+                "description": "Lines/paragraphs deleted"
+              },
+              "modifications": {
+                "type": "integer",
+                "minimum": 0,
+                "description": "Lines/paragraphs modified"
+              },
+              "word_count_old": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "word_count_new": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "word_count_delta": {
+                "type": "integer"
+              },
+              "similarity_score": {
+                "type": "number",
+                "minimum": 0.0,
+                "maximum": 1.0,
+                "description": "Content similarity (0.0-1.0)"
+              }
+            }
+          },
+          "notable_changes": {
+            "type": "array",
+            "description": "Human-readable descriptions of significant changes",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "citations": {
+      "type": "object",
+      "description": "Citation-level changes",
+      "properties": {
+        "added": {
+          "type": "array",
+          "description": "New citations in version_new",
+          "items": {
+            "type": "object",
+            "required": ["citation_key", "section"],
+            "properties": {
+              "citation_key": {
+                "type": "string",
+                "description": "BibTeX citation key"
+              },
+              "section": {
+                "type": "string",
+                "description": "Section where citation appears"
+              },
+              "context": {
+                "type": "string",
+                "description": "Surrounding text for context"
+              }
+            }
+          }
+        },
+        "removed": {
+          "type": "array",
+          "description": "Citations removed from version_old",
+          "items": {
+            "type": "object",
+            "required": ["citation_key", "section"],
+            "properties": {
+              "citation_key": {
+                "type": "string"
+              },
+              "section": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "unchanged": {
+          "type": "array",
+          "description": "Citations present in both versions",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "issues": {
+      "type": "object",
+      "description": "Critique issue tracking",
+      "properties": {
+        "resolved": {
+          "type": "array",
+          "description": "Issues from critique_v(N-1) that are now resolved",
+          "items": {
+            "type": "object",
+            "required": ["issue_id", "description", "resolution_type"],
+            "properties": {
+              "issue_id": {
+                "type": "string",
+                "description": "Stable issue identifier"
+              },
+              "description": {
+                "type": "string",
+                "description": "Issue description"
+              },
+              "section": {
+                "type": "string",
+                "description": "Affected section"
+              },
+              "severity": {
+                "type": "string",
+                "enum": ["MAJOR", "MINOR", "WARNING"]
+              },
+              "resolution_type": {
+                "type": "string",
+                "enum": [
+                  "content_added",
+                  "content_removed",
+                  "content_revised",
+                  "citations_added",
+                  "word_count_reduced",
+                  "structure_changed",
+                  "other"
+                ],
+                "description": "How the issue was resolved"
+              },
+              "evidence": {
+                "type": "string",
+                "description": "Evidence of resolution (diff excerpt)"
+              }
+            }
+          }
+        },
+        "persisting": {
+          "type": "array",
+          "description": "Issues that remain unresolved",
+          "items": {
+            "type": "object",
+            "required": ["issue_id", "description"],
+            "properties": {
+              "issue_id": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "section": {
+                "type": "string"
+              },
+              "severity": {
+                "type": "string",
+                "enum": ["MAJOR", "MINOR", "WARNING"]
+              }
+            }
+          }
+        },
+        "new": {
+          "type": "array",
+          "description": "New issues introduced in version_new",
+          "items": {
+            "type": "object",
+            "required": ["issue_id", "description"],
+            "properties": {
+              "issue_id": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "section": {
+                "type": "string"
+              },
+              "severity": {
+                "type": "string",
+                "enum": ["MAJOR", "MINOR", "WARNING"]
+              }
+            }
+          }
+        }
+      }
+    },
+    "figures_tables": {
+      "type": "object",
+      "description": "Changes to figures and tables",
+      "properties": {
+        "figures_added": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "figures_removed": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "figures_modified": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "figure_id": {"type": "string"},
+              "changes": {"type": "array", "items": {"type": "string"}}
+            }
+          }
+        },
+        "tables_added": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "tables_removed": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "tables_modified": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "table_id": {"type": "string"},
+              "changes": {"type": "array", "items": {"type": "string"}}
+            }
+          }
+        }
+      }
+    },
+    "metrics": {
+      "type": "object",
+      "description": "Progress metrics",
+      "properties": {
+        "improvement_rate": {
+          "type": "number",
+          "minimum": 0.0,
+          "maximum": 1.0,
+          "description": "Fraction of issues resolved (0.0-1.0)"
+        },
+        "quality_score_old": {
+          "type": "number",
+          "minimum": 0.0,
+          "maximum": 1.0,
+          "description": "Quality score before revision"
+        },
+        "quality_score_new": {
+          "type": "number",
+          "minimum": 0.0,
+          "maximum": 1.0,
+          "description": "Quality score after revision"
+        },
+        "convergence_indicator": {
+          "type": "string",
+          "enum": ["converging", "stalled", "diverging", "complete"],
+          "description": "Whether revision is making progress"
+        }
+      }
+    }
+  }
+}

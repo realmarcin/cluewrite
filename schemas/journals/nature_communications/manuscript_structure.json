@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Nature Communications Manuscript Structure",
+  "journal": {
+    "name": "Nature Communications"
+  },
+  "structure": {
+    "sections": [
+      {
+        "name": "Abstract",
+        "required": true,
+        "word_limit": {"max": 200},
+        "heading_level": 1,
+        "description": "Standalone summary; no subheadings, no citations"
+      },
+      {
+        "name": "Introduction",
+        "required": true,
+        "word_limit": {"recommended": 500},
+        "heading_level": 1
+      },
+      {
+        "name": "Results",
+        "required": true,
+        "heading_level": 1,
+        "subsections_allowed": true
+      },
+      {
+        "name": "Discussion",
+        "required": true,
+        "heading_level": 1
+      },
+      {
+        "name": "Methods",
+        "required": true,
+        "heading_level": 1,
+        "description": "Can be at end of main text or in Online Methods supplement",
+        "options": ["end_of_main_text", "online_methods"]
+      }
+    ],
+    "global_constraints": {
+      "total_word_count": {
+        "max": 5000,
+        "recommended": 4500,
+        "excludes": ["Abstract", "Methods (if online)", "Figure legends", "Table legends", "References"],
+        "notes": "If Methods in main text, total including Methods should not greatly exceed 5000"
+      },
+      "max_figures": 8,
+      "max_tables": 8,
+      "display_items_combined": {"max": 10}
+    }
+  },
+  "metadata": {
+    "schema_version": "1.0",
+    "generated_at": "2026-03-07T09:10:00.000000",
+    "validated": true
+  }
+}

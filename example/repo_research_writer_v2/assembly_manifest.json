@@ -1,0 +1,41 @@
+{
+  "version": "1.0",
+  "generated": "2026-03-06T00:59:45.784276",
+  "manuscript_file": "manuscript_full.md",
+  "statistics": {
+    "total_words": 3941,
+    "total_sections": 14,
+    "unique_citations": 1,
+    "section_breakdown": {
+      "RRWrite: Automated Generation of Evidence-Based Scientific Manuscripts from Research Code Repositories": 8,
+      "Abstract": 206,
+      "Introduction": 482,
+      "Methods": 1330,
+      "Results": 942,
+      "Discussion": 937,
+      "Data and Code Availability": 98,
+      "References": 0
+    }
+  },
+  "sections_included": [
+    "RRWrite: Automated Generation of Evidence-Based Scientific Manuscripts from Research Code Repositories",
+    "Abstract",
+    "Abstract",
+    "Introduction",
+    "Introduction",
+    "Methods",
+    "Methods",
+    "Results",
+    "Results",
+    "Discussion",
+    "Discussion",
+    "Data and Code Availability",
+    "Data and Code Availability",
+    "References"
+  ],
+  "validation": {
+    "all_required_sections": true,
+    "word_count_target": 5000,
+    "within_limit": true
+  }
+}

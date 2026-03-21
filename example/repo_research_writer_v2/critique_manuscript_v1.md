@@ -100,7 +100,7 @@ This manuscript presents RRWrite, a novel system for automated manuscript genera
    - **Action:** Clarify: "The v1 manuscript (examples/repo-research-writer_v1/) contained 6,220 words... The current v2 manuscript implements architectural improvements and achieves 3,788 words with 23 citations."
 
 ### 2. **Overprecise File Paths Reduce Readability**
-   - **Issue:** Full absolute paths like `/Users/marcin/Documents/VIMSS/ontology/writing/repo-research-writer/examples/repo-research-writer_v1/` appear multiple times, cluttering prose.
+   - **Issue:** Full absolute paths like `/Users/marcin/Documents/VIMSS/ontology/repo-research-writer/examples/repo-research-writer_v1/` appear multiple times, cluttering prose.
    - **Action:** Use relative paths: `examples/repo-research-writer_v1/` or repository-relative notation: `<repo-root>/examples/...`
 
 ### 3. **Citation Format Inconsistency**

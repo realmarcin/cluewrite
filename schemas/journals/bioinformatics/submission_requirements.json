@@ -1,0 +1,408 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rrwrite.org/schemas/submission_requirements.json",
+  "title": "Submission Requirements Template",
+  "description": "Base template for journal-specific submission requirements",
+  "type": "object",
+  "required": [
+    "journal",
+    "requirements",
+    "metadata"
+  ],
+  "properties": {
+    "journal": {
+      "type": "object",
+      "required": [
+        "name",
+        "publisher"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Full journal name"
+        },
+        "short_name": {
+          "type": "string",
+          "description": "Abbreviated journal name"
+        },
+        "publisher": {
+          "type": "string",
+          "description": "Publisher name"
+        },
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "description": "Journal homepage URL"
+        },
+        "submission_url": {
+          "type": "string",
+          "format": "uri",
+          "description": "Submission guidelines URL"
+        }
+      }
+    },
+    "requirements": {
+      "type": "object",
+      "properties": {
+        "word_limits": {
+          "type": "object",
+          "description": "Word count limits for each section",
+          "properties": {
+            "abstract": {
+              "$ref": "#/$defs/word_limit"
+            },
+            "introduction": {
+              "$ref": "#/$defs/word_limit"
+            },
+            "methods": {
+              "$ref": "#/$defs/word_limit"
+            },
+            "results": {
+              "$ref": "#/$defs/word_limit"
+            },
+            "discussion": {
+              "$ref": "#/$defs/word_limit"
+            },
+            "total_manuscript": {
+              "$ref": "#/$defs/word_limit"
+            }
+          }
+        },
+        "section_requirements": {
+          "type": "object",
+          "description": "Required/optional sections and their constraints",
+          "properties": {
+            "required_sections": {
+              "type": "array",
+              "description": "Sections that must be present",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "abstract",
+                  "introduction",
+                  "methods",
+                  "results",
+                  "discussion",
+                  "availability",
+                  "author_summary",
+                  "acknowledgments",
+                  "references"
+                ]
+              }
+            },
+            "optional_sections": {
+              "type": "array",
+              "description": "Sections that are optional",
+              "items": {
+                "type": "string"
+              }
+            },
+            "section_order": {
+              "type": "array",
+              "description": "Required order of sections",
+              "items": {
+                "type": "string"
+              }
+            },
+            "special_requirements": {
+              "type": "object",
+              "description": "Section-specific requirements",
+              "additionalProperties": {
+                "type": "object",
+                "properties": {
+                  "description": {
+                    "type": "string"
+                  },
+                  "required_elements": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "citation_requirements": {
+          "type": "object",
+          "description": "Citation and reference requirements",
+          "properties": {
+            "style": {
+              "type": "string",
+              "description": "Citation style (e.g., APA, Vancouver, Nature)"
+            },
+            "max_references": {
+              "type": "integer",
+              "description": "Maximum number of references allowed"
+            },
+            "min_references": {
+              "type": "integer",
+              "description": "Minimum number of references recommended"
+            },
+            "reference_formatting": {
+              "type": "string",
+              "description": "Specific formatting requirements"
+            }
+          }
+        },
+        "figure_table_requirements": {
+          "type": "object",
+          "description": "Figure and table requirements",
+          "properties": {
+            "max_figures": {
+              "type": "integer",
+              "description": "Maximum number of figures"
+            },
+            "max_tables": {
+              "type": "integer",
+              "description": "Maximum number of tables"
+            },
+            "figure_formats": {
+              "type": "array",
+              "description": "Accepted figure file formats",
+              "items": {
+                "type": "string"
+              }
+            },
+            "resolution_requirements": {
+              "type": "string",
+              "description": "Minimum resolution (e.g., 300 DPI)"
+            },
+            "caption_requirements": {
+              "type": "string",
+              "description": "Caption formatting requirements"
+            }
+          }
+        },
+        "formatting_requirements": {
+          "type": "object",
+          "description": "General formatting requirements",
+          "properties": {
+            "font": {
+              "type": "string",
+              "description": "Required font (e.g., Times New Roman, Arial)"
+            },
+            "font_size": {
+              "type": "integer",
+              "description": "Font size in points"
+            },
+            "line_spacing": {
+              "type": "string",
+              "description": "Line spacing (e.g., double, 1.5)"
+            },
+            "margins": {
+              "type": "string",
+              "description": "Margin requirements"
+            },
+            "page_numbers": {
+              "type": "boolean",
+              "description": "Whether page numbers are required"
+            },
+            "line_numbers": {
+              "type": "boolean",
+              "description": "Whether line numbers are required"
+            }
+          }
+        },
+        "special_requirements": {
+          "type": "array",
+          "description": "Journal-specific special requirements",
+          "items": {
+            "type": "object",
+            "required": [
+              "requirement"
+            ],
+            "properties": {
+              "requirement": {
+                "type": "string",
+                "description": "Description of the requirement"
+              },
+              "priority": {
+                "type": "string",
+                "enum": [
+                  "mandatory",
+                  "recommended",
+                  "optional"
+                ],
+                "default": "mandatory"
+              }
+            }
+          }
+        }
+      }
+    },
+    "metadata": {
+      "type": "object",
+      "required": [
+        "schema_version",
+        "generated_at"
+      ],
+      "properties": {
+        "schema_version": {
+          "type": "string",
+          "description": "Version of this schema"
+        },
+        "generated_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When this schema was generated"
+        },
+        "source_type": {
+          "type": "string",
+          "enum": [
+            "url",
+            "pdf",
+            "docx",
+            "yaml",
+            "manual"
+          ],
+          "description": "How these requirements were obtained"
+        },
+        "source_path": {
+          "type": "string",
+          "description": "Path or URL to source document"
+        },
+        "validated": {
+          "type": "boolean",
+          "default": false,
+          "description": "Whether requirements were manually validated"
+        },
+        "last_updated": {
+          "type": "string",
+          "format": "date",
+          "description": "When journal requirements were last updated"
+        },
+        "notes": {
+          "type": "string",
+          "description": "Additional notes about these requirements"
+        }
+      }
+    }
+  },
+  "$defs": {
+    "word_limit": {
+      "type": "object",
+      "description": "Word count constraints",
+      "properties": {
+        "min": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Minimum word count"
+        },
+        "max": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Maximum word count"
+        },
+        "recommended": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Recommended target word count"
+        }
+      }
+    }
+  },
+  "journal": {
+    "name": "Bioinformatics",
+    "short_name": "Bioinformatics",
+    "publisher": "Unknown",
+    "url": "",
+    "submission_url": ""
+  },
+  "requirements": {
+    "word_limits": {
+      "total": 6000,
+      "abstract": {
+        "min": 150,
+        "max": 250
+      },
+      "introduction": {
+        "min": 400,
+        "max": 800
+      },
+      "methods": {
+        "min": 800,
+        "max": 1600
+      },
+      "results": {
+        "min": 600,
+        "max": 1200
+      },
+      "discussion": {
+        "min": 400,
+        "max": 1000
+      },
+      "availability": {
+        "min": 50,
+        "max": 150
+      }
+    },
+    "section_requirements": {
+      "required_sections": [],
+      "optional_sections": [],
+      "section_order": [],
+      "special_requirements": {}
+    },
+    "citation_requirements": {
+      "style": "Unknown",
+      "max_references": null,
+      "min_references": null,
+      "reference_formatting": ""
+    },
+    "figure_table_requirements": {
+      "max_figures": null,
+      "max_tables": null,
+      "figure_formats": [
+        "PNG",
+        "PDF",
+        "TIFF",
+        "EPS"
+      ],
+      "resolution_requirements": "300 DPI minimum"
+    },
+    "formatting_requirements": {},
+    "special_requirements": [
+      {
+        "requirement": "Must include Data and Code Availability statement",
+        "priority": "mandatory"
+      },
+      {
+        "requirement": "Abstract should be structured with Background/Results/Conclusions subsections",
+        "priority": "mandatory"
+      },
+      {
+        "requirement": "Software tools must cite original publications",
+        "priority": "mandatory"
+      },
+      {
+        "requirement": "Figures must be referenced in numerical order (Figure 1 before Figure 2)",
+        "priority": "mandatory"
+      },
+      {
+        "requirement": "Methods section can be titled 'Methods', 'Algorithm', or 'Implementation'",
+        "priority": "mandatory"
+      },
+      {
+        "requirement": "Results section can be titled 'Results' or 'Implementation'",
+        "priority": "mandatory"
+      },
+      {
+        "requirement": "Availability section is mandatory for software/database papers",
+        "priority": "mandatory"
+      },
+      {
+        "requirement": "Supplementary materials should include detailed algorithms, parameters, and additional results",
+        "priority": "mandatory"
+      }
+    ]
+  },
+  "metadata": {
+    "schema_version": "1.0",
+    "generated_at": "2026-03-05T23:31:18.470194",
+    "source_type": "yaml",
+    "source_path": "templates/journal_guidelines.yaml",
+    "validated": false,
+    "notes": "Auto-generated from yaml source"
+  }
+}

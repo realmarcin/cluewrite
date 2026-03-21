@@ -1,0 +1,30 @@
+# Large binary outputs
+*.pdf
+*.docx
+*.doc
+*.pptx
+
+# Temporary caches
+.rrwrite/cache/
+.rrwrite/tmp/
+__pycache__/
+
+# OS files
+.DS_Store
+Thumbs.db
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+
+# Editor files
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+
+# Build artifacts
+build/
+dist/
+*.egg-info/

@@ -1,0 +1,12 @@
+# generated_by: rrwrite-analyze-repo
+# description: Detected research topics with evidence
+#
+topic	confidence	evidence_count	example_files
+Testing	high	671	gapmind_amino_acids_20260118_234515.json, gapmind_amino_acids_20260118_234550.json, gapmind_amino_acids_20260118_234604.json
+Data Analysis	high	385	gap_analysis.tsv, gap_analysis_results.json, statistical_synergy.json
+Bioinformatics	high	198	10.1128_mBio.02430-17.json, 10.1128_mbio.02605-24.json, tier_2d_toxicity_flagging_report.tsv
+Machine Learning	high	115	synergy_predictions.json, fba_predictions.json, fba_predictions.tsv
+Database	high	92	metadata-schema.json, AMRProt-mutation.tsv, AMRProt-suppress.tsv
+Visualization	high	68	generate_lhs_scatterplot_matrix.py, generate_scatterplot_for_existing_design.py, plot_composite_surface.py
+Pipeline	high	40	test10_workflow_20260118_235155.json, test10_workflow_20260118_235526.json, test10_workflow_20260118_235544.json
+Api	high	14	__init__.py, chebi_client.py, equilibrator_client.py

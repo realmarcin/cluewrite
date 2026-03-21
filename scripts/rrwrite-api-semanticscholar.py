@@ -156,15 +156,15 @@ def prioritize_papers(
     Returns:
         Prioritized list (highly-cited first, then recent)
     """
-    # Separate highly-cited and recent
+    # Separate highly-cited and recent (handle None years)
     highly_cited = [p for p in papers if p.get("citations", 0) >= highly_cited_threshold]
-    recent = [p for p in papers if p.get("year", 0) >= recent_year]
+    recent = [p for p in papers if p.get("year") is not None and p.get("year", 0) >= recent_year]
 
     # Sort highly-cited by citation count (descending)
     highly_cited.sort(key=lambda p: p.get("citations", 0), reverse=True)
 
-    # Sort recent by year (descending)
-    recent.sort(key=lambda p: p.get("year", 0), reverse=True)
+    # Sort recent by year (descending, handle None)
+    recent.sort(key=lambda p: p.get("year") or 0, reverse=True)
 
     # Combine: top highly-cited + recent papers (avoid duplicates)
     seen_dois = set()

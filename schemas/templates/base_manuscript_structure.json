@@ -1,0 +1,175 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rrwrite.org/schemas/manuscript_structure.json",
+  "title": "Manuscript Structure Template",
+  "description": "Base template for journal-specific manuscript structure requirements",
+  "type": "object",
+  "required": ["journal", "structure", "metadata"],
+  "properties": {
+    "journal": {
+      "type": "object",
+      "required": ["name"],
+      "properties": {
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "structure": {
+      "type": "object",
+      "required": ["sections"],
+      "properties": {
+        "sections": {
+          "type": "array",
+          "description": "Ordered list of manuscript sections with constraints",
+          "items": {
+            "type": "object",
+            "required": ["name", "required"],
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "Section name"
+              },
+              "required": {
+                "type": "boolean",
+                "description": "Whether this section is required"
+              },
+              "word_limit": {
+                "$ref": "#/$defs/word_limit"
+              },
+              "heading_level": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 6,
+                "description": "Markdown heading level (1-6)"
+              },
+              "description": {
+                "type": "string",
+                "description": "Purpose and content of this section"
+              },
+              "required_elements": {
+                "type": "array",
+                "description": "Required content elements",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "subsections": {
+                "type": "array",
+                "description": "Required/optional subsections",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "required": {
+                      "type": "boolean"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "global_constraints": {
+          "type": "object",
+          "description": "Constraints that apply to entire manuscript",
+          "properties": {
+            "total_word_count": {
+              "$ref": "#/$defs/word_limit"
+            },
+            "max_figures": {
+              "type": "integer"
+            },
+            "max_tables": {
+              "type": "integer"
+            },
+            "max_references": {
+              "type": "integer"
+            }
+          }
+        },
+        "ordering_rules": {
+          "type": "object",
+          "description": "Rules for section ordering",
+          "properties": {
+            "strict_order": {
+              "type": "boolean",
+              "description": "Whether section order must match exactly",
+              "default": true
+            },
+            "allowed_deviations": {
+              "type": "array",
+              "description": "Sections that can be reordered",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "special_sections": {
+          "type": "object",
+          "description": "Journal-specific special sections",
+          "additionalProperties": {
+            "type": "object",
+            "properties": {
+              "description": {
+                "type": "string"
+              },
+              "required": {
+                "type": "boolean"
+              },
+              "constraints": {
+                "type": "object"
+              }
+            }
+          }
+        }
+      }
+    },
+    "metadata": {
+      "type": "object",
+      "required": ["schema_version", "generated_at"],
+      "properties": {
+        "schema_version": {
+          "type": "string"
+        },
+        "generated_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "source_type": {
+          "type": "string",
+          "enum": ["url", "pdf", "docx", "yaml", "manual"]
+        },
+        "source_path": {
+          "type": "string"
+        },
+        "validated": {
+          "type": "boolean",
+          "default": false
+        }
+      }
+    }
+  },
+  "$defs": {
+    "word_limit": {
+      "type": "object",
+      "properties": {
+        "min": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "max": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "recommended": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    }
+  }
+}
